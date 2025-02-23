@@ -1,11 +1,17 @@
 <template>
-    <div class="component-Aleeza">
-      <h1>Aleeza</h1>
-    </div>
-  </template>
-  
-  <script>
-  </script>
-  
-  <style>
-  </style>
+  <div class="component-aleeza">
+  </div>
+</template>
+
+<script>
+export default {
+  name: "componentAleeza",
+};
+</script>
+
+<style scoped>
+.component-aleeza {
+  background-color: lightblue;
+  padding: 10px;
+}
+</style>

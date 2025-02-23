@@ -1,11 +1,14 @@
 <template>
-    <div class="component-Carla">
-      <h1>Carla</h1>
-    </div>
-  </template>
-  
-  <script>
-  </script>
-  
-  <style>
-  </style>
+  <div class="component-Carla">
+  </div>
+</template>
+
+<script>
+export default {
+  name: "ComponentCarla",
+};
+</script>
+
+<style scoped>
+/* Estilos opcionales */
+</style>

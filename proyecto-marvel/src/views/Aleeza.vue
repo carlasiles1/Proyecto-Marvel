@@ -1,22 +1,15 @@
 <template>
-    <div class="view-Aleeza">
-      <h1>Aleeza</h1>
-      <!-- Usamos el componente importado -->
-      <ComponentAleeza/>
-    </div>
-  </template>
-  
-  <script>
-import ComponentAleeza from "../components/componentAleeza.vue";
-//   // Importamos el componente
-//   import ComponentAleeza from "../components/componentAleeza.vue";
-// import ComponentAleeza from "../components/ComponentAleeza.vue";
-  
-//   export default {
-//     // Registramos el componente localmente
-//     components: {
-//       ComponentAleeza,
-//     },
-//   };
-  </script>
-  
+  <div class="view-aleeza">
+    <componentAleeza />
+  </div>
+</template>
+
+<script>
+import componentAleeza from "../components/componentAleeza.vue"; // Nombre corregido
+
+export default {
+  components: {
+    componentAleeza, // Registro correcto
+  },
+};
+</script>
