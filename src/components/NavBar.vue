@@ -4,9 +4,9 @@
       <ul class="nav-list">
         <li><router-link to="/">HOME</router-link></li>
         <li><router-link to="/About">ABOUT</router-link></li>
-        <li><router-link to="/Contact">CONTACT</router-link></li>
         <li><router-link to="/TimeLine">TIME LINE</router-link></li>
         <li><router-link to="/Quiz">QUIZ</router-link></li>
+        <li><router-link to="/Contact">CONTACT</router-link></li>
       </ul>
     </nav>
   </header>

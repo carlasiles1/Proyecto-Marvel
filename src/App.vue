@@ -7,6 +7,7 @@
 
 <script setup>
 import MarvelHome from './components/MarvelHome.vue'
+import NavBar from './components/NavBar.vue'
 
 </script>
 
