@@ -1,5 +1,5 @@
 <template>
-  <footer v-show="showFooter" class="footer">
+  <footer :class="['footer', { 'show': showFooter }]">
     <div class="container">
       <div class="footer-content">
         <div class="footer-logo">
@@ -24,7 +24,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, watch } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 
 const currentYear = ref(new Date().getFullYear());
 const showFooter = ref(false);
@@ -35,7 +35,6 @@ const navLinks = [
   { to: '/contacto', text: 'Contact' },
   { to: '/about', text: 'About' },
   { to: '/quiz', text: 'Quiz' }
-
 ];
 
 const socialLinks = [
@@ -49,14 +48,6 @@ const handleMouseMove = (event) => {
   const mouseY = event.clientY;
   showFooter.value = mouseY > windowHeight - 100;
 };
-
-watch(showFooter, (newValue) => {
-  if (newValue) {
-    document.querySelector('.footer').style.transform = 'translateY(0)';
-  } else {
-    document.querySelector('.footer').style.transform = 'translateY(100%)';
-  }
-});
 
 onMounted(() => {
   window.addEventListener('mousemove', handleMouseMove);
@@ -78,8 +69,12 @@ onUnmounted(() => {
   left: 0;
   right: 0;
   overflow: hidden;
-  transition: transform 0.3s ease;
+  transition: transform 0.9s ease;
   transform: translateY(100%);
+}
+
+.footer.show {
+  transform: translateY(0);
 }
 
 .footer::before,
