@@ -1,11 +1,11 @@
 <template>
-  <Nav /> 
+  <NavBar/> 
   <MarvelHome msg="Welcome to Your Vue.js App"/>
 </template>
 
 <script setup>
 import MarvelHome from './components/MarvelHome.vue';
-import Nav from './components/NavBar.vue';
+import NavBar from './components/NavBar.vue';
 </script>
 
 <style>

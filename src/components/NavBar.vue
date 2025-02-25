@@ -18,13 +18,11 @@
 <style scoped>
 /* Contenedor general */
 .navbar-container {
-  position: fixed; 
-  top: 0;
-  left: 0;
   width: 100%;
   z-index: 1000;
-  background-image: url('@/assets/img/marvelHomeBkg.jpg');
+  background-image: transparent;
   padding: 15px 0;
+  position: absolute;
 }
 
 /* Barra de navegación */
