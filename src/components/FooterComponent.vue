@@ -31,10 +31,11 @@ const showFooter = ref(false);
 
 const navLinks = [
   { to: '/', text: 'Home' },
-  { to: '/linea-tiempo', text: 'Línea de Tiempo' },
-  { to: '/contacto', text: 'Contacto' },
-  { to: '/quiz', text: 'Quiz' },
-  { to: '/about', text: 'About' }
+  { to: '/linea-tiempo', text: 'Time Line' },
+  { to: '/contacto', text: 'Contact' },
+  { to: '/about', text: 'About' },
+  { to: '/quiz', text: 'Quiz' }
+
 ];
 
 const socialLinks = [
