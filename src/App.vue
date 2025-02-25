@@ -8,7 +8,6 @@
 import MarvelHome from './components/MarvelHome.vue'
 import FooterComponent from './components/FooterComponent.vue'
 
-
 </script>
 
 <style>
