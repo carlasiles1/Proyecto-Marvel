@@ -85,7 +85,7 @@ onMounted(fetchMarvelImages);
  /* position: relative;*/
   width: 100%;
  /* overflow: hidden;*/
-  margin-top: 20rem;
+  margin-top: 18rem;
   margin-bottom: 20rem;
   flex-direction: column;
   /*overflow-x: visible;*/
