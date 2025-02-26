@@ -25,7 +25,7 @@ main{
   z-index: -1;
 }
 .animation-hammer{
-  animation: thorHammer 1.6s linear 1;
+  animation: thorHammer 1s linear 1;
 }
 @keyframes thorHammer {
   0%{
@@ -42,11 +42,11 @@ main{
 }
 .animation-move {
   animation-name: move, bit;
-  animation-duration: 0.8s, 2s;
+  animation-duration: 0.5s, 1s;
   animation-timing-function: linear, ease-in-out;
   animation-iteration-count: 1, infinite;
   animation-direction: normal, alternate;
-  animation-delay: 0.8s, 0s;
+  animation-delay: 0.5s, 0s;
 }
 @keyframes move{
   0%{
