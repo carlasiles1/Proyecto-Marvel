@@ -25,33 +25,35 @@ main{
 .hammer{
   width: 10rem;
   position: absolute;
-  left: 60rem;
+  left: 110rem;
+  z-index: -1;
 }
 .animation-hammer{
-  animation: thorHammer 2s linear 1;
+  animation: thorHammer 1.6s linear 1;
 }
 @keyframes thorHammer {
   0%{
-    left: 60rem;
+    left: 110rem;
+    z-index: 1;
   }
   50%{
-    left: 37rem;
+    left: 67rem;
   }
   100%{
-    left: 0rem;
-    display: none;
+    left: -15rem;
+    z-index: 1;
   }
 }
 .animation-move{
-  animation: move 1s linear 1;
-  animation-delay: 1s;
+  animation: move 0.8s linear 1;
+  animation-delay: 0.8s;
 }
 @keyframes move{
   0%{
     left: 0rem;
   }
   100%{
-    left: -37rem;
+    left: -82rem;
   }
 }
 @keyframes bit {
