@@ -1,0 +1,268 @@
+{
+    "questions":[
+    {
+        "question": "Who is the first Avenger?",
+        "options": ["Iron Man", "Captain America", "Thor", "Hulk"],
+        "answer": "Captain America"
+    },
+    {
+        "question": "What is the name of Spider-Man's alter ego?",
+        "options": ["Peter Parker", "Bruce Banner", "Tony Stark", "Steve Rogers"],
+        "answer": "Peter Parker"
+    },
+    {
+        "question": "Which villain is known for his green skin and obsession with gamma radiation?",
+        "options": ["Thanos", "Loki", "Abomination", "Doctor Doom"],
+        "answer": "Abomination"
+    },
+    {
+        "question": "What is the name of Wolverine's retractable weapons?",
+        "options": ["Blades", "Claws", "Knives", "Swords"],
+        "answer": "Claws"
+    },
+    {
+        "question": "Which character is known as the 'Scarlet Witch'?",
+        "options": ["Wanda Maximoff", "Jean Grey", "Storm", "Black Widow"],
+        "answer": "Wanda Maximoff"
+    },
+    {
+        "question": "What is the name of the powerful gem that Thanos seeks in the Infinity Gauntlet saga?",
+        "options": ["Infinity Stone", "Tesseract", "Aether", "Cosmic Cube"],
+        "answer": "Infinity Stone"
+    },
+    {
+        "question": "Which X-Men character has the power to control weather?",
+        "options": ["Storm", "Cyclops", "Phoenix", "Mystique"],
+        "answer": "Storm"
+    },
+    {
+        "question": "What is the name of the alien race that the Kree belong to?",
+        "options": ["Kree", "Skrulls", "Shi'ar", "Eternals"],
+        "answer": "Kree"
+    },
+    {
+        "question": "Which superhero is known as the 'Prince of Lies'?",
+        "options": ["Loki", "Magneto", "Dr. Strange", "Thanos"],
+        "answer": "Loki"
+    },
+    {
+        "question": "What is the name of the radioactive element that gives Hulk his powers?",
+        "options": ["Gamma Radiation", "Uranium", "Plutonium", "Carbonadium"],
+        "answer": "Gamma Radiation"
+    },
+    {
+        "question": "Which character is known as the 'Master of Magnetism'?",
+        "options": ["Magneto", "Professor X", "Iceman", "Beast"],
+        "answer": "Magneto"
+    },
+    {
+        "question": "What is the name of the super-soldier serum that gave Captain America his powers?",
+        "options": ["Super-Soldier Serum", "Infinity Formula", "Mutant Growth Hormone", "Adamantium Bonding"],
+        "answer": "Super-Soldier Serum"
+    },
+    {
+        "question": "Which character is known for his three-word catchphrase: 'Make mine Marvel'?",
+        "options": ["Stan Lee", "Jack Kirby", "Steve Ditko", "Chris Claremont"],
+        "answer": "Stan Lee"
+    },
+    {
+        "question": "What is the name of the Asgardian weapon wielded by Thor?",
+        "options": ["Mjolnir", "Gungnir", "Stormbreaker", "Odinforce"],
+        "answer": "Mjolnir"
+    },
+    {
+        "question": "Which character is known as the 'Silver Surfer'?",
+        "options": ["Silver Surfer", "Nova", "Star-Lord", "Galactus"],
+        "answer": "Silver Surfer"
+    },
+    {
+        "question": "What is the name of the cosmic entity that consumes planets?",
+        "options": ["Galactus", "Ego", "Celestials", "Phantom"],
+        "answer": "Galactus"
+    },
+    {
+        "question": "Which X-Men character can stretch his body like rubber?",
+        "options": ["Mr. Fantastic", "Colossus", "Elastic Girl", "Thing"],
+        "answer": "Mr. Fantastic"
+    },
+    {
+        "question": "What is the name of the mutant-hunting robots created by Bolivar Trask?",
+        "options": ["Sentinels", "Robots", "Drones", "Automatons"],
+        "answer": "Sentinels"
+    },
+    {
+        "question": "Which character is known as the 'Man Without Fear'?",
+        "options": ["Daredevil", "Spider-Man", "Hawkeye", "Black Panther"],
+        "answer": "Daredevil"
+    },
+    {
+        "question": "What is the name of the mystical artifact used by Doctor Strange?",
+        "options": ["Eye of Agamotto", "Talisman of Zhered-Na", "Orb of Agamotto", "Amulet of Agamotto"],
+        "answer": "Eye of Agamotto"
+    },
+    {
+        "question": "Which character is known for his healing factor and adamantium skeleton?",
+        "options": ["Wolverine", "Deadpool", "Colossus", "Cyclops"],
+        "answer": "Wolverine"
+    },
+    {
+        "question": "What is the name of the alien symbiote that bonds with Eddie Brock?",
+        "options": ["Venom", "Carnage", "Toxin", "Riot"],
+        "answer": "Venom"
+    },
+    {
+        "question": "Which character is known as the 'God of Thunder'?",
+        "options": ["Thor", "Zeus", "Hercules", "Poseidon"],
+        "answer": "Thor"
+    },
+    {
+        "question": "What is the name of the mutant school founded by Professor X?",
+        "options": ["Xavier Institute", "Avengers Academy", "Stark School", "Asgardian Academy"],
+        "answer": "Xavier Institute"
+    },
+    {
+        "question": "Which character is known for his ability to manipulate reality?",
+        "options": ["Quicksilver", "Vision", "Loki", "Scarlet Witch"],
+        "answer": "Scarlet Witch"
+    },
+    {
+        "question": "What is the name of the Wakandan metal used in Black Panther's suit?",
+        "options": ["Vibranium", "Adamantium", "Titanium", "Gold"],
+        "answer": "Vibranium"
+    },
+    {
+        "question": "Which character is known as the 'Man Out of Time'?",
+        "options": ["Captain America", "Doctor Doom", "Thanos", "Iron Man"],
+        "answer": "Captain America"
+    },
+    {
+        "question": "What is the name of the team formed by Nick Fury to combat global threats?",
+        "options": ["S.H.I.E.L.D.", "HYDRA", "Asgardians", "F.B.I."],
+        "answer": "S.H.I.E.L.D."
+    },
+    {
+        "question": "Which character is known for his ability to regenerate?",
+        "options": ["Wolverine", "Hulk", "Deadpool", "Colossus"],
+        "answer": "Wolverine"
+    },
+    {
+        "question": "What is the name of the space pirate who becomes a member of the Guardians of the Galaxy?",
+        "options": ["Rocket Raccoon", "Yondu", "Drax", "Gamora"],
+        "answer": "Yondu"
+    },
+    {
+        "question": "Which character is known as the 'Kingpin of Crime'?",
+        "options": ["Wilson Fisk", "Lex Luthor", "Joker", "Magneto"],
+        "answer": "Wilson Fisk"
+    },
+    {
+        "question": "What is the name of the dimension where Doctor Strange practices magic?",
+        "options": ["Dark Dimension", "Mirror Universe", "Quantum Realm", "Wakanda"],
+        "answer": "Dark Dimension"
+    },
+    {
+        "question": "Which character is known for his ability to turn into a giant green rage monster?",
+        "options": ["Hulk", "Thing", "She-Hulk", "Colossus"],
+        "answer": "Hulk"
+    },
+    {
+        "question": "What is the name of the alien species that Peter Quill is half-human and half-what?",
+        "options": ["Spartoi", "Kree", "Skrull", "Shi'ar"],
+        "answer": "Spartoi"
+    },
+    {
+        "question": "Which character is known for her agility and stealth abilities?",
+        "options": ["Black Widow", "Spider-Woman", "Elektra", "Storm"],
+        "answer": "Black Widow"
+    },
+    {
+        "question": "What is the name of the powerful hammer used by Thor?",
+        "options": ["Mjolnir", "Stormbreaker", "Gungnir", "Odinforce"],
+        "answer": "Mjolnir"
+    },
+    {
+        "question": "Which character is known for his time-traveling adventures?",
+        "options": ["Cable", "Wolverine", "Doctor Strange", "Iron Man"],
+        "answer": "Cable"
+    },
+    {
+        "question": "What is the name of the character who transforms into a powerful feline warrior?",
+        "options": ["Black Cat", "Panther", "Moon Knight", "Werewolf by Night"],
+        "answer": "Black Cat"
+    },
+    {
+        "question": "Which character is known for his ability to shoot energy blasts from his eyes?",
+        "options": ["Cyclops", "Optic", "Starfox", "Blindspot"],
+        "answer": "Cyclops"
+    },
+    {
+        "question": "What is the name of the character who can control minds with his telepathic powers?",
+        "options": ["Professor X", "Magneto", "Doctor Strange", "Thanos"],
+        "answer": "Professor X"
+    },
+    {
+        "question": "Which character is known for his role as the king of Wakanda?",
+        "options": ["Black Panther", "Storm", "Luke Cage", "War Machine"],
+        "answer": "Black Panther"
+    },
+    {
+        "question": "What is the name of the character who wields the Cosmic Cube?",
+        "options": ["Red Skull", "Thanos", "Ultron", "Loki"],
+        "answer": "Red Skull"
+    },
+    {
+        "question": "Which character is known for his ability to transform into a large beast?",
+        "options": ["Beast", "Hulk", "Colossus", "Thing"],
+        "answer": "Beast"
+    },
+    {
+        "question": "What is the name of the character who can travel through time and space?",
+        "options": ["Doctor Strange", "Time Lord", "Space Phantom", "Timekeeper"],
+        "answer": "Doctor Strange"
+    },
+    {
+        "question": "Which character is known for his role as the leader of HYDRA?",
+        "options": ["Red Skull", "Nick Fury", "Thanos", "Loki"],
+        "answer": "Red Skull"
+    },
+    {
+        "question": "What is the name of the character who can absorb and redirect energy?",
+        "options": ["Absorbing Man", "Energy Absorber", "Power Broker", "Energy Thief"],
+        "answer": "Absorbing Man"
+    },
+    {
+        "question": "Which character is known for his ability to fly and shoot arrows?",
+        "options": ["Hawkeye", "Arrow", "Green Arrow", "Speedy"],
+        "answer": "Hawkeye"
+    },
+    {
+        "question": "What is the name of the character who can shapeshift into other beings?",
+        "options": ["Morph", "Changeling", "Shapeshifter", "Transformo"],
+        "answer": "Morph"
+    },
+    {
+        "question": "Which character is known for his role as the God of Mischief?",
+        "options": ["Loki", "Thor", "Odin", "Heimdall"],
+        "answer": "Loki"
+    },
+    {
+        "question": "What is the name of the character who can control the elements of nature?",
+        "options": ["Storm", "Elemental", "Nature Boy", "Gaia"],
+        "answer": "Storm"
+    },
+    {
+        "question": "Which character is known for his ability to become invisible?",
+        "options": ["Invisible Woman", "Invisible Girl", "Cloak", "Shadowcat"],
+        "answer": "Invisible Woman"
+    },
+    {
+        "question": "What is the name of the character who can create illusions?",
+        "options": ["Mastermind", "Illusionist", "Dreamweaver", "Phantom"],
+        "answer": "Mastermind"
+    },
+    {
+        "question": "Which character is known for his role as the Sorcerer Supreme?",
+        "options": ["Doctor Strange", "Merlin", "Mordo", "Ancient One"],
+        "answer": "Doctor Strange"
+    }
+]}
