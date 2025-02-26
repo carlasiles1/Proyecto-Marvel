@@ -16,42 +16,44 @@ main{
   width: 15rem;
   height: 10rem;
   position: relative;
-  animation-name: bit;
-  animation-duration: 2s;
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
+  animation: bit 2s ease-in-out infinite alternate;
 }
 .hammer{
   width: 10rem;
   position: absolute;
-  left: 60rem;
+  left: 110rem;
+  z-index: -1;
 }
 .animation-hammer{
-  animation: thorHammer 2s linear 1;
+  animation: thorHammer 1.6s linear 1;
 }
 @keyframes thorHammer {
   0%{
-    left: 60rem;
+    left: 110rem;
+    z-index: 1;
   }
   50%{
-    left: 37rem;
+    left: 67rem;
   }
   100%{
-    left: 0rem;
-    display: none;
+    left: -15rem;
+    z-index: 1;
   }
 }
-.animation-move{
-  animation: move 1s linear 1;
-  animation-delay: 1s;
+.animation-move {
+  animation-name: move, bit;
+  animation-duration: 0.8s, 2s;
+  animation-timing-function: linear, ease-in-out;
+  animation-iteration-count: 1, infinite;
+  animation-direction: normal, alternate;
+  animation-delay: 0.8s, 0s;
 }
 @keyframes move{
   0%{
     left: 0rem;
   }
   100%{
-    left: -37rem;
+    left: -82rem;
   }
 }
 @keyframes bit {
