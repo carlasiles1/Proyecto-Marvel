@@ -1,8 +1,4 @@
 <style scoped>
-*{
-  margin: -0.5rem;
-  padding: 0rem;
-}
 main{
   background-image: url('@/assets/img/marvelHomeBkg.jpg');
   background-repeat: no-repeat;
@@ -11,12 +7,14 @@ main{
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: -0.5rem;
 }
 .logo{
   width: 15rem;
   height: 10rem;
   position: relative;
   animation: bit 2s ease-in-out infinite alternate;
+  cursor: pointer;
 }
 .hammer{
   width: 10rem;
