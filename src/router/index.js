@@ -1,13 +1,30 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../views/HomeViews.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import MarvelHomeView from '../views/MarvelHomeView.vue';
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
+  history: createWebHistory(process.env.BASE_URL),  routes: [
     {
+      
       path: '/',
-      name: 'Home',
+      redirect: '/marvelHome'
+    },
+{
+      path: '/marvelHome',
+      name: 'MarvelHome',
       component: MarvelHomeView,
     },
+    {
+      path: '/about',
+      name: 'about',
+      component: () => import('../views/AboutView.vue'),
+  },
+  {
+    path: '/quiz',
+    name: 'quiz',
+    component: () => import('../views/QuizView.vue'),
+},
   ]
-})
+});
+
+export default router;
+

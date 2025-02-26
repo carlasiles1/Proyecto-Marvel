@@ -17,6 +17,7 @@ main{
   height: 10rem;
   position: relative;
   animation: bit 2s ease-in-out infinite alternate;
+  cursor: pointer;
 }
 .hammer{
   width: 10rem;
