@@ -1,12 +1,12 @@
 <template>
   <NavBar/> 
-  <MarvelHome msg="Welcome to Your Vue.js App"/>
+  <QuizComponent msg="Welcome to Your Vue.js App"/>
   <router-view></router-view>
   <FooterComponent/>
 </template>
 
 <script setup>
-import MarvelHome from './components/MarvelHome.vue'
+import QuizComponent from './components/QuizComponent.vue'
 import NavBar from './components/NavBar.vue'
 import FooterComponent from './components/FooterComponent.vue'
 </script>
