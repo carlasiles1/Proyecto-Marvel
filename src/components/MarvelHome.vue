@@ -16,11 +16,7 @@ main{
   width: 15rem;
   height: 10rem;
   position: relative;
-  animation-name: bit;
-  animation-duration: 2s;
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
+  animation: bit 2s ease-in-out infinite alternate;
 }
 .hammer{
   width: 10rem;
@@ -44,9 +40,13 @@ main{
     z-index: 1;
   }
 }
-.animation-move{
-  animation: move 0.8s linear 1;
-  animation-delay: 0.8s;
+.animation-move {
+  animation-name: move, bit;
+  animation-duration: 0.8s, 2s;
+  animation-timing-function: linear, ease-in-out;
+  animation-iteration-count: 1, infinite;
+  animation-direction: normal, alternate;
+  animation-delay: 0.8s, 0s;
 }
 @keyframes move{
   0%{
