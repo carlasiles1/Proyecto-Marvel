@@ -1,14 +1,11 @@
 <style scoped>
-*{
-    margin: -0.5rem;
-    padding: 0rem;
-}
 main{
     background-color: #191129;
     display: flex;
     height: 100vh;    
     justify-content: center;
     align-items: center;
+    margin: -0.5rem;
 }
 form{
     display: flex;
@@ -32,11 +29,14 @@ h1 {
 .question label{
     display: block;
     margin: 2rem; 
+    color: white;
+}
+.question label input{
+    margin-right: 1rem;
 }
 button {
     background-color: #007BFF;
     color: white;
-    padding: 10px 20px;
     border: none;
     cursor: pointer;
 }
@@ -170,48 +170,51 @@ main img{
                 <label><input type="radio" name="q15" value="Shi'ar"> Shi'ar</label>
                 <label><input type="radio" name="q15" value="Xandarans"> Xandarans</label>
                 <label><input type="radio" name="q15" value="Skrulls"> Skrulls</label>
-            </div> -->
-            <button type="button" @click="checkAnswers">Submit</button>
+            </div> 
+            <button type="button" @click="checkAnswers">Submit</button>-->
+            <button type="button">Prev</button>
+            <button type="button">Next</button>
         </form>
+
         <img src="@/assets/img/theWatcher.png" alt="">
     </main>
 </template>
 
 <script setup>
-function checkAnswers() {
-            const answers = {
-                q1: "Steve Rogers",
-                q2: "Iron Man",
-                q3: "Vibranium",
-                q4: "Tales of Suspense",
-                q5: "Thor",
-                q6: "Jarvis",
-                q7: "Hawkeye",
-                q8: "Kree",
-                q9: "#1",
-                q10: "Wasp",
-                q11: "S.H.I.E.L.D.",
-                q12: "Avengers Initiative",
-                q13: "Skrulls",
-                q14: "T'Challa",
-                q15: "Xandarans"
-            };
-            let score = 0;
+// function checkAnswers() {
+//             const answers = {
+//                 q1: "Steve Rogers",
+//                 q2: "Iron Man",
+//                 q3: "Vibranium",
+//                 q4: "Tales of Suspense",
+//                 q5: "Thor",
+//                 q6: "Jarvis",
+//                 q7: "Hawkeye",
+//                 q8: "Kree",
+//                 q9: "#1",
+//                 q10: "Wasp",
+//                 q11: "S.H.I.E.L.D.",
+//                 q12: "Avengers Initiative",
+//                 q13: "Skrulls",
+//                 q14: "T'Challa",
+//                 q15: "Xandarans"
+//             };
+//             let score = 0;
 
-            for (let i = 1; i <= 15; i++) {
-                const radios = document.querySelectorAll(`input[name="q${i}"]`);
-                let selectedValue = null;
-                for (const radio of radios) {
-                    if (radio.checked) {
-                        selectedValue = radio.value;
-                        break;
-                    }
-                }
-                if (selectedValue === answers[`q${i}`]) {
-                    score++;
-                }
-            }
+//             for (let i = 1; i <= 15; i++) {
+//                 const radios = document.querySelectorAll(`input[name="q${i}"]`);
+//                 let selectedValue = null;
+//                 for (const radio of radios) {
+//                     if (radio.checked) {
+//                         selectedValue = radio.value;
+//                         break;
+//                     }
+//                 }
+//                 if (selectedValue === answers[`q${i}`]) {
+//                     score++;
+//                 }
+//             }
 
-            alert(`Your score is ${score} out of 15.`);
-        }
+//             alert(`Your score is ${score} out of 15.`);
+//         }
 </script>
