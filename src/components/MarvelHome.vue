@@ -4,10 +4,11 @@
   padding: 0;
 }
 main{
-  background-image: url('@/assets/img/marvelHomeBkg.jpg');
+  background-image: url('@/assets/img/marvelHomeBkg2.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   height: 100vh;
+  width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -61,9 +61,9 @@ onMounted(fetchMarvelImages);
 </script>
 
 <template>
+  <section class="sectionTimeLine"> 
   <div class="timeline-container">
    
-    
     <div ref="containerRef" class="timeline">
       <div v-for="character in marvelImages" :key="character.id" class="character-card">
         <img :src="character.image" :alt="character.name" /> <!--verificar aqui datos de la api para el alt-->
@@ -75,34 +75,32 @@ onMounted(fetchMarvelImages);
     <button @click="scrollRight" class="scroll-button right">➡</button>
   </div>
   </div>
+</section>
 </template>
 
 <style scoped>
 .timeline-container {
   display: flex;
  
-  position: relative;
+ /* position: relative;*/
   width: 100%;
-  overflow: hidden;
+ /* overflow: hidden;*/
   margin-top: 20rem;
   margin-bottom: 20rem;
   flex-direction: column;
- 
+  /*overflow-x: visible;*/
 }
 
 .timeline {
   display: flex;
   gap: 6rem;
-  overflow-x: auto;
-  scroll-behavior: smooth;
+ /* overflow-x: auto;*/
+  /*scroll-behavior: smooth;*/
   padding: 3rem;
-  white-space: nowrap;
-  max-width: 100%;
+  /*max-width: 100%;*/
+  align-items: center;
 }
 
-.timeline::-webkit-scrollbar {
-  display: none; /* Oculta la barra de scroll en navegadores Webkit */
-}
 
 .character-card {
   flex: 0 0 auto;
@@ -120,6 +118,7 @@ opacity: 80%;
   width: 100%;
   border-radius: 8px;
 }
+
 
 .scroll-button {
   background: rgb(58, 52, 65);
@@ -149,6 +148,17 @@ opacity: 80%;
   justify-content: space-between;
   padding-inline: 6rem;
   
+  }
+
+  .sectionTimeLine{
+    background-image: url('@/assets/img/timelineBkg2.png');
+    background-size:contain;
+    background-repeat:repeat-x;
+    
+  
+
+
+
   }
 </style>
 
