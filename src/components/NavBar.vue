@@ -1,18 +1,19 @@
 <template>
   <header class="navbar-container">
     <nav class="nav">
-      <ul class="nav-list">
-        <li><router-link to="/">HOME</router-link></li>
-        <li><router-link to="/About">ABOUT</router-link></li>
-        <li><router-link to="/TimeLine">TIME LINE</router-link></li>
-        <li><router-link to="/Quiz">QUIZ</router-link></li>
-        <li><router-link to="/Contact">CONTACT</router-link></li>
+     <ul class="nav-list">
+        <li><RouterLink to="/">HOME</RouterLink></li>
+        <li><RouterLink to="/about">ABOUT</RouterLink></li>
+        <li><RouterLink to="/timeLine">TIME LINE</RouterLink></li>
+        <li><RouterLink to="/quiz">QUIZ</RouterLink></li>
+        <li><RouterLink to="/contact">CONTACT</RouterLink></li>
       </ul>
     </nav>
   </header>
 </template>
 
 <script setup>
+import { RouterLink } from 'vue-router';
 </script>
 
 <style scoped>
@@ -50,7 +51,7 @@
   
 }
 
-.nav-list router-link {
+.nav-list a {
   text-decoration: none;
   color:white;
   font-size: 16px;
