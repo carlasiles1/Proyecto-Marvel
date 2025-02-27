@@ -3,9 +3,17 @@
     <MarvelHome class="marvelHome" msg="Welcome to Your Vue.js App" />
     <TimelineMarvel @content-loaded="adjustMainWidth" />
   </main>
+  <div class="div">
+    <NavBar/> 
+    <router-view></router-view>
+    <FooterComponent/>
+  </div>
 </template>
 
 <script setup>
+import NavBar from './components/NavBar.vue'
+import FooterComponent from './components/FooterComponent.vue'
+
 import { onMounted, ref } from "vue";
 import gsap from "gsap";
 import MarvelHome from "./components/MarvelHome.vue";
