@@ -155,10 +155,6 @@ opacity: 80%;
     background-size:contain;
     background-repeat:repeat-x;
     
-  
-
-
-
   }
 </style>
 
