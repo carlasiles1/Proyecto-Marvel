@@ -79,6 +79,10 @@ onMounted(fetchMarvelImages);
 </template>
 
 <style scoped>
+section{
+
+  margin: -0.5rem;
+}
 .timeline-container {
   display: flex;
  
@@ -155,10 +159,6 @@ opacity: 80%;
     background-size:contain;
     background-repeat:repeat-x;
     
-  
-
-
-
   }
 </style>
 
