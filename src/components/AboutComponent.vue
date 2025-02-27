@@ -2,25 +2,26 @@
   <section class="about">
     <!-- Logo at the top -->
     <div class="logo">
-      <!-- Correct image path -->
-      <img :src="logoSrc" alt="Logo">
-    </div>
+   <img :src="logoSrc" alt="Logo">
+</div>
+
 
     <!-- Content section -->
     <div class="content">
-      <div class="image">
-        <img :src="imageSrc" alt="imagen">
-      </div>
-      <div class="text">
-        <h1>About</h1>
-        <p>
-          Marvel Timeline es compleja y está llena de eventos interconectados.
-          Comienza con la creación del universo y continúa con las aventuras de superhéroes
-          como Iron Man, Captain America, y Spider Man. Cada película y serie encaja en una
-          narrativa más grande que abarca décadas.
-        </p>
-      </div>
-    </div>
+   <div class="image">
+     <img :src="imageSrc" alt="imagen">
+   </div>
+   <div class="text">
+     <h1>About</h1>
+     <p>
+       Marvel Timeline es compleja y está llena de eventos interconectados.
+       Comienza con la creación del universo y continúa con las aventuras de superhéroes
+       como Iron Man, Captain America, y Spider Man. Cada película y serie encaja en una
+       narrativa más grande que abarca décadas.
+     </p>
+   </div>
+ </div>
+
   </section>
 </template>
 
@@ -48,7 +49,6 @@ import imageSrc from '@/assets/img/Background-footer.jpg';
 }
 
 /* Logo Styling */
-/* Logo Styling */
 .logo {
   position: absolute;
   top: 150px; /* Move logo lower */
@@ -58,11 +58,9 @@ import imageSrc from '@/assets/img/Background-footer.jpg';
 }
 
 
-
-
 .logo img {
   width: auto;
-  max-height: 100%; /* Ensure the logo scales proportionally */
+  height: 50px; /* Establecer solo una dimensión específica si quieres controlarlo */
   filter: brightness(70%);
   transition: filter 0.3s ease;
 }
