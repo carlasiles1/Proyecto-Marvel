@@ -14,6 +14,7 @@
 import NavBar from './components/NavBar.vue'
 import FooterComponent from './components/FooterComponent.vue'
 
+
 import { onMounted, ref } from "vue";
 import gsap from "gsap";
 import MarvelHome from "./components/MarvelHome.vue";
