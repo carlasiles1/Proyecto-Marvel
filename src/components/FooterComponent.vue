@@ -36,7 +36,7 @@ const route = useRoute();
 const currentYear = ref(new Date().getFullYear());
 const showFooter = ref(false);
 
-const isStaticPage = computed(() => ['/about', '/contacto', '/quiz'].includes(route.path));
+const isStaticPage = computed(() => ['/about', '/contact', '/quiz'].includes(route.path));
 
 const navLinks = [
   { to: '/', text: 'Home' },
