@@ -13,4 +13,7 @@ import FooterComponent from './components/FooterComponent.vue'
 </script>
  
 <style>
+.div{
+  margin: -0.5rem;
+}
 </style>
