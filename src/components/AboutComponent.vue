@@ -27,7 +27,7 @@ import imageSrc from '@/assets/img/Background-footer.jpg';
 <style scoped>
 /* Section Styling */
 .about {
-  background-color: #000; /* Black background */
+  background-color: #191129; /* Black background */
   color: #fff;
   padding: 100px 50px;
   min-height: 100vh;
@@ -49,7 +49,7 @@ import imageSrc from '@/assets/img/Background-footer.jpg';
   align-items: center;
   max-width: 1200px;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.7); /* Dark content box */
+  background-color: #191129; /* Dark content box */
   padding: 30px;
   border-radius: 15px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
