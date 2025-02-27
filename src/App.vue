@@ -1,12 +1,12 @@
 <template>
+  <NavBar/> 
   <main id="main" ref="scrollContainer">
     <MarvelHome class="marvelHome" msg="Welcome to Your Vue.js App" />
     <TimelineMarvel @content-loaded="adjustMainWidth" />
   </main>
-  <div class="div">
-    <NavBar/> 
-    <router-view></router-view>
-    <FooterComponent/>
+  <div class="div">  
+  <router-view></router-view>
+  <FooterComponent/>
   </div>
 </template>
 
