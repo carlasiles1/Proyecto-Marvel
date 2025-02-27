@@ -46,6 +46,10 @@ import { RouterLink } from 'vue-router';
 .nav-list li {
   text-transform: uppercase;
 }
+.nav-list :hover{
+  color: red;
+  
+}
 
 .nav-list a {
   text-decoration: none;
