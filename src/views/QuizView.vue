@@ -3,5 +3,8 @@ import QuizComponent from "../components/QuizComponent.vue";
 </script>
 
 <template>
-  <QuizComponent />
+    <div>
+        <QuizComponent/>
+        
+    </div>
 </template>

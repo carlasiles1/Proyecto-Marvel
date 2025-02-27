@@ -1,5 +1,10 @@
 <template>
-  <footer :class="['footer', { 'show': showFooter }]">
+  <footer :class="[
+    'footer', 
+    { 'show': showFooter && !isStaticPage },
+    { 'static': isStaticPage },
+    { 'default': !showFooter && !isStaticPage }
+  ]">
     <div class="container">
       <div class="footer-content">
         <div class="footer-logo">
@@ -24,10 +29,14 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, onMounted, onUnmounted, computed } from 'vue';
+import { useRoute } from 'vue-router';
 
+const route = useRoute();
 const currentYear = ref(new Date().getFullYear());
 const showFooter = ref(false);
+
+const isStaticPage = computed(() => ['/about', '/contacto', '/quiz'].includes(route.path));
 
 const navLinks = [
   { to: '/', text: 'Home' },
@@ -44,23 +53,28 @@ const socialLinks = [
 ];
 
 const handleMouseMove = (event) => {
-  const windowHeight = window.innerHeight;
-  const mouseY = event.clientY;
-  showFooter.value = mouseY > windowHeight - 100;
+  if (!isStaticPage.value) {
+    const windowHeight = window.innerHeight;
+    const mouseY = event.clientY;
+    showFooter.value = mouseY > windowHeight - 100;
+  }
 };
 
 onMounted(() => {
-  window.addEventListener('mousemove', handleMouseMove);
+  if (!isStaticPage.value) {
+    window.addEventListener('mousemove', handleMouseMove);
+  }
 });
 
 onUnmounted(() => {
-  window.removeEventListener('mousemove', handleMouseMove);
+  if (!isStaticPage.value) {
+    window.removeEventListener('mousemove', handleMouseMove);
+  }
 });
 </script>
 
 <style scoped>
 .footer {
-  background: linear-gradient(45deg, #070215, #3d3d3d);
   color: #fff;
   padding: 0.5rem 0 0.5rem;
   font-family: 'Arial', sans-serif;
@@ -70,11 +84,22 @@ onUnmounted(() => {
   right: 0;
   overflow: hidden;
   transition: transform 0.9s ease;
+}
+
+.footer.default {
+  background: linear-gradient(45deg, #070215, #3d3d3d);
   transform: translateY(100%);
 }
 
 .footer.show {
+  background: linear-gradient(45deg, #070215, #3d3d3d);
   transform: translateY(0);
+}
+
+.footer.static {
+  background: linear-gradient(45deg, #070215, #3d3d3d);
+  transform: translateY(0);
+  transition: none;
 }
 
 .footer::before,
@@ -140,7 +165,7 @@ onUnmounted(() => {
 }
 
 .nav-link {
-  color: #fff;
+  color: inherit;
   text-decoration: none;
   transition: color 0.3s ease, transform 0.3s ease;
   font-weight: bold;
@@ -175,7 +200,7 @@ onUnmounted(() => {
 }
 
 .social-icon {
-  color: #fff;
+  color: inherit;
   font-size: 1.7rem;
   transition: color 0.3s ease, transform 0.3s ease;
 }
@@ -193,6 +218,7 @@ onUnmounted(() => {
 }
 
 @media (max-width: 768px) {
-
+  /* Add responsive styles here if needed */
 }
 </style>
+
