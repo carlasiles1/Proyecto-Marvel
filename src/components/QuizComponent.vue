@@ -1,31 +1,31 @@
 <style scoped>
 .quiz {
     background-color: #191129;
-    display: flex;
-    height: 100vh;    
     justify-content: center;
     align-items: center;
     margin: -0.5rem;
+    height: 100vh;
 }
-
+.quiz_screen{
+    display: flex;
+    justify-content: center;
+}
 .quiz__form {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
-
 .quiz__title {
     color: #ca1a1a;
     text-align: center;
-    padding: 7rem 8rem 5rem 0;
     width: 30%;
+    position: absolute;
+    padding-top: 6rem;
 }
-
-.quiz__question {
-    margin-bottom: 20px;
+.quiz_screen{
+    display: flex;
 }
-
 .quiz__question-text {
     font-size: 2rem;
     color: rgb(206, 178, 21);
@@ -33,14 +33,15 @@
 
 .quiz__label {
     display: block;
-    margin: 2rem; 
     color: white;
+    margin: 1rem 0;
 }
-
+.quiz__label::after {
+    background-color: #007BFF;
+}
 .quiz__input {
     margin-right: 1rem;
-}
-
+}   
 .quiz__button {
     background-color: #007BFF;
     color: white;
@@ -49,16 +50,13 @@
     width: 5rem;
     height: 2rem;
     border-radius: 2rem 0;
-    margin: 0 5em;
-    transition: 1s;
+    transition: 0.3s;
 }
-
 .quiz__button:hover {
     background-color: #e62429;
 }
-
 .quiz__image {
-    width: 32rem;
+    width: 22rem;
     margin-left: 8rem;
 }
 </style>
@@ -66,20 +64,39 @@
 <template>
     <main class="quiz">
         <h1 class="quiz__title">Avengers Comics Quiz</h1>
-        <form class="quiz__form" id="quizForm">
-        </form>
-        <div class="quiz__navigation">
-            <button @click="prev" class="quiz__button quiz__button--prev" type="button">Prev</button>
-            <button @click="next" class="quiz__button quiz__button--next" type="button">Next</button>
+        <div class="quiz_screen">
+            <form class="quiz__form" id="quizForm">
+                <div v-if="randomQuestions.length" class="quiz__question">
+                    <p class="quiz__question-text">{{ randomQuestions[currentQuestion].question }}</p>
+                    <label v-for="option in randomQuestions[currentQuestion].options " 
+                        :key="option" 
+                        class="quiz__label">
+                        <input type="radio" 
+                            :name="'q' + currentQuestion" 
+                            :value="option" 
+                            :checked="userAnswers[currentQuestion] === option"
+                            class="quiz__input">
+                        {{ option }}
+                    </label>
+                </div>
+                <div class="quiz__navigation">
+                    <button @click="prev" class="quiz__button quiz__button--prev" type="button">Prev</button>
+                    <button @click="next" class="quiz__button quiz__button--next" type="button">Next</button>
+                </div>
+            </form>
+            <img class="quiz__image" src="@/assets/img/theWatcher.png" alt="The Watcher">
         </div>
-        <img class="quiz__image" src="@/assets/img/theWatcher.png" alt="The Watcher">
     </main>
 </template>
 
 <script setup>
 import {ref, onMounted} from 'vue'
 
-let quiz = ref({})
+const quiz = ref({})
+const randomQuestions = ref([])
+const currentQuestion = ref(0)
+const userAnswers = ref({})
+const score = ref(0)
 
 const fetchQuiz = async () => {
         try {
@@ -92,53 +109,43 @@ const fetchQuiz = async () => {
         } catch (error) {
             console.error('Error loading data', error)
         }
+        getRandomQuestions()
     }
-    onMounted(fetchQuiz)
+onMounted(fetchQuiz)
 
-const questionFilter = ()=>{
-    const questionSelect = quiz.value.questions.find(item =>
-        item.question?.toLowerCase() === //añadir al json un id para usar un randomicer
-    )
+const getRandomQuestions = ()=>{
+    const total = quiz.value.questions.length
+    const selected = new Set()
+
+    while(selected.size < 15){
+        const randomIndex = Math.floor(Math.random() * total)
+        selected.add(randomIndex)
+    }
+
+    randomQuestions.value = Array.from(selected).map(index => quiz.value.questions[index])
 }
 
+const next = ()=>{
+    const response = document.querySelector(`input[name="q${currentQuestion.value}"]:checked`)
+    if (response){
+        userAnswers.value[currentQuestion.value] = response.value
+        
+        if (response.value === randomQuestions.value[currentQuestion.value].answer){
+            score.value++
+           // const selection = document.querySelector('.quiz__label')
+        }
+    }
 
+    if (currentQuestion.value < randomQuestions.value.length -1){
+        currentQuestion.value++
+    } else {
+        alert(`Congratulations!!! Your final score is: ${score.value}`)
+    }
+}
 
-
-
-// function checkAnswers() {
-//             const answers = {
-//                 q1: "Steve Rogers",
-//                 q2: "Iron Man",
-//                 q3: "Vibranium",
-//                 q4: "Tales of Suspense",
-//                 q5: "Thor",
-//                 q6: "Jarvis",
-//                 q7: "Hawkeye",
-//                 q8: "Kree",
-//                 q9: "#1",
-//                 q10: "Wasp",
-//                 q11: "S.H.I.E.L.D.",
-//                 q12: "Avengers Initiative",
-//                 q13: "Skrulls",
-//                 q14: "T'Challa",
-//                 q15: "Xandarans"
-//             };
-//             let score = 0;
-
-//             for (let i = 1; i <= 15; i++) {
-//                 const radios = document.querySelectorAll(`input[name="q${i}"]`);
-//                 let selectedValue = null;
-//                 for (const radio of radios) {
-//                     if (radio.checked) {
-//                         selectedValue = radio.value;
-//                         break;
-//                     }
-//                 }
-//                 if (selectedValue === answers[`q${i}`]) {
-//                     score++;
-//                 }
-//             }
-
-//             alert(`Your score is ${score} out of 15.`);
-//         }
+const prev = () => {
+    if (currentQuestion.value > 0) {
+        currentQuestion.value--
+    }
+}
 </script>
