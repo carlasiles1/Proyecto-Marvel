@@ -66,9 +66,8 @@
     overflow-x: auto; /* Permite scroll horizontal */
     white-space: nowrap; /* Evita saltos de línea */
     height: 100vh; /* Ocupa toda la altura de la ventana */
-    margin-right: 0; /* Margen derecho para espacio adicional */
+    margin: 0; /* Margen derecho para espacio adicional */
   }
-  
   .marvel-home {
     min-width: 100vw; /* Asegura que ocupe al menos el ancho completo de la pantalla */
   }

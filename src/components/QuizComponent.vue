@@ -20,7 +20,7 @@
     color: #ca1a1a;
     text-align: center;
     width: 30%;
-    position: absolute;
+    margin: 0;
     padding-top: 6rem;
 }
 .quiz_screen{
@@ -30,7 +30,6 @@
     font-size: 2rem;
     color: rgb(206, 178, 21);
 }
-
 .quiz__label {
     display: block;
     color: white;
@@ -42,6 +41,11 @@
 .quiz__input {
     margin-right: 1rem;
 }   
+.quiz__navigation{
+    display: flex;
+    align-items: center;
+    color: #e62429;
+}
 .quiz__button {
     background-color: #007BFF;
     color: white;
@@ -51,6 +55,7 @@
     height: 2rem;
     border-radius: 2rem 0;
     transition: 0.3s;
+    margin: 0 4rem;
 }
 .quiz__button:hover {
     background-color: #e62429;
@@ -58,6 +63,11 @@
 .quiz__image {
     width: 22rem;
     margin-left: 8rem;
+}
+.pointer{
+    position: absolute;
+    width: 3rem;
+    transform: rotateZ(-35Deg) translate(2.5rem, 1rem);
 }
 </style>
 
@@ -74,13 +84,17 @@
                         <input type="radio" 
                             :name="'q' + currentQuestion" 
                             :value="option" 
-                            :checked="userAnswers[currentQuestion] === option"
-                            class="quiz__input">
+                            v-model="userAnswers[currentQuestion]">
                         {{ option }}
-                    </label>
+                        <img v-if="userAnswers[currentQuestion] === option" 
+                            :src="source" 
+                            alt="" 
+                            class="pointer">
+                </label>
                 </div>
                 <div class="quiz__navigation">
                     <button @click="prev" class="quiz__button quiz__button--prev" type="button">Prev</button>
+                    <p>{{ page }} / 15</p>
                     <button @click="next" class="quiz__button quiz__button--next" type="button">Next</button>
                 </div>
             </form>
@@ -97,6 +111,13 @@ const randomQuestions = ref([])
 const currentQuestion = ref(0)
 const userAnswers = ref({})
 const score = ref(0)
+const source = ref('')
+
+const page = ref('')
+page.value = 1
+
+
+const selected = new Set()
 
 const fetchQuiz = async () => {
         try {
@@ -109,19 +130,20 @@ const fetchQuiz = async () => {
         } catch (error) {
             console.error('Error loading data', error)
         }
+
+        source.value = new URL ('@/assets/img/ironPointer.png', import.meta.url).href
+
         getRandomQuestions()
     }
 onMounted(fetchQuiz)
 
 const getRandomQuestions = ()=>{
     const total = quiz.value.questions.length
-    const selected = new Set()
 
     while(selected.size < 15){
         const randomIndex = Math.floor(Math.random() * total)
         selected.add(randomIndex)
     }
-
     randomQuestions.value = Array.from(selected).map(index => quiz.value.questions[index])
 }
 
@@ -129,23 +151,29 @@ const next = ()=>{
     const response = document.querySelector(`input[name="q${currentQuestion.value}"]:checked`)
     if (response){
         userAnswers.value[currentQuestion.value] = response.value
+
+        const correct = document.querySelector(`label:has(input[value="${randomQuestions.value[currentQuestion.value].answer}"])`)
+        correct.style = 'background-color: green';
         
         if (response.value === randomQuestions.value[currentQuestion.value].answer){
             score.value++
-           // const selection = document.querySelector('.quiz__label')
         }
     }
 
-    if (currentQuestion.value < randomQuestions.value.length -1){
-        currentQuestion.value++
-    } else {
-        alert(`Congratulations!!! Your final score is: ${score.value}`)
-    }
+    setTimeout(() =>{
+        if (currentQuestion.value < randomQuestions.value.length -1){
+            currentQuestion.value++
+            page.value = currentQuestion.value + 1
+        } else {
+            alert(`Congratulations!!! Your final score is: ${score.value}`)
+        }
+    },1000)
 }
 
 const prev = () => {
     if (currentQuestion.value > 0) {
         currentQuestion.value--
+        page.value = currentQuestion.value + 1
     }
 }
 </script>
