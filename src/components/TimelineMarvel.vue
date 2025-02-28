@@ -45,9 +45,22 @@ const fetchMarvelComics = async () => {
   const hash = md5(timestamp + marvelApiPrivateKey + marvelApiPublicKey);
 
   try {
-    const response = await axios.get("https://gateway.marvel.com/v1/public/comics", {
+    const response = await axios.get("http://gateway.marvel.com/v1/public/comics", {
+
+    
+//http://gateway.marvel.com/v1/public/events?nameStartsWith=infinity
+      //get /v1/public/events/{eventId}/stories
+
+    //  http://gateway.marvel.com/v1/public/characters?nameStartsWith=s
+      ///v1/public/comics/{comicId}/events
+      ///v1/public/events
+      //https://gateway.marvel.com/v1/public/comics/{comicId}/events
+      //https://gateway.marvel.com/v1/public/series/{seriesId}/comics
+      //https://gateway.marvel.com/v1/public/series/19003/comics
+     
+
       params: {
-        limit: 100,
+        limit: 40, // Carga 10 comics
         apikey: marvelApiPublicKey,
         ts: timestamp,
         hash: hash,
