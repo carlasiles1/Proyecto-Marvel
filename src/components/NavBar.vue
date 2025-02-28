@@ -1,6 +1,7 @@
 <template>
   <header class="navbar-container">
     <nav class="nav">
+      
      <ul class="nav-list">
         <li><RouterLink to="/">HOME</RouterLink></li>
         <li><RouterLink to="/about">ABOUT</RouterLink></li>
