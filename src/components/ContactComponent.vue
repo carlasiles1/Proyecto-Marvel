@@ -7,11 +7,20 @@ import md5 from "md5";
 const marvelCharacters = ref([]);
 const currentCharacterIndex = ref(0);
 const currentCharacter = ref(null);
+const isLoading = ref(true); // Indicador de carga
 let intervalId = null;
 
 // Claves de la API
 const marvelApiPublicKey = process.env.VUE_APP_MARVEL_API_PUBLIC;
 const marvelApiPrivateKey = process.env.VUE_APP_MARVEL_API_PRIVATE;
+
+// Precargar imágenes
+const preloadImages = (characters) => {
+  characters.forEach((character) => {
+    const img = new Image();
+    img.src = character.image;
+  });
+};
 
 // Obtener personajes de Marvel
 const fetchMarvelCharacters = async () => {
@@ -35,6 +44,9 @@ const fetchMarvelCharacters = async () => {
       image: `${character.thumbnail.path}.${character.thumbnail.extension}`,
     }));
 
+    // Precargar las imágenes
+    preloadImages(marvelCharacters.value);
+
     // Mostrar el primer personaje
     if (marvelCharacters.value.length > 0) {
       currentCharacter.value = marvelCharacters.value[0];
@@ -42,9 +54,11 @@ const fetchMarvelCharacters = async () => {
 
     // Iniciar el cambio de imágenes cada 3 segundos
     startImageRotation();
+    isLoading.value = false; // Termina la carga
 
   } catch (error) {
     console.error("Error al obtener personajes de Marvel:", error);
+    isLoading.value = false; // Termina la carga en caso de error
   }
 };
 
@@ -90,7 +104,7 @@ onMounted(fetchMarvelCharacters);
     <!-- Sección de personajes a la derecha -->
     <div class="timeline-container-characters">
       <div class="timeline-characters">
-        <div v-if="currentCharacter" class="character-card">
+        <div v-if="!isLoading && currentCharacter" class="character-card">
           <img :src="currentCharacter.image" :alt="currentCharacter.name" />
         </div>
       </div>
@@ -124,7 +138,7 @@ label {
 }
 #mensaje{
   background-color: #191129;
-  
+
 }
 #email{
   background-color: #191129;
