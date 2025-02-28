@@ -116,6 +116,7 @@ const source = ref('')
 const page = ref('')
 page.value = 1
 
+//Cuando sale dos veces el mismo nombre en una respuesta seguido, se queda printado en verde
 
 const selected = new Set()
 
