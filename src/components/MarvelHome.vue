@@ -65,13 +65,27 @@ main{
     height: 12rem;
   }
 }
+
+.keyboardArrows{
+  max-width: 250px;
+  max-height: 200px;
+  position: fixed;
+  bottom: 6rem;
+  align-self:first baseline;
+  /* filter: grayscale(); */
+  opacity: 100%;
+  mix-blend-mode: multiply;
+
+}
 </style>
 
 <template>
   <main>
     <img src="@/assets/img/logoTimeline.png" alt="Marvel Logo" :class="['logo', {'animation-move': isdo}]" v-on:click="flyHammer">
     <img src="@/assets/img/thorHammer.png" alt="Thor Hammer moving" :class="['hammer', {'animation-hammer': isdo}]">
+    <img src= "@/assets/img/ZQ6A.gif" alt="keyboard_arrows" class="keyboardArrows">
   </main>
+
 </template>
 
 <script setup>
