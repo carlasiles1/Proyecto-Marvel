@@ -1,10 +1,11 @@
 <template>
   <header class="navbar-container">
     <nav class="nav">
+      
      <ul class="nav-list">
         <li><RouterLink to="/">HOME</RouterLink></li>
         <li><RouterLink to="/about">ABOUT</RouterLink></li>
-        <li><RouterLink to="/timeLine">TIME LINE</RouterLink></li>
+        <li><RouterLink to="/test">TIME LINE</RouterLink></li>
         <li><RouterLink to="/quiz">QUIZ</RouterLink></li>
         <li><RouterLink to="/contact">CONTACT</RouterLink></li>
       </ul>
