@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, watch } from "vue";
+import { ref, onMounted, watch, onUnmounted } from "vue";
 import axios from "axios";
 import md5 from "md5";
 
@@ -8,6 +8,8 @@ const marvelComics = ref([]);
 const containerRef = ref(null);
 const selectedEvent = ref("Infinity");
 const loading = ref(false);
+const scrollPos = ref(0);
+const showSelector = ref(true);
 
 // Claves de la API (Usa variables de entorno en .env)
 const marvelApiPublicKey = 'c6505251612e731238b4d32531d6a998';
@@ -98,20 +100,46 @@ const scrollRight = () => {
   }
 };
 
+
+// Mostrar el selector solo en cierta parte del scroll
+const handleScroll = (e) => {
+  console.log("Scroll detectado");
+  scrollPos.value = e.target.scrollLeft;
+  console.log("Posición scroll:", scrollPos.value);
+  showSelector.value = scrollPos.value > 50 && scrollPos.value < 300;};
+onMounted(() => {
+  fetchMarvelComics();
+  if (containerRef.value) {
+    console.log("Evento de scroll añadido");
+    containerRef.value.addEventListener("scroll", handleScroll);
+  }
+});
+
+onUnmounted(() => {
+  if (containerRef.value) {
+    containerRef.value.removeEventListener("scroll", handleScroll);
+  }
+});
+
 // Cargar cómics al montar el componente
-onMounted(fetchMarvelComics);
+// onMounted(fetchMarvelComics);
 </script>
 
 <template>
+  
   <section class="section-timeline"> 
-    <div class="section-timeline__container">
-      <h2 class="section-timeline__title">Cómics de {{ selectedEvent }}</h2>
-      <select v-model="selectedEvent" class="section-timeline__select">
-        <option v-for="(id, event) in events" :key="id" :value="event">{{ event }}</option>
-      </select>
-      <div v-if="loading">Cargando cómics...</div>
-      <div v-else-if="marvelComics.length === 0">No se encontraron cómics para este evento.</div>
-      <div v-else ref="containerRef" class="section-timeline__comics">
+  
+    <div class="section-timeline__container">     
+
+      <div class="section-eventSelector">
+  <p class="section-timeline__title">{{ selectedEvent }} comics</p>
+  <select v-model="selectedEvent" class="section-timeline__select">
+    <option v-for="(id, event) in events" :key="id" :value="event">{{ event }}</option>
+  </select>
+</div>
+      <div v-if="loading">Loading...</div>
+      <div v-else-if="marvelComics.length === 0">Not found</div>
+      <div v-else class="section-timeline__comics">
         <div v-for="comic in marvelComics" :key="comic.id" class="comic-card">
           <img :src="comic.image" :alt="comic.title" class="comic-card__image" />
           <p class="comic-card__title">{{ comic.title }}</p>
@@ -126,29 +154,54 @@ onMounted(fetchMarvelComics);
 </template>
 
 <style scoped>
+
 .section-timeline {
-  margin: -0.5rem;
+  /* position: relative; Asegura que el contenedor padre no tenga overflow oculto */
+  display: flex;
+  gap: 2rem;
+  flex-direction: column;
+  justify-content: center;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  padding: 2rem;
+  height: 100vh;
+
 }
+
+.section-eventSelector {
+  position: sticky;
+  left: 0; /* Pegado al borde izquierdo */
+  /* top: 0; Ajusta la altura si lo necesitas */
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 1rem;
+  border-radius: 1rem;
+  z-index: 10;
+  height: fit-content; 
+  width: fit-content;
+}
+
 
 .section-timeline__container {
   display: flex;
+  /* overflow-x: scroll;  */
+    gap: 1rem;
+  padding-bottom: 2rem;
   width: 100%;
-  margin-top: 18rem;
-  margin-bottom: 20rem;
-  flex-direction: column;
 }
 
 .section-timeline__title {
-  text-align: center;
-  color: #e23636;
+  
+  color: #fdfbfb;
   margin-bottom: 1rem;
+  background: black;
+  font-size: 1.1rem;
+  max-width: fit-content;
 }
 
 .section-timeline__select {
   margin-bottom: 1rem;
   padding: 0.5rem;
   font-size: 1rem;
-  align-self: center;
   width: 200px;
 }
 
@@ -157,8 +210,9 @@ onMounted(fetchMarvelComics);
   gap: 6rem;
   padding: 3rem;
   align-items: center;
-  overflow-x: auto;
+  /* overflow-x: auto; */
   scroll-behavior: smooth;
+  
 }
 
 .comic-card {
@@ -178,8 +232,10 @@ onMounted(fetchMarvelComics);
 
 .comic-card__title {
   margin-top: 0.5rem;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   text-align: center;
+  color: rgb(219, 217, 217);
+  background: rgb(0, 0, 0);
 }
 
 .section-timeline__button {
