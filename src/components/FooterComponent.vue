@@ -218,6 +218,54 @@ onUnmounted(() => {
 }
 
 @media (max-width: 768px) {
-  /* Add responsive styles here if needed */
+  .footer {
+    padding: 0.3rem 0;
+  }
+
+  .footer__content {
+    grid-template-columns: 1fr;
+    gap: 0.3rem;
+    margin-top: 0.5rem;
+  }
+
+  .footer__logo-image {
+    margin-left: 0;
+    width: 2rem;
+  }
+
+  .footer__nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-right: 0;
+    gap: 0.5rem 1rem;
+  }
+
+  .footer__social {
+    justify-content: center;
+    margin-left: 0;
+    gap: 1rem;
+  }
+
+  .footer__copyright {
+    margin-right: 0;
+    margin-top: 0.5rem;
+  }
 }
+
+@media (max-width: 480px) {
+  .footer__nav-link {
+    font-size: 0.8rem;
+  }
+
+  .footer__social-icon {
+    font-size: 1.2rem;
+  }
+
+  .footer__copyright {
+    font-size: 0.7rem;
+  }
+}
+
 </style>
