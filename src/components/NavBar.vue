@@ -23,7 +23,7 @@ import { RouterLink } from 'vue-router';
   z-index: 1000;
   background-image: transparent;
   padding: 15px 0;
-  position: absolute;
+  position: fixed;
 }
 
 /* Barra de navegación */
