@@ -13,27 +13,57 @@ let intervalId = null;
 const marvelApiPublicKey = process.env.VUE_APP_MARVEL_API_PUBLIC;
 const marvelApiPrivateKey = process.env.VUE_APP_MARVEL_API_PRIVATE;
 
+// IDs de los personajes principales
+const avengersIds = [
+  1009351, // Iron Man
+  1009220, // Capitán América
+  1009664, // Thor
+  1009350, // Hulk
+  1009610, // Spider-Man
+  1009652, // Viuda Negra
+  1009368, // Ojo de Halcón
+  1010833, // Vision
+  1009583, // Scarlet Witch
+  1010354, // Pantera Negra
+  1009718, // Doctor Strange
+  1009628, // Star-Lord
+  1009391, // Groot
+  1009292, // Gamora
+  1009427, // Loki
+];
+
 // Obtener personajes de Marvel
 const fetchMarvelCharacters = async () => {
   const timestamp = new Date().getTime();
   const hash = md5(timestamp + marvelApiPrivateKey + marvelApiPublicKey);
 
   try {
-    const response = await axios.get("https://gateway.marvel.com/v1/public/characters", {
-      params: {
-        limit: 10, // Obtener varios personajes para rotar
-        apikey: marvelApiPublicKey,
-        ts: timestamp,
-        hash: hash,
-      },
+    const promises = avengersIds.map(async (id) => {
+      const response = await axios.get("https://gateway.marvel.com/v1/public/characters", {
+        params: {
+          id,
+          apikey: marvelApiPublicKey,
+          ts: timestamp,
+          hash: hash,
+        },
+      });
+
+      return response.data.data.results[0]; // Devuelve el primer resultado (el personaje específico)
     });
 
-    // Extraer los datos de los personajes
-    marvelCharacters.value = response.data.data.results.map((character) => ({
-      id: character.id,
-      name: character.name,
-      image: `${character.thumbnail.path}.${character.thumbnail.extension}`,
-    }));
+    const results = await Promise.all(promises); // Esperar a que todas las solicitudes se completen
+
+    // Filtrar personajes sin imagen o con datos incorrectos
+    marvelCharacters.value = results
+      .filter((character) => 
+        character && // Asegúrate de que el personaje no sea nulo
+        character.thumbnail.path !== "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available" // Imagen disponible
+      )
+      .map((character) => ({
+        id: character.id,
+        name: character.name,
+        image: `${character.thumbnail.path}.${character.thumbnail.extension}`,
+      }));
 
     // Mostrar el primer personaje
     if (marvelCharacters.value.length > 0) {
