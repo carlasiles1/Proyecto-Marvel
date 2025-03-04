@@ -1,29 +1,29 @@
 <template>
   <footer :class="[
     'footer', 
-    { 'show': showFooter && !isStaticPage },
-    { 'static': isStaticPage },
-    { 'default': !showFooter && !isStaticPage }
+    { 'footer--show': showFooter && !isStaticPage },
+    { 'footer--static': isStaticPage },
+    { 'footer--default': !showFooter && !isStaticPage }
   ]">
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-logo">
-          <img src="@/assets/img/Marvel Logo.png" alt="Marvel Logo" class="logo">
+    <div class="footer__container">
+      <div class="footer__content">
+        <div class="footer__logo">
+          <img src="@/assets/img/Marvel Logo.png" alt="Marvel Logo" class="footer__logo-image">
         </div>
-        <div class="footer-nav">
-          <router-link v-for="link in navLinks" :key="link.to" :to="link.to" class="nav-link">
+        <nav class="footer__nav">
+          <router-link v-for="link in navLinks" :key="link.to" :to="link.to" class="footer__nav-link">
             {{ link.text }}
           </router-link>
-        </div>
-        <div class="social-icons">
-          <a v-for="social in socialLinks" :key="social.name" :href="social.url" target="_blank" class="social-icon">
+        </nav>
+        <div class="footer__social">
+          <a v-for="social in socialLinks" :key="social.name" :href="social.url" target="_blank" class="footer__social-icon">
             <font-awesome-icon :icon="['fab', social.icon]" />
           </a>
         </div>
       </div>
     </div>
-    <div class="copyright">
-      <p class="copyright">&copy; {{ currentYear }} Marvel. All Rights Reserved.</p>
+    <div class="footer__copyright">
+      <p class="footer__copyright-text">&copy; {{ currentYear }} Marvel. All Rights Reserved.</p>
     </div>
   </footer>
 </template>
@@ -86,17 +86,17 @@ onUnmounted(() => {
   transition: transform 0.9s ease;
 }
 
-.footer.default {
+.footer--default {
   background: linear-gradient(45deg, #070215, #3d3d3d);
   transform: translateY(100%);
 }
 
-.footer.show {
+.footer--show {
   background: linear-gradient(45deg, #070215, #3d3d3d);
   transform: translateY(0);
 }
 
-.footer.static {
+.footer--static {
   background: linear-gradient(45deg, #070215, #3d3d3d);
   transform: translateY(0);
   transition: none;
@@ -134,37 +134,37 @@ onUnmounted(() => {
   transform: translate(-20px, 20px);
 }
 
-.container {
+.footer__container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1rem;
 }
 
-.footer-content {
+.footer__content {
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
   align-items: center;
   margin-top: 1.6rem;
 }
 
-.logo {
+.footer__logo-image {
   width: 3rem;
   transition: transform 0.3s ease;
   margin-left: 7rem;
 }
 
-.logo:hover {
+.footer__logo-image:hover {
   transform: scale(1.1);
 }
 
-.footer-nav {
+.footer__nav {
   display: flex;
   justify-content: center;
   margin-right: 3.5rem;
   gap: 2rem;
 }
 
-.nav-link {
+.footer__nav-link {
   color: inherit;
   text-decoration: none;
   transition: color 0.3s ease, transform 0.3s ease;
@@ -173,7 +173,7 @@ onUnmounted(() => {
   position: relative;
 }
 
-.nav-link::after {
+.footer__nav-link::after {
   content: '';
   position: absolute;
   width: 0;
@@ -184,33 +184,33 @@ onUnmounted(() => {
   transition: width 0.3s ease;
 }
 
-.nav-link:hover {
+.footer__nav-link:hover {
   color: #e62429;
   transform: translateY(-2px);
 }
 
-.nav-link:hover::after {
+.footer__nav-link:hover::after {
   width: 100%;
 }
 
-.social-icons {
+.footer__social {
   display: flex;
   gap: 1.5rem;
   margin-left: 1rem;
 }
 
-.social-icon {
+.footer__social-icon {
   color: inherit;
   font-size: 1.7rem;
   transition: color 0.3s ease, transform 0.3s ease;
 }
 
-.social-icon:hover {
+.footer__social-icon:hover {
   color: #e62429;
   transform: scale(1.2) rotate(5deg);
 }
 
-.copyright {
+.footer__copyright {
   text-align: center;
   font-size: 0.9rem;
   opacity: 0.8;
@@ -221,4 +221,3 @@ onUnmounted(() => {
   /* Add responsive styles here if needed */
 }
 </style>
-
