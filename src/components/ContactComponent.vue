@@ -20,16 +20,8 @@ const avengersIds = [
   1009664, // Thor
   1009350, // Hulk
   1009610, // Spider-Man
-  1009652, // Viuda Negra
-  1009368, // Ojo de Halcón
-  1010833, // Vision
-  1009583, // Scarlet Witch
-  1010354, // Pantera Negra
-  1009718, // Doctor Strange
-  1009628, // Star-Lord
-  1009391, // Groot
-  1009292, // Gamora
-  1009427, // Loki
+  1009652, // Thanos
+  1009368, // IronMan
 ];
 
 // Obtener personajes de Marvel
