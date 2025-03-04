@@ -69,34 +69,41 @@ onMounted(fetchMarvelCharacters);
 
 <template>
   <main>
-    <!-- Formulario a la izquierda -->
-    <form id="formulario">
-      <div class="form-group">
-        <label for="nombre">Name:</label>
-        <input type="text" id="nombre" name="nombre" required />
-      </div>
+  
+      <div class="container">
+        <!-- Formulario a la izquierda -->
+        <form id="formulario">
+          <h1 class="titulo">Contact Us</h1>
+          <div class="form-group">
+            <label for="nombre">Name:</label>
+            <input type="text" id="nombre" name="nombre" required />
+          </div>
 
-      <div class="form-group">
-        <label for="email">E-mail:</label>
-        <input type="email" id="email" name="email" required />
-      </div>
+          <div class="form-group">
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email" required />
+          </div>
 
-      <div class="form-group">
-        <label for="mensaje">Message:</label>
-        <textarea id="mensaje" name="mensaje" required></textarea>
-      </div>
-    </form>
+          <div class="form-group">
+            <label for="mensaje">Message:</label>
+            <textarea id="mensaje" name="mensaje" required></textarea>
+          </div>
+        </form>
+      
 
-    <!-- Sección de personajes a la derecha -->
-    <div class="timeline-container-characters">
-      <div class="timeline-characters">
-        <div v-if="currentCharacter" class="character-card">
-          <img :src="currentCharacter.image" :alt="currentCharacter.name" />
+        <!-- Sección de personajes a la derecha -->
+        <div class="timeline-container-characters">
+          <div class="timeline-characters">
+            <div v-if="currentCharacter" class="character-card">
+              <img :src="currentCharacter.image" :alt="currentCharacter.name" />
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+  
   </main>
 </template>
+
 
 <style>
 main {
@@ -108,19 +115,54 @@ main {
   margin: -0.5rem;
 }
 
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4rem;
+}
+
+#formulario {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 400px;
+}
+.titulo{
+  color: white;
+  font-size: 2rem;
+  margin-bottom:3rem;
+  text-align: left;
+}
+
+/* Estilos de los inputs y textarea */
 .form-group {
   display: flex;
   flex-direction: column;
-  margin: 20px;
+  align-items: flex-start;
+  margin-bottom: 15px; 
+  width: 100%;
 }
 
 label {
   color: white;
+  margin-bottom: 5px;
+}
+
+textarea, #mensaje, #nombre, #email {
+  background-color: #191129;
+  width: 100%;
+  max-width: 350px; 
+  padding: 10px; 
+  border: 1px solid white;
+  border-radius: 5px;
+  color: white;
+  font-size: 16px;
 }
 
 textarea {
-  width: 100%;
   height: 100px;
+  resize: none;
 }
 
 /* Contenedor de personajes */
@@ -138,11 +180,17 @@ textarea {
   align-items: center;
   justify-content: center;
   padding: 3rem;
+  width: 400px;
+  height: auto;
 }
-
 .character-card {
-  width: 12rem;
-  opacity: 100%;
+  width: 25rem;         
+  height: 25rem;      
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;     
+  border-radius: 8px;
 }
 
 .character-card:hover {
@@ -151,6 +199,9 @@ textarea {
 
 .character-card img {
   width: 100%;
+  height: 100%;
+  object-fit: cover;
   border-radius: 8px;
 }
+
 </style>
