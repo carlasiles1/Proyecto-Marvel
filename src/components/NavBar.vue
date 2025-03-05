@@ -1,13 +1,12 @@
 <template>
-  <header class="navbar-container">
-    <nav class="nav">
-      
-     <ul class="nav-list">
-        <li><RouterLink to="/">HOME</RouterLink></li>
-        <li><RouterLink to="/about">ABOUT</RouterLink></li>
-        <li><RouterLink to="/test">TIME LINE</RouterLink></li>
-        <li><RouterLink to="/quiz">QUIZ</RouterLink></li>
-        <li><RouterLink to="/contact">CONTACT</RouterLink></li>
+  <header class="navbar">
+    <nav class="navbar__nav">
+      <ul class="navbar__list">
+        <li class="navbar__item"><RouterLink class="navbar__link" to="/">HOME</RouterLink></li>
+        <li class="navbar__item"><RouterLink class="navbar__link" to="/about">ABOUT</RouterLink></li>
+        <li class="navbar__item"><RouterLink class="navbar__link" to="/test">TIME LINE</RouterLink></li>
+        <li class="navbar__item"><RouterLink class="navbar__link" to="/quiz">QUIZ</RouterLink></li>
+        <li class="navbar__item"><RouterLink class="navbar__link" to="/contact">CONTACT</RouterLink></li>
       </ul>
     </nav>
   </header>
@@ -19,7 +18,7 @@ import { RouterLink } from 'vue-router';
 
 <style scoped>
 /* Contenedor general */
-.navbar-container {
+.navbar {
   width: 100%;
   z-index: 1000;
   background-image: transparent;
@@ -28,7 +27,7 @@ import { RouterLink } from 'vue-router';
 }
 
 /* Barra de navegación */
-.nav {
+.navbar__nav {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -37,26 +36,25 @@ import { RouterLink } from 'vue-router';
 }
 
 /* Lista de navegación */
-.nav-list {
+.navbar__list {
   list-style: none;
   display: flex;
   gap: 100px;
 }
 
-/* Estilo de los enlaces */
-.nav-list li {
+/* Estilo de los elementos */
+.navbar__item {
   text-transform: uppercase;
 }
-.nav-list :hover{
-  color: red;
-  
-}
 
-.nav-list a {
+.navbar__link {
   text-decoration: none;
-  color:white;
+  color: white;
   font-size: 16px;
   font-weight: bold;
 }
 
+.navbar__link:hover {
+  color: red;
+}
 </style>
