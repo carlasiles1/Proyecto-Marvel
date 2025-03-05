@@ -95,7 +95,8 @@ onMounted(fetchMarvelCharacters);
       <div class="container">
         <!-- Formulario a la izquierda -->
         <form id="formulario">
-          <h1 class="titulo">Contact Us</h1>
+          <h1 class="titulo">Contact</h1>
+          <p>Leave us a message!</p>
           <div class="form-group">
             <label for="nombre">Name:</label>
             <input type="text" id="nombre" name="nombre" required />
@@ -153,7 +154,7 @@ main {
 .titulo{
   color: white;
   font-size: 2rem;
-  margin-bottom:3rem;
+  margin-bottom:1rem;
   text-align: left;
 }
 
@@ -224,6 +225,11 @@ textarea {
   height: 100%;
   object-fit: cover;
   border-radius: 8px;
+}
+p{
+  color: white;
+  font-size: 1rem ;
+  margin-bottom: 2rem;
 }
 
 </style>
