@@ -8,18 +8,33 @@
    </div>
    <div class="text">
      <h1>About</h1>
-     <p>
-      Marvel Timeline is complex and full of interconnected events. It begins with the creation of
-       the universe and continues with the adventures of superheroes like
-        Iron Man, Captain America, and Spider-Man. Each movie and series fits 
-        into a larger narrative that spans decades.
-     </p>
+    
+     <section>
+      <h2>What is the Marvel Timeline Project?</h2>
+      <p>A web app that displays the Marvel Universe events in chronological order, focusing on comics.</p>
+    </section>
+
+    <section>
+      <h2>What value does this project offer to Marvel fans?</h2>
+      <ul>
+        <li><strong>Comprehensive Exploration:</strong> Shows how comics connect over time.</li>
+        <li><strong>Interactive Quiz:</strong> Test your Marvel knowledge in a fun way.</li>
+        <li><strong>Easy to Use:</strong> User-friendly interface for easy navigation.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>How is the information organized?</h2>
+      <ul>
+        <li><strong>Timeline:</strong> Events organized in chronological order with links to comics.</li>
+        <li><strong>Quiz:</strong> A fun quiz section to test Marvel knowledge.</li>
+      </ul>
+    </section>
    </div>
  </div>
 
   </section>
 </template>
-
 <script setup>
 import imageSrc from '@/assets/img/Background-footer.jpg';
 </script>
