@@ -1,6 +1,7 @@
 <template>
   <header class="navbar-container">
     <nav class="nav">
+      
      <ul class="nav-list">
         <li><RouterLink to="/">HOME</RouterLink></li>
         <li><RouterLink to="/about">ABOUT</RouterLink></li>
@@ -23,7 +24,7 @@ import { RouterLink } from 'vue-router';
   z-index: 1000;
   background-image: transparent;
   padding: 15px 0;
-  position: absolute;
+  position: fixed;
 }
 
 /* Barra de navegación */
