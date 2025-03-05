@@ -66,32 +66,38 @@ main{
   }
 }
 
-.keyboardArrows{
-  max-width: 250px;
-  max-height: 200px;
+.gif-arrows{
+  
   position: fixed;
-  bottom: 6rem;
+  bottom: 5rem;
+  right: 12rem;
   align-self:first baseline;
-  /* filter: grayscale(); */
-  opacity: 100%;
-  mix-blend-mode: multiply;
-
+  /* 
+  mix-blend-mode: multiply; */
+  animation: fadein 4s ease-in alternate infinite;
 }
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to { opacity: 0.8; }
+}
+
+
 </style>
 
 <template>
   <main>
     <img src="@/assets/img/logoTimeline.png" alt="Marvel Logo" :class="['logo', {'animation-move': isdo}]" v-on:click="flyHammer">
     <img src="@/assets/img/thorHammer.png" alt="Thor Hammer moving" :class="['hammer', {'animation-hammer': isdo}]">
-    <img src= "@/assets/img/ZQ6A.gif" alt="keyboard_arrows" class="keyboardArrows">
+    <img src= "@/assets/img/arrow-keys.gif" alt="keyboard_arrows" class="gif-arrows" v-show="showArrows">
   </main>
 
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue';
 
-const isdo = ref(false)
+const isdo = ref(false);
 
 const flyHammer = () => {
   isdo.value = false
@@ -99,5 +105,24 @@ const flyHammer = () => {
     isdo.value = true
   }, 0)
 }
+
+
+const showArrows = ref(true);
+
+function GifArrowsFunction(event) {
+  if (event.key === 'ArrowLeft' || event.key === 'ArrowRight' || event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+    showArrows.value = false
+  }
+}
+
+onMounted(() => {
+  window.addEventListener('keydown', GifArrowsFunction)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', GifArrowsFunction)
+})
+
+
 
 </script>
