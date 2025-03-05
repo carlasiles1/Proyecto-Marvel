@@ -1,4 +1,7 @@
 <style scoped>
+input{
+    display: none;
+}
 .quiz {
     background-color: #191129;
     justify-content: center;
@@ -23,20 +26,29 @@
     margin: 0;
     padding-top: 6rem;
 }
-.quiz_screen{
-    display: flex;
-}
 .quiz__question-text {
     font-size: 2rem;
     color: rgb(206, 178, 21);
 }
+.options{
+    display: flex;
+}
 .quiz__label {
-    display: block;
     color: white;
-    margin: 1rem 0;
+    width: 10rem;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+    border-radius: 20%;
+    margin: 3rem;
 }
 .quiz__label::after {
     background-color: #007BFF;
+}
+.quiz__label p{
+    width: 100%;
 }
 .quiz__input {
     margin-right: 1rem;
@@ -66,8 +78,14 @@
 }
 .pointer{
     position: absolute;
-    width: 3rem;
-    transform: rotateZ(-35Deg) translate(2.5rem, 1rem);
+    width: 5rem;
+    transform: rotateZ(-35Deg) translate(6rem, 3rem);
+}
+.character-image {
+    width: 15rem;
+    height: 15rem;
+    object-fit: cover;
+    border-radius: 10%;
 }
 </style>
 
@@ -78,19 +96,25 @@
             <form class="quiz__form" id="quizForm">
                 <div v-if="randomQuestions.length" class="quiz__question">
                     <p class="quiz__question-text">{{ randomQuestions[currentQuestion].question }}</p>
-                    <label v-for="option in randomQuestions[currentQuestion].options " 
-                        :key="option" 
-                        class="quiz__label">
-                        <input type="radio" 
-                            :name="'q' + currentQuestion" 
-                            :value="option" 
-                            v-model="userAnswers[currentQuestion]">
-                        {{ option }}
-                        <img v-if="userAnswers[currentQuestion] === option" 
-                            :src="source" 
-                            alt="" 
-                            class="pointer">
-                </label>
+                    <div class="options">
+                        <label v-for="option in randomQuestions[currentQuestion].options" 
+                            :key="option" 
+                            class="quiz__label">
+                            <input type="radio" 
+                                name="choseOption" 
+                                :value="option" 
+                                v-model="userAnswers[currentQuestion]">
+                            <p>{{ option }}</p>
+                            <img v-if="matchingCharacter(option)"
+                                :src="matchingCharacter(option).image" 
+                                :alt="matchingCharacter(option).name"
+                                class="character-image">
+                            <img v-if="userAnswers[currentQuestion] === option" 
+                                :src="source" 
+                                alt="Iron-man Pointer" 
+                                class="pointer">
+                        </label>
+                    </div>
                 </div>
                 <div class="quiz__navigation">
                     <button @click="prev" class="quiz__button quiz__button--prev" type="button">Prev</button>
@@ -104,7 +128,9 @@
 </template>
 
 <script setup>
-import {ref, onMounted} from 'vue'
+import {ref, computed, onMounted, watch} from 'vue'
+import axios from "axios";
+import md5 from "md5";
 
 const quiz = ref({})
 const randomQuestions = ref([])
@@ -136,7 +162,10 @@ const fetchQuiz = async () => {
 
         getRandomQuestions()
     }
-onMounted(fetchQuiz)
+onMounted(async () => {
+  await fetchQuiz();
+  await loadCurrentQuestionCharacters();
+})
 
 const getRandomQuestions = ()=>{
     const total = quiz.value.questions.length
@@ -149,12 +178,13 @@ const getRandomQuestions = ()=>{
 }
 
 const next = ()=>{
-    const response = document.querySelector(`input[name="q${currentQuestion.value}"]:checked`)
+
+    const correct = document.querySelector(`label:has(input[value="${randomQuestions.value[currentQuestion.value].answer}"])`)
+    correct.style = 'background-color: green';
+
+    const response = document.querySelector(`input[name="${currentQuestion.value}"]:checked`)
     if (response){
         userAnswers.value[currentQuestion.value] = response.value
-
-        const correct = document.querySelector(`label:has(input[value="${randomQuestions.value[currentQuestion.value].answer}"])`)
-        correct.style = 'background-color: green';
         
         if (response.value === randomQuestions.value[currentQuestion.value].answer){
             score.value++
@@ -177,4 +207,77 @@ const prev = () => {
         page.value = currentQuestion.value + 1
     }
 }
+
+//Uso de la API
+
+const marvelCharacter = ref([])
+
+const marvelApiPublicKey = 'c6505251612e731238b4d32531d6a998';
+const marvelApiPrivateKey = 'ee80321c4497db2e446a64fb6b78d032066c80e1';
+
+// Modificar la función fetchMarvelComics para que devuelva el personaje
+const fetchMarvelComics = async (characterName) => {
+  const timestamp = new Date().getTime();
+  const hash = md5(timestamp + marvelApiPrivateKey + marvelApiPublicKey);
+
+  try {
+    const response = await axios.get("https://gateway.marvel.com/v1/public/characters", {
+      params: {
+        apikey: marvelApiPublicKey,
+        ts: timestamp,
+        hash: hash,
+        nameStartsWith: characterName,
+        limit: 2
+      },
+    })
+
+    console.log(response.data.data.results)
+    
+    if (response.data?.data?.results?.[0]) {
+      const character = response.data.data.results[0];
+      return {
+        name: character.name.toLowerCase(),
+        image: `${character.thumbnail.path}.${character.thumbnail.extension}`
+      };
+    }
+    return null;
+    } catch (error) {
+    console.error("Error getting data for " + characterName, error);
+    return null;
+  }
+};
+onMounted(fetchMarvelComics)
+
+// Añadir función para cargar los personajes de la pregunta actual
+const loadCurrentQuestionCharacters = async () => {
+  if (!randomQuestions.value[currentQuestion.value]) return;
+  
+  marvelCharacter.value = []; // Limpiar personajes anteriores
+  const options = randomQuestions.value[currentQuestion.value].options;
+  
+  // Cargar los personajes de todas las opciones
+  const characters = await Promise.all(
+    options.map(option => fetchMarvelComics(option))
+  );
+  
+  // Filtrar null y añadir los personajes encontrados
+  marvelCharacter.value = characters.filter(char => char !== null);
+  
+  console.log("Personajes cargados para la pregunta actual:", 
+    marvelCharacter.value.map(char => char.name));
+};
+
+// Modificar el watcher para currentQuestion
+watch(currentQuestion, async () => {
+  await loadCurrentQuestionCharacters();
+});
+
+// Añade esta función después de la declaración de marvelCharacter
+const matchingCharacter = computed(() => {
+  return (option) => {
+    return marvelCharacter.value.find(
+      character => character.name === option.toLowerCase()
+    );
+  };
+});
 </script>
