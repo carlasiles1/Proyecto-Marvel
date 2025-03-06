@@ -2,38 +2,44 @@
 input{
     display: none;
 }
-.quiz {
+.marvel-quiz {
     background-color: #191129;
     justify-content: center;
     align-items: center;
     margin: -0.5rem;
     height: 100vh;
 }
-.quiz_screen{
+
+.marvel-quiz__screen {
     display: flex;
     justify-content: center;
 }
-.quiz__form {
+
+.marvel-quiz__form {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
-.quiz__title {
+
+.marvel-quiz__title {
     color: #ca1a1a;
     text-align: center;
     width: 30%;
     margin: 0;
     padding-top: 6rem;
 }
-.quiz__question-text {
+
+.marvel-quiz__question-text {
     font-size: 2rem;
     color: rgb(206, 178, 21);
 }
-.options{
+
+.marvel-quiz__options {
     display: flex;
 }
-.quiz__label {
+
+.marvel-quiz__option {
     color: white;
     width: 10rem;
     display: flex;
@@ -44,21 +50,30 @@ input{
     border-radius: 20%;
     margin: 3rem;
 }
-.quiz__label::after {
+
+.marvel-quiz__option--selected {
     background-color: #007BFF;
 }
-.quiz__label p{
+
+.marvel-quiz__option--correct {
+    background-color: green;
+}
+
+.marvel-quiz__option-text {
     width: 100%;
 }
-.quiz__input {
-    margin-right: 1rem;
-}   
-.quiz__navigation{
+
+.marvel-quiz__radio {
+    display: none;
+}
+
+.marvel-quiz__navigation {
     display: flex;
     align-items: center;
     color: #e62429;
 }
-.quiz__button {
+
+.marvel-quiz__button {
     background-color: #007BFF;
     color: white;
     border: none;
@@ -69,19 +84,23 @@ input{
     transition: 0.3s;
     margin: 0 4rem;
 }
-.quiz__button:hover {
+
+.marvel-quiz__button:hover {
     background-color: #e62429;
 }
-.quiz__image {
+
+.marvel-quiz__watcher-image {
     width: 22rem;
     margin-left: 8rem;
 }
-.pointer{
+
+.marvel-quiz__pointer {
     position: absolute;
     width: 5rem;
     transform: rotateZ(-35Deg) translate(6rem, 3rem);
 }
-.character-image {
+
+.marvel-quiz__character-image {
     width: 15rem;
     height: 15rem;
     object-fit: cover;
@@ -90,39 +109,47 @@ input{
 </style>
 
 <template>
-    <main class="quiz">
-        <h1 class="quiz__title">Avengers Comics Quiz</h1>
-        <div class="quiz_screen">
-            <form class="quiz__form" id="quizForm">
-                <div v-if="randomQuestions.length" class="quiz__question">
-                    <p class="quiz__question-text">{{ randomQuestions[currentQuestion].question }}</p>
-                    <div class="options">
+    <main class="marvel-quiz">
+        <h1 class="marvel-quiz__title">Avengers Comics Quiz</h1>
+        <div class="marvel-quiz__screen">
+            <form class="marvel-quiz__form" id="quizForm">
+                <div v-if="randomQuestions.length" class="marvel-quiz__question">
+                    <p class="marvel-quiz__question-text">{{ randomQuestions[currentQuestion].question }}</p>
+                    <div class="marvel-quiz__options">
                         <label v-for="option in randomQuestions[currentQuestion].options" 
                             :key="option" 
-                            class="quiz__label">
+                            class="marvel-quiz__option"
+                            :class="{'marvel-quiz__option--selected': userAnswers[currentQuestion] === option}">
                             <input type="radio" 
+                                class="marvel-quiz__radio"
                                 name="choseOption" 
                                 :value="option" 
                                 v-model="userAnswers[currentQuestion]">
-                            <p>{{ option }}</p>
+                            <p class="marvel-quiz__option-text">{{ option }}</p>
                             <img v-if="matchingCharacter(option)"
                                 :src="matchingCharacter(option).image" 
                                 :alt="matchingCharacter(option).name"
-                                class="character-image">
+                                class="marvel-quiz__character-image">
                             <img v-if="userAnswers[currentQuestion] === option" 
                                 :src="source" 
                                 alt="Iron-man Pointer" 
-                                class="pointer">
+                                class="marvel-quiz__pointer">
                         </label>
                     </div>
                 </div>
-                <div class="quiz__navigation">
-                    <button @click="prev" class="quiz__button quiz__button--prev" type="button">Prev</button>
-                    <p>{{ page }} / 15</p>
-                    <button @click="next" class="quiz__button quiz__button--next" type="button">Next</button>
+                <div class="marvel-quiz__navigation">
+                    <button @click="prev" 
+                            class="marvel-quiz__button marvel-quiz__button--prev" 
+                            type="button">Prev</button>
+                    <p class="marvel-quiz__page">{{ page }} / 15</p>
+                    <button @click="next" 
+                            class="marvel-quiz__button marvel-quiz__button--next" 
+                            type="button">Next</button>
                 </div>
             </form>
-            <img class="quiz__image" src="@/assets/img/theWatcher.png" alt="The Watcher">
+            <img class="marvel-quiz__watcher-image" 
+                 src="@/assets/img/theWatcher.png" 
+                 alt="The Watcher">
         </div>
     </main>
 </template>
