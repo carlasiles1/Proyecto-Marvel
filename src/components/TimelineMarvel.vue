@@ -1,15 +1,14 @@
 <script setup>
 import { ref, watch, onMounted, onUnmounted } from "vue";
-import axios from "axios";// Import axios for HTTP requests and md5 for hash generation
+import axios from "axios"; // Import axios for HTTP requests and md5 for hash generation
 import md5 from "md5";
 
 // Reactive variables
 const marvelComics = ref([]);
-// const containerRef = ref(null);
 const selectedEvent = ref("Infinity");
 const loading = ref(false);
 const scrollPos = ref(0);
-const showSelector = ref(true);// Controls the visibility of the event selector
+const showSelector = ref(true); // Controls the visibility of the event selector
 
 // API keys
 const marvelApiPublicKey = 'c6505251612e731238b4d32531d6a998';
@@ -70,9 +69,9 @@ const fetchMarvelComics = async () => {
       title: comic.title,
       image: `${comic.thumbnail.path}.${comic.thumbnail.extension}`,
     }));
-    console.log("Cómics cargados:", marvelComics.value);
+    console.log("Comics loaded:", marvelComics.value);
   } catch (error) {
-    console.error(`Error al obtener cómics de ${selectedEvent.value}:`, error);
+    console.error(`Error fetching comics for ${selectedEvent.value}:`, error);
   } finally {
     loading.value = false;
 
@@ -103,70 +102,38 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener("scroll", handleScroll);
 });
+
 // Watch for changes in selectedEvent and call fetchMarvelComics when it changes
 watch(selectedEvent, () => {
   fetchMarvelComics();
 });
-// // Funciones para desplazarse con las flechas
-// const scrollLeft = () => {
-//   if (containerRef.value) {
-//     containerRef.value.scrollBy({ left: -300, behavior: "smooth" });
-//   }
-// };
 
-// const scrollRight = () => {
-//   if (containerRef.value) {
-//     containerRef.value.scrollBy({ left: 300, behavior: "smooth" });
-//   }
-// };
-
-
-// // Mostrar el selector solo en cierta parte del scroll
-// const handleScroll = (e) => {
-//   console.log("Scroll detectado");
-//   scrollPos.value = e.target.scrollLeft;
-//   console.log("Posición scroll:", scrollPos.value);
-//   showSelector.value = scrollPos.value > 50 && scrollPos.value < 300;};
-// onMounted(() => {
-//   fetchMarvelComics();
-//   if (containerRef.value) {
-//     console.log("Evento de scroll añadido");
-//     containerRef.value.addEventListener("scroll", handleScroll);
-//   }
-// });
-
-// onUnmounted(() => {
-//   if (containerRef.value) {
-//     containerRef.value.removeEventListener("scroll", handleScroll);
-//   }
-// });
-
-// // Cargar cómics al montar el componente
-// // onMounted(fetchMarvelComics);
+// New method to handle comic click
+const goToWiki = (comicId) => {
+  window.open(`https://marvel.com/comics/issue/${comicId}`, '_blank');
+};
 </script>
 
 <template>
-  
   <section class="section-timeline"> 
-  
     <div class="section-timeline__container">     
-
       <div class="section-eventSelector">
-  <p class="section-timeline__title">{{ selectedEvent }} comics</p>
-  <select v-model="selectedEvent" class="section-timeline__select">
-    <option v-for="(id, event) in events" :key="id" :value="event">{{ event }}</option>
-         <!-- "event" represents the key (which is the event name) and "id" the value (event ID) in each iteration -->
-  </select>
-</div>
+        <p class="section-timeline__title">{{ selectedEvent }} comics</p>
+        <select v-model="selectedEvent" class="section-timeline__select">
+          <option v-for="(id, event) in events" :key="id" :value="event">{{ event }}</option>
+          <!-- "event" represents the key (which is the event name) and "id" the value (event ID) in each iteration -->
+        </select>
+      </div>
       <div v-if="loading">Loading...</div>
       <div v-else-if="marvelComics.length === 0">Not found</div><!-- This line displays "Not found" if the marvelComics array is empty -->
       <div v-else class="section-timeline__comics">
-        <div v-for="comic in marvelComics" :key="comic.id" class="comic-card">
+        <div v-for="comic in marvelComics" :key="comic.id" class="comic-card" @click="goToWiki(comic.id)">
           <img :src="comic.image" :alt="comic.title" class="comic-card__image" />
           <p class="comic-card__title">{{ comic.title }}</p>
         </div>
       </div>
       <div class="section-timeline__buttons"> 
+        <!-- Note: These buttons are currently not functional as the scrollLeft and scrollRight functions are commented out -->
         <button @click="scrollLeft" class="section-timeline__button section-timeline__button--left">⬅</button>
         <button @click="scrollRight" class="section-timeline__button section-timeline__button--right">➡</button>
       </div>
@@ -175,9 +142,7 @@ watch(selectedEvent, () => {
 </template>
 
 <style scoped>
-
 .section-timeline {
-  /* position: relative; Asegura que el contenedor padre no tenga overflow oculto */
   display: flex;
   gap: 2rem;
   flex-direction: column;
@@ -185,13 +150,14 @@ watch(selectedEvent, () => {
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   padding: 2rem;
   height: 100vh;
-
+  background-image: url('@/assets/img/timelineBkg2.png');
+  background-size: contain;
+  background-repeat: repeat-x;
 }
 
 .section-eventSelector {
   position: sticky;
-  left: 0; /* Pegado al borde izquierdo */
-  /* top: 0; Ajusta la altura si lo necesitas */
+  left: 0; /* Stuck to the left edge */
   background: rgba(0, 0, 0, 0.7);
   color: white;
   padding: 1rem;
@@ -201,17 +167,14 @@ watch(selectedEvent, () => {
   width: fit-content;
 }
 
-
 .section-timeline__container {
   display: flex;
-  /* overflow-x: scroll;  */
-    gap: 1rem;
+  gap: 1rem;
   padding-bottom: 2rem;
   width: 100%;
 }
 
 .section-timeline__title {
-  
   color: #fdfbfb;
   margin-bottom: 1rem;
   background: black;
@@ -231,19 +194,20 @@ watch(selectedEvent, () => {
   gap: 6rem;
   padding: 3rem;
   align-items: center;
-  /* overflow-x: auto; */
   scroll-behavior: smooth;
-  
 }
 
 .comic-card {
   flex: 0 0 auto;
   width: 12rem;
   opacity: 100%;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
 }
 
 .comic-card:hover {
   opacity: 80%;
+  transform: scale(1.05);
 }
 
 .comic-card__image {
@@ -282,11 +246,5 @@ watch(selectedEvent, () => {
   display: flex;
   justify-content: space-between;
   padding-inline: 6rem;
-}
-
-.section-timeline {
-  background-image: url('@/assets/img/timelineBkg2.png');
-  background-size: contain;
-  background-repeat: repeat-x;
 }
 </style>
