@@ -221,13 +221,20 @@ const fetchMarvelComics = async (characterName) => {
   const hash = md5(timestamp + marvelApiPrivateKey + marvelApiPublicKey);
 
   try {
+
+    const searchName = characterName
+      .toLowerCase()
+      .replace(/-/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+
     const response = await axios.get("https://gateway.marvel.com/v1/public/characters", {
       params: {
         apikey: marvelApiPublicKey,
         ts: timestamp,
         hash: hash,
-        nameStartsWith: characterName,
-        limit: 2
+        nameStartsWith: searchName,
+        limit: 1
       },
     })
 
@@ -275,9 +282,24 @@ watch(currentQuestion, async () => {
 // Añade esta función después de la declaración de marvelCharacter
 const matchingCharacter = computed(() => {
   return (option) => {
-    return marvelCharacter.value.find(
-      character => character.name === option.toLowerCase()
-    );
+    // Normalizar el nombre de la opción
+    const normalizedOption = option.toLowerCase()
+      .replace(/-/g, ' ')  // Reemplazar guiones por espacios
+      .replace(/\s+/g, ' ') // Normalizar espacios múltiples
+      .trim();
+
+    return marvelCharacter.value.find(character => {
+      // Normalizar el nombre del personaje de la API
+      const normalizedCharName = character.name.toLowerCase()
+        .replace(/-/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+
+      // Comprobar si los nombres coinciden o si uno contiene al otro
+      return normalizedCharName === normalizedOption ||
+             normalizedCharName.includes(normalizedOption) ||
+             normalizedOption.includes(normalizedCharName);
+    });
   };
 });
 </script>

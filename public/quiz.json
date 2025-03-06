@@ -19,12 +19,6 @@
             "options": ["Storm", "Doctor Strange", "Wolverine", "Cyclops"]
         },
         {
-            "id": 4,
-            "question": "Who is the web-slinging superhero from New York City?",
-            "answer": "Spider Man",
-            "options": ["Moon Knight", "Blade", "Spider-Man", "Daredevil"]
-        },
-        {
             "id": 5,
             "question": "Which character is known for her agility and stealth abilities?",
             "answer": "Black Widow",
@@ -70,7 +64,7 @@
             "id": 12,
             "question": "Who is the ruler of Atlantis?",
             "answer": "Namor",
-            "options": ["Namor", "Poseidon", "Loa", "Triton"]
+            "options": ["Namor", "Zeus", "Loa", "Triton"]
         },
         {
             "id": 13,
@@ -166,13 +160,13 @@
             "id": 28,
             "question": "Who is the alien symbiote that bonds with Eddie Brock?",
             "answer": "Venom",
-            "options": ["Venom ", "Carnage", "Toxin", "Groot"]
+            "options": ["Venom", "Carnage", "Toxin", "Groot"]
         },
         {
             "id": 29,
             "question": "Which character is known as the 'Man Without Fear'?",
             "answer": "Daredevil",
-            "options": ["Daredevil", "Spider-Man", "Hawkeye", "Black Panther"]
+            "options": ["Daredevil", "Deadpool", "Hawkeye", "Black Panther"]
         },
         {
             "id": 30,
@@ -196,19 +190,13 @@
             "id": 33,
             "question": "Who can shoot energy blasts from his eyes?",
             "answer": "Cyclops",
-            "options": ["Starfox", "Blindspot", "Optic", "Cyclops"]
+            "options": ["Starfox", "Hawkeye", "Morbius", "Cyclops"]
         },
         {
             "id": 34,
             "question": "Which character can control minds with his telepathic powers?",
             "answer": "Professor X",
             "options": ["Doctor Strange", "Professor X", "Magneto", "Thanos"]
-        },
-        {
-            "id": 35,
-            "question": "Which character is Tony Stark's best friend and War Machine?",
-            "answer": "James Rhodes",
-            "options": ["Happy Hogan", "Nick Fury", "Phil Coulson", "James Rhodes"]
         },
         {
             "id": 36,
@@ -227,12 +215,6 @@
             "question": "Who can travel through time and space?",
             "answer": "Doctor Strange",
             "options": ["Thanos", "Doctor Strange", "Moon Knight", "Red Skull"]
-        },
-        {
-            "id": 39,
-            "question": "Which character can shrink to the size of an ant?",
-            "answer": "Ant-Man",
-            "options": ["Wasp", "Spider-Man", "Ant-Man", "Black Panther"]
         },
         {
             "id": 40,
@@ -305,12 +287,6 @@
             "question": "Which character can create multiple copies of himself?",
             "answer": "Multiple Man",
             "options": ["Chameleon", "Multiple Man", "Mysterio", "Mystique"]
-        },
-        {
-            "id": 52,
-            "question": "Which character is known as the 'Master of Kung Fu'?",
-            "answer": "Shang-Chi",
-            "options": ["Elektra", "Deadpool", "Shang-Chi", "Ares"]
         },
         {
             "id": 53,
