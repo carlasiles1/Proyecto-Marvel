@@ -1,11 +1,11 @@
 <script setup>
-import { ref, onMounted, watch, onUnmounted } from "vue";
+import { ref, watch, onMounted, onUnmounted } from "vue";
 import axios from "axios";
 import md5 from "md5";
 
 // Variables reactivas
 const marvelComics = ref([]);
-const containerRef = ref(null);
+// const containerRef = ref(null);
 const selectedEvent = ref("Infinity");
 const loading = ref(false);
 const scrollPos = ref(0);
@@ -43,26 +43,17 @@ const events = {
 // Obtener cómics del evento seleccionado
 const fetchMarvelComics = async () => {
   loading.value = true;
+  
+  // Guardamos la posición del scroll antes de cargar los nuevos cómics
+  scrollPos.value = document.querySelector(".section-timeline")?.scrollLeft || 0;
+
   const timestamp = new Date().getTime();
   const hash = md5(timestamp + marvelApiPrivateKey + marvelApiPublicKey);
 
   try {
     const response = await axios.get("https://gateway.marvel.com/v1/public/comics", {
-
-    
-//http://gateway.marvel.com/v1/public/events?nameStartsWith=infinity
-      //get /v1/public/events/{eventId}/stories
-
-    //  http://gateway.marvel.com/v1/public/characters?nameStartsWith=s
-      ///v1/public/comics/{comicId}/events
-      ///v1/public/events
-      //https://gateway.marvel.com/v1/public/comics/{comicId}/events
-      //https://gateway.marvel.com/v1/public/series/{seriesId}/comics
-      //https://gateway.marvel.com/v1/public/series/19003/comics
-     
-
       params: {
-        limit: 100, // Carga hasta 100 comics
+        limit: 100,
         apikey: marvelApiPublicKey,
         ts: timestamp,
         hash: hash,
@@ -81,48 +72,75 @@ const fetchMarvelComics = async () => {
     console.error(`Error al obtener cómics de ${selectedEvent.value}:`, error);
   } finally {
     loading.value = false;
+
+    // Restauramos la posición del scroll DESPUÉS de la carga
+    const timeline = document.querySelector(".section-timeline");
+    if (timeline) {
+      timeline.scrollTo({
+        left: scrollPos.value,
+        behavior: "instant" // Cambia a "smooth" si quieres animación
+      });
+    }
   }
 };
 
-// Observar cambios en selectedEvent
-watch(selectedEvent, fetchMarvelComics);
-
-// Funciones para desplazarse con las flechas
-const scrollLeft = () => {
-  if (containerRef.value) {
-    containerRef.value.scrollBy({ left: -300, behavior: "smooth" });
+const handleScroll = () => {
+  const timeline = document.querySelector(".section-timeline");
+  if (timeline) {
+    scrollPos.value = timeline.scrollLeft;
+    showSelector.value = scrollPos.value > 50 && scrollPos.value < 300;
   }
 };
 
-const scrollRight = () => {
-  if (containerRef.value) {
-    containerRef.value.scrollBy({ left: 300, behavior: "smooth" });
-  }
-};
-
-
-// Mostrar el selector solo en cierta parte del scroll
-const handleScroll = (e) => {
-  console.log("Scroll detectado");
-  scrollPos.value = e.target.scrollLeft;
-  console.log("Posición scroll:", scrollPos.value);
-  showSelector.value = scrollPos.value > 50 && scrollPos.value < 300;};
 onMounted(() => {
   fetchMarvelComics();
-  if (containerRef.value) {
-    console.log("Evento de scroll añadido");
-    containerRef.value.addEventListener("scroll", handleScroll);
-  }
+  window.addEventListener("scroll", handleScroll);
 });
 
 onUnmounted(() => {
-  if (containerRef.value) {
-    containerRef.value.removeEventListener("scroll", handleScroll);
-  }
+  window.removeEventListener("scroll", handleScroll);
 });
 
-// Cargar cómics al montar el componente
-// onMounted(fetchMarvelComics);
+// Observar cambios en selectedEvent
+watch(selectedEvent, () => {
+  fetchMarvelComics();
+});
+// // Funciones para desplazarse con las flechas
+// const scrollLeft = () => {
+//   if (containerRef.value) {
+//     containerRef.value.scrollBy({ left: -300, behavior: "smooth" });
+//   }
+// };
+
+// const scrollRight = () => {
+//   if (containerRef.value) {
+//     containerRef.value.scrollBy({ left: 300, behavior: "smooth" });
+//   }
+// };
+
+
+// // Mostrar el selector solo en cierta parte del scroll
+// const handleScroll = (e) => {
+//   console.log("Scroll detectado");
+//   scrollPos.value = e.target.scrollLeft;
+//   console.log("Posición scroll:", scrollPos.value);
+//   showSelector.value = scrollPos.value > 50 && scrollPos.value < 300;};
+// onMounted(() => {
+//   fetchMarvelComics();
+//   if (containerRef.value) {
+//     console.log("Evento de scroll añadido");
+//     containerRef.value.addEventListener("scroll", handleScroll);
+//   }
+// });
+
+// onUnmounted(() => {
+//   if (containerRef.value) {
+//     containerRef.value.removeEventListener("scroll", handleScroll);
+//   }
+// });
+
+// // Cargar cómics al montar el componente
+// // onMounted(fetchMarvelComics);
 </script>
 
 <template>
