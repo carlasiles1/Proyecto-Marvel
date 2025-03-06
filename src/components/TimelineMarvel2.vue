@@ -1,5 +1,5 @@
-<script setup>
-import { ref, watch, onMounted, nextTick } from "vue";
+<!-- <script setup>
+import { ref, watch, onMounted, onUnmounted } from "vue";
 import axios from "axios";
 import md5 from "md5";
 
@@ -8,8 +8,8 @@ const marvelComics = ref([]);
 // const containerRef = ref(null);
 const selectedEvent = ref("Infinity");
 const loading = ref(false);
-// const scrollPos = ref(0);
-// const showSelector = ref(true);
+const scrollPos = ref(0);
+const showSelector = ref(true);
 
 // Claves de la API (Usa variables de entorno en .env)
 const marvelApiPublicKey = 'c6505251612e731238b4d32531d6a998';
@@ -40,11 +40,12 @@ const events = {
   "Secret Wars II": 271
 };
 
+// Obtener cómics del evento seleccionado
 const fetchMarvelComics = async () => {
   loading.value = true;
-
-
-
+  
+  // Guardamos la posición del scroll antes de cargar los nuevos cómics
+  scrollPos.value = document.querySelector(".section-timeline")?.scrollLeft || 0;
 
   const timestamp = new Date().getTime();
   const hash = md5(timestamp + marvelApiPrivateKey + marvelApiPublicKey);
@@ -57,7 +58,7 @@ const fetchMarvelComics = async () => {
         ts: timestamp,
         hash: hash,
         events: events[selectedEvent.value],
-        orderBy: "-focDate",
+        orderBy: "-focDate"
       },
     });
 
@@ -66,48 +67,98 @@ const fetchMarvelComics = async () => {
       title: comic.title,
       image: `${comic.thumbnail.path}.${comic.thumbnail.extension}`,
     }));
-
-    console.log(`Loaded: ${selectedEvent.value}`);
+    console.log("Cómics cargados:", marvelComics.value);
   } catch (error) {
-    console.error("Error:", error);
+    console.error(`Error al obtener cómics de ${selectedEvent.value}:`, error);
   } finally {
     loading.value = false;
 
-    await nextTick(); // 💪 Espera que Vue pinte el DOM
-   
+    // Restauramos la posición del scroll DESPUÉS de la carga
+    const timeline = document.querySelector(".section-timeline");
+    if (timeline) {
+      timeline.scrollTo({
+        left: scrollPos.value,
+        behavior: "instant"
+      });
+    }
   }
 };
 
-// const handleScroll = () => {
-//   showSelector.value = scrollPos.value > 50 && scrollPos.value < 300;
-// };
+const handleScroll = () => {
+  const timeline = document.querySelector(".section-timeline");
+  if (timeline) {
+    scrollPos.value = timeline.scrollLeft;
+    showSelector.value = scrollPos.value > 50 && scrollPos.value < 300;
+  }
+};
 
-// const handleKeyScroll = (e) => {
-//   if (e.key === "ArrowLeft") {
-//     e.preventDefault();
-//     window.scrollBy({ left: -50, behavior: "smooth" });
-//   }
-//   if (e.key === "ArrowRight") {
-//     e.preventDefault();
-//     window.scrollBy({ left: 50, behavior: "smooth" });
-//   }
-// };
+const handleKeyScroll = (e) => {
+  const timeline = document.querySelector(".section-timeline");
+  if (!timeline) return;
+    // Arrow detection: left or right
+    if (e.key === "ArrowLeft") {
+    e.preventDefault(); // Avoid vertical scroll
+    timeline.scrollBy({ left: -50, behavior: "smooth" });
+  }
+  if (e.key === "ArrowRight") {
+    e.preventDefault();
+    timeline.scrollBy({ left: 50, behavior: "smooth" });
+  }
+    // Save position 
+    scrollPos.value = timeline.scrollLeft;
+};
 
-
- onMounted(() => {
+onMounted(() => {
   fetchMarvelComics();
-  //  window.addEventListener("scroll", handleScroll);
-  //  window.addEventListener("keydown", handleKeyScroll);
- });
+  window.addEventListener("scroll", handleScroll);
+  window.addEventListener("keydown", handleKeyScroll);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("keydown", handleKeyScroll);
+  window.removeEventListener("scroll", handleScroll);
+});
+
+// Observar cambios en selectedEvent
+watch(selectedEvent, () => {
+  fetchMarvelComics();
+});
+// // Funciones para desplazarse con las flechas
+// const scrollLeft = () => {
+//   if (containerRef.value) {
+//     containerRef.value.scrollBy({ left: -300, behavior: "smooth" });
+//   }
+// };
+
+// const scrollRight = () => {
+//   if (containerRef.value) {
+//     containerRef.value.scrollBy({ left: 300, behavior: "smooth" });
+//   }
+// };
+
+
+// // Mostrar el selector solo en cierta parte del scroll
+// const handleScroll = (e) => {
+//   console.log("Scroll detectado");
+//   scrollPos.value = e.target.scrollLeft;
+//   console.log("Posición scroll:", scrollPos.value);
+//   showSelector.value = scrollPos.value > 50 && scrollPos.value < 300;};
+// onMounted(() => {
+//   fetchMarvelComics();
+//   if (containerRef.value) {
+//     console.log("Evento de scroll añadido");
+//     containerRef.value.addEventListener("scroll", handleScroll);
+//   }
+// });
 
 // onUnmounted(() => {
-//    window.removeEventListener("scroll", handleScroll);
-//    window.removeEventListener("keydown", handleKeyScroll);
-//  });
+//   if (containerRef.value) {
+//     containerRef.value.removeEventListener("scroll", handleScroll);
+//   }
+// });
 
- watch(selectedEvent, async () => {
-   await fetchMarvelComics();
- });
+// // Cargar cómics al montar el componente
+// // onMounted(fetchMarvelComics);
 </script>
 
 <template>
@@ -130,9 +181,11 @@ const fetchMarvelComics = async () => {
           <p class="comic-card__title">{{ comic.title }}</p>
         </div>
       </div>
-
+      <div class="section-timeline__buttons"> 
+        <button @click="scrollLeft" class="section-timeline__button section-timeline__button--left">⬅</button>
+        <button @click="scrollRight" class="section-timeline__button section-timeline__button--right">➡</button>
+      </div>
     </div>
-   
   </section>
 </template>
 
@@ -193,16 +246,14 @@ const fetchMarvelComics = async () => {
   gap: 6rem;
   padding: 3rem;
   align-items: center;
-  width: fit-content;
-  padding-right:5rem ;
   /* overflow-x: auto; */
-  /* scroll-behavior: smooth; */
+  scroll-behavior: smooth;
   
 }
 
 .comic-card {
-  /* flex: 0 0 auto; */
-  width: 15rem;
+  flex: 0 0 auto;
+  width: 12rem;
   opacity: 100%;
 }
 
@@ -221,7 +272,6 @@ const fetchMarvelComics = async () => {
   text-align: center;
   color: rgb(219, 217, 217);
   background: rgb(0, 0, 0);
-  word-break: break-word; 
 }
 
 .section-timeline__button {
@@ -233,29 +283,25 @@ const fetchMarvelComics = async () => {
   padding-inline: 1.2rem;
   font-size: 1.5rem;
   cursor: pointer;
-
-  
 }
 
-/* .section-timeline__button--left {
-  
- 
-} */
+.section-timeline__button--left {
+  left: 1rem;
+}
 
 .section-timeline__button--right {
   right: 1rem;
 }
 
- .section-timeline__buttons {
- position: sticky;
-  left: 0;
-  z-index: 10;
-
-}  
+.section-timeline__buttons {
+  display: flex;
+  justify-content: space-between;
+  padding-inline: 6rem;
+}
 
 .section-timeline {
   background-image: url('@/assets/img/timelineBkg2.png');
   background-size: contain;
   background-repeat: repeat-x;
 }
-</style>
+</style> -->

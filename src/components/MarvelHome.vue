@@ -69,8 +69,8 @@ main{
 .gif-arrows{
   
   position: fixed;
-  bottom: 5rem;
-  right: 12rem;
+  bottom: 6.5rem;
+  right: 70%;
   align-self:first baseline;
   /* 
   mix-blend-mode: multiply; */
@@ -82,6 +82,35 @@ main{
     to { opacity: 0.8; }
 }
 
+.section-timeline__button {
+ background: none;
+  color: rgb(212, 212, 212);
+  border: 0.05rem solid white;
+  border-radius: 50%;
+  padding: 1rem;
+  padding-inline: 1.2rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  margin-inline: 3rem;
+
+  
+}
+
+.section-timeline__button:hover{
+  background-color: rgba(255, 253, 253, 0.351);
+  color: rgb(25, 25, 36);
+}
+
+
+ .section-timeline__buttons {
+  position: fixed;
+  bottom: 11rem;
+  right: 12rem;
+  align-self:first baseline;
+  
+  
+
+}  
 
 </style>
 
@@ -90,6 +119,10 @@ main{
     <img src="@/assets/img/logoTimeline.png" alt="Marvel Logo" :class="['logo', {'animation-move': isdo}]" v-on:click="flyHammer">
     <img src="@/assets/img/thorHammer.png" alt="Thor Hammer moving" :class="['hammer', {'animation-hammer': isdo}]">
     <img src= "@/assets/img/arrow-keys.gif" alt="keyboard_arrows" class="gif-arrows" v-show="showArrows">
+    <div class="section-timeline__buttons"> 
+        <button @click="scrollLeft" class="section-timeline__button section-timeline__button--left">⬅</button>
+        <button @click="scrollRight" class="section-timeline__button section-timeline__button--right">➡</button>
+      </div>
   </main>
 
 </template>
@@ -122,6 +155,10 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener('keydown', GifArrowsFunction)
 })
+
+
+//Scroll
+
 
 
 
