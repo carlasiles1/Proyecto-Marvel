@@ -1,19 +1,21 @@
 <script setup>
-import { ref, onMounted, watch } from "vue";
-import axios from "axios";
+import { ref, watch, onMounted, onUnmounted } from "vue";
+import axios from "axios";// Import axios for HTTP requests and md5 for hash generation
 import md5 from "md5";
 
-// Variables reactivas
+// Reactive variables
 const marvelComics = ref([]);
-const containerRef = ref(null);
+// const containerRef = ref(null);
 const selectedEvent = ref("Infinity");
 const loading = ref(false);
+const scrollPos = ref(0);
+const showSelector = ref(true);// Controls the visibility of the event selector
 
-// Claves de la API (Usa variables de entorno en .env)
+// API keys
 const marvelApiPublicKey = 'c6505251612e731238b4d32531d6a998';
 const marvelApiPrivateKey = 'ee80321c4497db2e446a64fb6b78d032066c80e1';
 
-// Objeto con eventos y sus IDs
+// Object with events and their IDs
 const events = {
   "Age of Apocalypse": 227,
   "Age of Ultron": 314,
@@ -38,14 +40,21 @@ const events = {
   "Secret Wars II": 271
 };
 
-// Obtener cómics del evento seleccionado
+// Fetch comics for the selected event
 const fetchMarvelComics = async () => {
   loading.value = true;
+  
+  // Save the scroll position before loading new comics
+  scrollPos.value = document.querySelector(".section-timeline")?.scrollLeft || 0;
+
   const timestamp = new Date().getTime();
   const hash = md5(timestamp + marvelApiPrivateKey + marvelApiPublicKey);
 
   try {
     const response = await axios.get("https://gateway.marvel.com/v1/public/comics", {
+    // Initiates a try-catch block and makes a GET request to the Marvel API.
+
+    // Define request parameters including limit, API key, timestamp, hash, selected event ID, and order.
       params: {
         limit: 100,
         apikey: marvelApiPublicKey,
@@ -55,7 +64,7 @@ const fetchMarvelComics = async () => {
         orderBy: "-focDate"
       },
     });
-
+ // Map the response results to a simpler format and assign to marvelComics.
     marvelComics.value = response.data.data.results.map((comic) => ({
       id: comic.id,
       title: comic.title,
@@ -66,39 +75,92 @@ const fetchMarvelComics = async () => {
     console.error(`Error al obtener cómics de ${selectedEvent.value}:`, error);
   } finally {
     loading.value = false;
+
+    // Restore the scroll position AFTER loading
+    const timeline = document.querySelector(".section-timeline");
+    if (timeline) {
+      timeline.scrollTo({
+        left: scrollPos.value,
+        behavior: "instant" 
+      });
+    }
   }
 };
 
-// Observar cambios en selectedEvent
-watch(selectedEvent, fetchMarvelComics);
-
-// Funciones para desplazarse con las flechas
-const scrollLeft = () => {
-  if (containerRef.value) {
-    containerRef.value.scrollBy({ left: -300, behavior: "smooth" });
+const handleScroll = () => {
+  const timeline = document.querySelector(".section-timeline");
+  if (timeline) {
+    scrollPos.value = timeline.scrollLeft;
+    showSelector.value = scrollPos.value > 50 && scrollPos.value < 300;
   }
 };
 
-const scrollRight = () => {
-  if (containerRef.value) {
-    containerRef.value.scrollBy({ left: 300, behavior: "smooth" });
-  }
-};
+onMounted(() => {
+  fetchMarvelComics();
+  window.addEventListener("scroll", handleScroll);
+});
 
-// Cargar cómics al montar el componente
-onMounted(fetchMarvelComics);
+onUnmounted(() => {
+  window.removeEventListener("scroll", handleScroll);
+});
+// Watch for changes in selectedEvent and call fetchMarvelComics when it changes
+watch(selectedEvent, () => {
+  fetchMarvelComics();
+});
+// // Funciones para desplazarse con las flechas
+// const scrollLeft = () => {
+//   if (containerRef.value) {
+//     containerRef.value.scrollBy({ left: -300, behavior: "smooth" });
+//   }
+// };
+
+// const scrollRight = () => {
+//   if (containerRef.value) {
+//     containerRef.value.scrollBy({ left: 300, behavior: "smooth" });
+//   }
+// };
+
+
+// // Mostrar el selector solo en cierta parte del scroll
+// const handleScroll = (e) => {
+//   console.log("Scroll detectado");
+//   scrollPos.value = e.target.scrollLeft;
+//   console.log("Posición scroll:", scrollPos.value);
+//   showSelector.value = scrollPos.value > 50 && scrollPos.value < 300;};
+// onMounted(() => {
+//   fetchMarvelComics();
+//   if (containerRef.value) {
+//     console.log("Evento de scroll añadido");
+//     containerRef.value.addEventListener("scroll", handleScroll);
+//   }
+// });
+
+// onUnmounted(() => {
+//   if (containerRef.value) {
+//     containerRef.value.removeEventListener("scroll", handleScroll);
+//   }
+// });
+
+// // Cargar cómics al montar el componente
+// // onMounted(fetchMarvelComics);
 </script>
 
 <template>
+  
   <section class="section-timeline"> 
-    <div class="section-timeline__container">
-      <h2 class="section-timeline__title">Cómics de {{ selectedEvent }}</h2>
-      <select v-model="selectedEvent" class="section-timeline__select">
-        <option v-for="(id, event) in events" :key="id" :value="event">{{ event }}</option>
-      </select>
-      <div v-if="loading">Cargando cómics...</div>
-      <div v-else-if="marvelComics.length === 0">No se encontraron cómics para este evento.</div>
-      <div v-else ref="containerRef" class="section-timeline__comics">
+  
+    <div class="section-timeline__container">     
+
+      <div class="section-eventSelector">
+  <p class="section-timeline__title">{{ selectedEvent }} comics</p>
+  <select v-model="selectedEvent" class="section-timeline__select">
+    <option v-for="(id, event) in events" :key="id" :value="event">{{ event }}</option>
+         <!-- "event" represents the key (which is the event name) and "id" the value (event ID) in each iteration -->
+  </select>
+</div>
+      <div v-if="loading">Loading...</div>
+      <div v-else-if="marvelComics.length === 0">Not found</div><!-- This line displays "Not found" if the marvelComics array is empty -->
+      <div v-else class="section-timeline__comics">
         <div v-for="comic in marvelComics" :key="comic.id" class="comic-card">
           <img :src="comic.image" :alt="comic.title" class="comic-card__image" />
           <p class="comic-card__title">{{ comic.title }}</p>
@@ -113,29 +175,54 @@ onMounted(fetchMarvelComics);
 </template>
 
 <style scoped>
+
 .section-timeline {
-  margin: -0.5rem;
+  /* position: relative; Asegura que el contenedor padre no tenga overflow oculto */
+  display: flex;
+  gap: 2rem;
+  flex-direction: column;
+  justify-content: center;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  padding: 2rem;
+  height: 100vh;
+
 }
+
+.section-eventSelector {
+  position: sticky;
+  left: 0; /* Pegado al borde izquierdo */
+  /* top: 0; Ajusta la altura si lo necesitas */
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 1rem;
+  border-radius: 1rem;
+  z-index: 10;
+  height: fit-content; 
+  width: fit-content;
+}
+
 
 .section-timeline__container {
   display: flex;
+  /* overflow-x: scroll;  */
+    gap: 1rem;
+  padding-bottom: 2rem;
   width: 100%;
-  margin-top: 18rem;
-  margin-bottom: 20rem;
-  flex-direction: column;
 }
 
 .section-timeline__title {
-  text-align: center;
-  color: #e23636;
+  
+  color: #fdfbfb;
   margin-bottom: 1rem;
+  background: black;
+  font-size: 1.1rem;
+  max-width: fit-content;
 }
 
 .section-timeline__select {
   margin-bottom: 1rem;
   padding: 0.5rem;
   font-size: 1rem;
-  align-self: center;
   width: 200px;
 }
 
@@ -144,8 +231,9 @@ onMounted(fetchMarvelComics);
   gap: 6rem;
   padding: 3rem;
   align-items: center;
-  overflow-x: auto;
+  /* overflow-x: auto; */
   scroll-behavior: smooth;
+  
 }
 
 .comic-card {
@@ -165,8 +253,10 @@ onMounted(fetchMarvelComics);
 
 .comic-card__title {
   margin-top: 0.5rem;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   text-align: center;
+  color: rgb(219, 217, 217);
+  background: rgb(0, 0, 0);
 }
 
 .section-timeline__button {
