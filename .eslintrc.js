@@ -1,25 +1,23 @@
 module.exports = {
   env: {
-    browser: true, // Habilita variables globales del navegador (como window)
-    es2021: true,  // Habilita características modernas de JavaScript
-    'cypress/globals': true, // Habilita las variables globales de Cypress
-    node: true, // Habilita variables globales de Node.js (como module, process, etc.)
+    browser: true,
+    es2021: true,
+    'cypress/globals': true,
+    node: true,
   },
   extends: [
-    'eslint:recommended', // Reglas recomendadas por ESLint
-    'plugin:vue/vue3-essential', // Reglas específicas para Vue 3
+    'eslint:recommended',
+    'plugin:vue/vue3-recommended', // Soporte completo para Vue 3
   ],
-  parser: '@babel/eslint-parser', // Usar Babel como parser
+  parser: 'vue-eslint-parser', // Parser específico para archivos .vue
   parserOptions: {
-    ecmaVersion: 2021, // Versión de ECMAScript
-    sourceType: 'module', // Permite el uso de imports/exports
+    ecmaVersion: 2021,
+    sourceType: 'module',
+    parser: '@babel/eslint-parser', // Sub-parser para JavaScript
   },
-  plugins: [
-    'vue', // Plugin de Vue
-    'cypress', // Plugin de Cypress
-  ],
+  plugins: ['vue', 'cypress'],
   rules: {
-    'no-undef': 'error', // Marca errores si usas variables no definidas
-    'semi': ['error', 'always'], // Requiere punto y coma al final de las líneas
+    'no-undef': 'error',
+    'semi': ['error', 'always'],
   },
 };
