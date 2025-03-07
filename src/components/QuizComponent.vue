@@ -1,45 +1,39 @@
 <style scoped>
-input{
+input[type='radio']{
     display: none;
 }
-.marvel-quiz {
+.quiz {
     background-color: #191129;
     justify-content: center;
     align-items: center;
     margin: -0.5rem;
     height: 100vh;
 }
-
-.marvel-quiz__screen {
+.quiz_screen{
     display: flex;
     justify-content: center;
 }
-
-.marvel-quiz__form {
+.quiz__form {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
-
-.marvel-quiz__title {
+.quiz__title {
     color: #ca1a1a;
     text-align: center;
     width: 30%;
     margin: 0;
     padding-top: 6rem;
 }
-
-.marvel-quiz__question-text {
+.quiz__question-text {
     font-size: 2rem;
     color: rgb(206, 178, 21);
 }
-
-.marvel-quiz__options {
+.options{
     display: flex;
 }
-
-.marvel-quiz__option {
+.quiz__label {
     color: white;
     width: 10rem;
     display: flex;
@@ -50,30 +44,21 @@ input{
     border-radius: 20%;
     margin: 3rem;
 }
-
-.marvel-quiz__option--selected {
+.quiz__label::after {
     background-color: #007BFF;
 }
-
-.marvel-quiz__option--correct {
-    background-color: green;
-}
-
-.marvel-quiz__option-text {
+.quiz__label p{
     width: 100%;
 }
-
-.marvel-quiz__radio {
-    display: none;
-}
-
-.marvel-quiz__navigation {
+.quiz__input {
+    margin-right: 1rem;
+}   
+.quiz__navigation{
     display: flex;
     align-items: center;
     color: #e62429;
 }
-
-.marvel-quiz__button {
+.quiz__button {
     background-color: #007BFF;
     color: white;
     border: none;
@@ -84,73 +69,85 @@ input{
     transition: 0.3s;
     margin: 0 4rem;
 }
-
-.marvel-quiz__button:hover {
+.quiz__button:hover {
     background-color: #e62429;
 }
-
-.marvel-quiz__watcher-image {
+.quiz__image {
     width: 22rem;
     margin-left: 8rem;
 }
-
-.marvel-quiz__pointer {
+.pointer{
     position: absolute;
     width: 5rem;
     transform: rotateZ(-35Deg) translate(6rem, 3rem);
 }
-
-.marvel-quiz__character-image {
+.character-image {
     width: 15rem;
     height: 15rem;
     object-fit: cover;
     border-radius: 10%;
 }
+.marvel-quiz__dialog{
+    background-color: #433168;
+    height: 20rem;
+    width: 30rem;
+}
+.marvel-quiz__dialog-button{
+    display: block;
+}
 </style>
 
 <template>
-    <main class="marvel-quiz">
-        <h1 class="marvel-quiz__title">Avengers Comics Quiz</h1>
-        <div class="marvel-quiz__screen">
-            <form class="marvel-quiz__form" id="quizForm">
-                <div v-if="randomQuestions.length" class="marvel-quiz__question">
-                    <p class="marvel-quiz__question-text">{{ randomQuestions[currentQuestion].question }}</p>
-                    <div class="marvel-quiz__options">
+    <main class="quiz">
+        <h1 class="quiz__title">Avengers Comics Quiz</h1>
+        <div class="quiz_screen">
+            <form class="quiz__form" id="quizForm">
+                <div v-if="randomQuestions.length" class="quiz__question">
+                    <p class="quiz__question-text">{{ randomQuestions[currentQuestion].question }}</p>
+                    <div class="options">
                         <label v-for="option in randomQuestions[currentQuestion].options" 
                             :key="option" 
-                            class="marvel-quiz__option"
-                            :class="{'marvel-quiz__option--selected': userAnswers[currentQuestion] === option}">
+                            class="quiz__label">
                             <input type="radio" 
-                                class="marvel-quiz__radio"
                                 name="choseOption" 
                                 :value="option" 
                                 v-model="userAnswers[currentQuestion]">
-                            <p class="marvel-quiz__option-text">{{ option }}</p>
+                            <p>{{ option }}</p>
                             <img v-if="matchingCharacter(option)"
                                 :src="matchingCharacter(option).image" 
                                 :alt="matchingCharacter(option).name"
-                                class="marvel-quiz__character-image">
+                                class="character-image">
                             <img v-if="userAnswers[currentQuestion] === option" 
                                 :src="source" 
                                 alt="Iron-man Pointer" 
-                                class="marvel-quiz__pointer">
+                                class="pointer">
                         </label>
                     </div>
                 </div>
-                <div class="marvel-quiz__navigation">
-                    <button @click="prev" 
-                            class="marvel-quiz__button marvel-quiz__button--prev" 
-                            type="button">Prev</button>
-                    <p class="marvel-quiz__page">{{ page }} / 15</p>
-                    <button @click="next" 
-                            class="marvel-quiz__button marvel-quiz__button--next" 
-                            type="button">Next</button>
+                <div class="quiz__navigation">
+                    <button @click="prev" class="quiz__button quiz__button--prev" type="button">Prev</button>
+                    <p>{{ page }} / 15</p>
+                    <button @click="next" class="quiz__button quiz__button--next" type="button">Next</button>
                 </div>
             </form>
-            <img class="marvel-quiz__watcher-image" 
-                 src="@/assets/img/theWatcher.png" 
-                 alt="The Watcher">
+            <img class="quiz__image" src="@/assets/img/theWatcher.png" alt="The Watcher">
         </div>
+        <dialog ref="dialogRef" class="marvel-quiz__dialog">
+            <h2 class="marvel-quiz__dialog-title">Congratulations!</h2>
+            <p class="marvel-quiz__dialog-text">Your final score is: {{ score }}</p>
+            <label class="marvel-quiz__dialog-label">
+                <span v-if="savedMessage" class="marvel-quiz__dialog-message">{{ savedMessage }}</span>
+                <input 
+                type="text" 
+                v-model="playerName" 
+                class="marvel-quiz__dialog-input">
+            </label>
+            <button 
+            @click="saveScore" 
+            class="marvel-quiz__dialog-button">
+            Save & Close
+            </button>
+        </dialog>
     </main>
 </template>
 
@@ -168,6 +165,10 @@ const source = ref('')
 
 const page = ref('')
 page.value = 1
+
+const dialogRef = ref(null)
+const playerName = ref('')
+const savedMessage = ref('')
 
 //Cuando sale dos veces el mismo nombre en una respuesta seguido, se queda printado en verde
 
@@ -204,28 +205,28 @@ const getRandomQuestions = ()=>{
     randomQuestions.value = Array.from(selected).map(index => quiz.value.questions[index])
 }
 
-const next = ()=>{
-
+const next = () => {
     const correct = document.querySelector(`label:has(input[value="${randomQuestions.value[currentQuestion.value].answer}"])`)
     correct.style = 'background-color: green';
 
-    const response = document.querySelector(`input[name="${currentQuestion.value}"]:checked`)
-    if (response){
+    // Corregir el selector para obtener el input seleccionado
+    const response = document.querySelector(`input[name="choseOption"]:checked`)
+    if (response) {
         userAnswers.value[currentQuestion.value] = response.value
         
-        if (response.value === randomQuestions.value[currentQuestion.value].answer){
+        if (response.value === randomQuestions.value[currentQuestion.value].answer) {
             score.value++
         }
     }
 
-    setTimeout(() =>{
-        if (currentQuestion.value < randomQuestions.value.length -1){
+    setTimeout(() => {
+        if (currentQuestion.value < randomQuestions.value.length - 1) {
             currentQuestion.value++
             page.value = currentQuestion.value + 1
         } else {
-            alert(`Congratulations!!! Your final score is: ${score.value}`)
+            finalScore()
         }
-    },1000)
+    }, 1000)
 }
 
 const prev = () => {
@@ -235,6 +236,60 @@ const prev = () => {
     }
 }
 
+const finalScore = () => {
+  if (dialogRef.value) {
+    dialogRef.value.showModal()
+  }
+}
+
+const closeDialog = () => {
+  if (dialogRef.value) {
+    dialogRef.value.close()
+  }
+}
+
+const saveScore = async () => {
+  if (!playerName.value.trim()) {
+    savedMessage.value = 'Type your winner name!!'
+    return
+  }
+
+  try {
+    const newScore = {
+      name: playerName.value.trim(),
+      score: score.value,
+      date: new Date().toISOString()
+    }
+    
+    // Agregamos mejor manejo de errores y logging
+    const response = await fetch('http://localhost:3000/api/scores', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(newScore)
+    })
+
+    if (!response.ok) {
+      const errorData = await response.text()
+      console.error('Server response:', errorData)
+      throw new Error(`Error saving score: ${response.status}`)
+    }
+
+    const data = await response.json()
+    console.log('Score saved:', data)
+    savedMessage.value = '¡Score saved successfully!'
+    
+    setTimeout(() => {
+      closeDialog()
+    }, 1500)
+
+  } catch (error) {
+    console.error('Error details:', error)
+    savedMessage.value = `Error saving score: ${error.message}`
+  }
+}
 //Uso de la API
 
 const marvelCharacter = ref([])
@@ -264,8 +319,6 @@ const fetchMarvelComics = async (characterName) => {
         limit: 1
       },
     })
-
-    console.log(response.data.data.results)
     
     if (response.data?.data?.results?.[0]) {
       const character = response.data.data.results[0];
@@ -296,9 +349,6 @@ const loadCurrentQuestionCharacters = async () => {
   
   // Filtrar null y añadir los personajes encontrados
   marvelCharacter.value = characters.filter(char => char !== null);
-  
-  console.log("Personajes cargados para la pregunta actual:", 
-    marvelCharacter.value.map(char => char.name));
 };
 
 // Modificar el watcher para currentQuestion
