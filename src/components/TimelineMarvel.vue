@@ -1,4 +1,4 @@
-tengo <script setup>
+<script setup>
 import { ref, watch, onMounted, onUnmounted } from "vue";
 import axios from "axios"; // Import axios for HTTP requests and md5 for hash generation
 import md5 from "md5";
@@ -9,6 +9,8 @@ const selectedEvent = ref("Infinity");
 const loading = ref(false);
 const scrollPos = ref(0);
 const showSelector = ref(true); // Controls the visibility of the event selector
+const selectedComic = ref(null);
+const comicDetails = ref(null);
 
 // API keys
 const marvelApiPublicKey = 'c6505251612e731238b4d32531d6a998';
@@ -108,16 +110,43 @@ watch(selectedEvent, () => {
   fetchMarvelComics();
 });
 
-// New method to handle comic click
-const goToWiki = (comicId) => {
-  window.open(`https://marvel.com/comics/issue/${comicId}`, '_blank');
+// New method to handle comic click and fetch detailed information
+const goToWiki = async (comic) => {
+  selectedComic.value = comic;
+  loading.value = true;
+  try {
+    const timestamp = new Date().getTime();
+    const hash = md5(timestamp + marvelApiPrivateKey + marvelApiPublicKey);
+    const response = await axios.get(`https://gateway.marvel.com/v1/public/comics/${comic.id}`, {
+      params: {
+        apikey: marvelApiPublicKey,
+        ts: timestamp,
+        hash: hash
+      }
+    });
+    const comicData = response.data.data.results[0];
+    comicDetails.value = {
+      title: comicData.title || 'No title available',
+      description: comicData.description || 'No description available',
+      publishDate: new Date(comicData.dates.find(date => date.type === 'onsaleDate').date).toLocaleDateString(),
+      writers: comicData.creators.items.filter(creator => creator.role === 'writer').map(creator => creator.name),
+      pencillers: comicData.creators.items.filter(creator => creator.role === 'penciller').map(creator => creator.name),
+      coverArtists: comicData.creators.items.filter(creator => creator.role === 'penciller (cover)').map(creator => creator.name),
+      series: comicData.series.name || 'No series available',
+      issueNumber: comicData.issueNumber || 'N/A'
+    };
+  } catch (error) {
+    console.error('Error fetching comic details:', error);
+  } finally {
+    loading.value = false;
+  }
 };
 </script>
 
 <template>
   <section class="section-timeline"> 
     <div class="section-timeline__container">     
-      <div class="section-eventSelector">
+      <div class="section-eventSelector" v-if="!selectedComic">
         <p class="section-timeline__title">{{ selectedEvent }} comics</p>
         <select v-model="selectedEvent" class="section-timeline__select">
           <option v-for="(id, event) in events" :key="id" :value="event">{{ event }}</option>
@@ -125,9 +154,25 @@ const goToWiki = (comicId) => {
         </select>
       </div>
       <div v-if="loading">Loading...</div>
+      <div v-else-if="selectedComic && comicDetails" class="comic-details">
+        <button @click="selectedComic = null" class="back-button">Back to comics</button>
+        <div class="comic-header">
+          <h2>{{ comicDetails.title }}</h2>
+          <img :src="selectedComic.image" :alt="comicDetails.title" class="comic-details__image" />
+        </div>
+        <div class="comic-info">
+          <p><strong>Published:</strong> {{ comicDetails.publishDate }}</p>
+          <p><strong>Series:</strong> {{ comicDetails.series }}</p>
+          <p><strong>Issue Number:</strong> {{ comicDetails.issueNumber }}</p>
+          <p><strong>Writer(s):</strong> {{ comicDetails.writers.join(', ') || 'N/A' }}</p>
+          <p><strong>Penciller(s):</strong> {{ comicDetails.pencillers.join(', ') || 'N/A' }}</p>
+          <p><strong>Cover Artist(s):</strong> {{ comicDetails.coverArtists.join(', ') || 'N/A' }}</p>
+          <p><strong>Description:</strong> {{ comicDetails.description }}</p>
+        </div>
+      </div>
       <div v-else-if="marvelComics.length === 0">Not found</div><!-- This line displays "Not found" if the marvelComics array is empty -->
       <div v-else class="section-timeline__comics">
-        <div v-for="comic in marvelComics" :key="comic.id" class="comic-card" @click="goToWiki(comic.id)">
+        <div v-for="comic in marvelComics" :key="comic.id" class="comic-card" @click="goToWiki(comic)">
           <img :src="comic.image" :alt="comic.title" class="comic-card__image" />
           <p class="comic-card__title">{{ comic.title }}</p>
         </div>
@@ -246,5 +291,50 @@ const goToWiki = (comicId) => {
   display: flex;
   justify-content: space-between;
   padding-inline: 6rem;
+}
+
+.comic-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.comic-header h2 {
+  margin-bottom: 0.5rem;
+}
+
+.comic-info {
+  padding: 1rem;
+}
+
+.comic-details {
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  max-width: 800px;
+  margin: 0 auto;
+  overflow-y: auto;
+  max-height: 80vh;
+}
+
+.comic-details__image {
+  max-width: 300px;
+  border-radius: 8px;
+}
+
+.back-button {
+  margin-bottom: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #305af3;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.back-button:hover {
+  background-color: #092847;
 }
 </style>
