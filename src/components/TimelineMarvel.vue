@@ -1,4 +1,4 @@
-<script setup>
+tengo <script setup>
 import { ref, watch, onMounted, onUnmounted } from "vue";
 import axios from "axios"; // Import axios for HTTP requests and md5 for hash generation
 import md5 from "md5";
