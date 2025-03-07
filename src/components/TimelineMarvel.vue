@@ -141,12 +141,18 @@ const goToWiki = async (comic) => {
     loading.value = false;
   }
 };
+
+// New function to close the pop-up
+const closePopup = () => {
+  selectedComic.value = null;
+  comicDetails.value = null;
+};
 </script>
 
 <template>
   <section class="section-timeline"> 
     <div class="section-timeline__container">     
-      <div class="section-eventSelector" v-if="!selectedComic">
+      <div class="section-eventSelector">
         <p class="section-timeline__title">{{ selectedEvent }} comics</p>
         <select v-model="selectedEvent" class="section-timeline__select">
           <option v-for="(id, event) in events" :key="id" :value="event">{{ event }}</option>
@@ -154,8 +160,24 @@ const goToWiki = async (comic) => {
         </select>
       </div>
       <div v-if="loading">Loading...</div>
-      <div v-else-if="selectedComic && comicDetails" class="comic-details">
-        <button @click="selectedComic = null" class="back-button">Back to comics</button>
+      <div v-else-if="marvelComics.length === 0">Not found</div><!-- This line displays "Not found" if the marvelComics array is empty -->
+      <div v-else class="section-timeline__comics">
+        <div v-for="comic in marvelComics" :key="comic.id" class="comic-card" @click="goToWiki(comic)">
+          <img :src="comic.image" :alt="comic.title" class="comic-card__image" />
+          <p class="comic-card__title">{{ comic.title }}</p>
+        </div>
+      </div>
+      <div class="section-timeline__buttons"> 
+        <!-- Note: These buttons are currently not functional as the scrollLeft and scrollRight functions are commented out -->
+        <button @click="scrollLeft" class="section-timeline__button section-timeline__button--left">⬅</button>
+        <button @click="scrollRight" class="section-timeline__button section-timeline__button--right">➡</button>
+      </div>
+    </div>
+
+    <!-- Pop-up for comic details -->
+    <div v-if="selectedComic && comicDetails" class="comic-details-popup">
+      <div class="comic-details">
+        <button @click="closePopup" class="close-button">×</button>
         <div class="comic-header">
           <h2>{{ comicDetails.title }}</h2>
           <img :src="selectedComic.image" :alt="comicDetails.title" class="comic-details__image" />
@@ -169,18 +191,6 @@ const goToWiki = async (comic) => {
           <p><strong>Cover Artist(s):</strong> {{ comicDetails.coverArtists.join(', ') || 'N/A' }}</p>
           <p><strong>Description:</strong> {{ comicDetails.description }}</p>
         </div>
-      </div>
-      <div v-else-if="marvelComics.length === 0">Not found</div><!-- This line displays "Not found" if the marvelComics array is empty -->
-      <div v-else class="section-timeline__comics">
-        <div v-for="comic in marvelComics" :key="comic.id" class="comic-card" @click="goToWiki(comic)">
-          <img :src="comic.image" :alt="comic.title" class="comic-card__image" />
-          <p class="comic-card__title">{{ comic.title }}</p>
-        </div>
-      </div>
-      <div class="section-timeline__buttons"> 
-        <!-- Note: These buttons are currently not functional as the scrollLeft and scrollRight functions are commented out -->
-        <button @click="scrollLeft" class="section-timeline__button section-timeline__button--left">⬅</button>
-        <button @click="scrollRight" class="section-timeline__button section-timeline__button--right">➡</button>
       </div>
     </div>
   </section>
@@ -202,7 +212,7 @@ const goToWiki = async (comic) => {
 
 .section-eventSelector {
   position: sticky;
-  left: 0; /* Stuck to the left edge */
+  left: 0;
   background: rgba(0, 0, 0, 0.7);
   color: white;
   padding: 1rem;
@@ -293,6 +303,44 @@ const goToWiki = async (comic) => {
   padding-inline: 6rem;
 }
 
+.comic-details-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+}
+
+.comic-details {
+  background-image: url('@/assets/img/timelineBkg2.png');
+  background-size: cover;
+  color: #fff;
+  padding: 2rem;
+  border-radius: 1rem;
+  max-width: 800px;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #ff4757;
+}
+
 .comic-header {
   display: flex;
   flex-direction: column;
@@ -302,39 +350,45 @@ const goToWiki = async (comic) => {
 
 .comic-header h2 {
   margin-bottom: 0.5rem;
+  color: #ff6b6b;
+  text-align: center;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .comic-info {
   padding: 1rem;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 0.5rem;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
-.comic-details {
-  background: rgba(0, 0, 0, 0.8);
-  color: white;
-  padding: 2rem;
-  border-radius: 1rem;
-  max-width: 800px;
-  margin: 0 auto;
-  overflow-y: auto;
-  max-height: 80vh;
+.comic-info p {
+  margin-bottom: 0.5rem;
+  white-space: normal;
+  overflow: visible;
+}
+
+
+.comic-info p {
+  margin-bottom: 0.5rem;
+
+}
+
+
+.comic-info strong {
+  color: #5352ed;
 }
 
 .comic-details__image {
   max-width: 300px;
   border-radius: 8px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
 }
-
-.back-button {
-  margin-bottom: 1rem;
-  padding: 0.5rem 1rem;
-  background-color: #305af3;
-  color: white;
-  border: none;
+.comic-info {
+  padding: 1rem;
+  background-color: rgba(0, 0, 0, 0.7);
   border-radius: 0.5rem;
-  cursor: pointer;
 }
 
-.back-button:hover {
-  background-color: #092847;
-}
 </style>
