@@ -1,10 +1,18 @@
 <style scoped>
+
+body{
+  max-width: fit-content;
+  padding-right:2rem ;
+}
+
 main{
   background-image: url('@/assets/img/marvelHomeBkg2.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   justify-content: center;
   align-items: center;
+  max-width: fit-content;
+
 }
 .logo{
   width: 15rem;
@@ -108,7 +116,6 @@ main{
   right: 12rem;
   align-self:first baseline;
   
-  
 
 }  
 
@@ -128,9 +135,10 @@ main{
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref } from 'vue';
 
 const isdo = ref(false);
+
 
 const flyHammer = () => {
   isdo.value = false
@@ -140,26 +148,17 @@ const flyHammer = () => {
 }
 
 
-const showArrows = ref(true);
-
-function GifArrowsFunction(event) {
-  if (event.key === 'ArrowLeft' || event.key === 'ArrowRight' || event.key === 'ArrowUp' || event.key === 'ArrowDown') {
-    showArrows.value = false
-  }
-}
-
-onMounted(() => {
-  window.addEventListener('keydown', GifArrowsFunction)
-})
-
-onUnmounted(() => {
-  window.removeEventListener('keydown', GifArrowsFunction)
-})
-
-
 //Scroll
 
 
+const scrollLeft = () => {  
+  window.scrollBy({ left: -300, behavior: "smooth" });
+  
+    
+};
+
+const scrollRight = () => {
+  window.scrollBy({ left: 300, behavior: "smooth" });};
 
 
 </script>

@@ -2,6 +2,8 @@
     <main ref="scrollContainer">
       <MarvelHome class="marvel-home" />
       <TimelineMarvel @content-loaded="adjustMainWidth" />
+      <button @click="scrollLeft" class="section-timeline__button section-timeline__button--left">⬅</button>
+      <button @click="scrollRight" class="section-timeline__button section-timeline__button--right">➡</button>
     </main>
   </template>
   
