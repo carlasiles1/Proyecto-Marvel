@@ -1,71 +1,74 @@
 <template>
     <main ref="scrollContainer">
       <MarvelHome class="marvel-home" />
+      <div class="section-timeline__buttons"> 
+      <button 
+  @mousedown="startScroll(-1)" 
+  @mouseup="stopScroll" 
+  @mouseleave="stopScroll" 
+  class="section-timeline__button section-timeline__button--left">⬅
+</button>
+
+<button 
+  @mousedown="startScroll(1)" 
+  @mouseup="stopScroll" 
+  @mouseleave="stopScroll" 
+  class="section-timeline__button section-timeline__button--right">➡
+</button>
+      </div>
       <TimelineMarvel @content-loaded="adjustMainWidth" />
-      <button @click="scrollLeft" class="section-timeline__button section-timeline__button--left">⬅</button>
-      <button @click="scrollRight" class="section-timeline__button section-timeline__button--right">➡</button>
+      
     </main>
   </template>
   
   <script setup>
-  import { ref, onMounted } from "vue";
+  import { ref } from "vue";
   import gsap from "gsap";
   import MarvelHome from "@/components/MarvelHome.vue";
   import TimelineMarvel from "@/components/TimelineMarvel.vue";
   
-  // Referencia al contenedor principal
-  const scrollContainer = ref(null);
-  
-  // Ajusta el ancho del contenedor principal
-  const adjustMainWidth = () => {
-    const container = scrollContainer.value;
-    if (!container) return;
-    container.style.width = `${container.scrollWidth}px`;
-  };
-  
-  onMounted(() => {
-    const container = scrollContainer.value;
-  
-    // Ajusta el ancho inicial del contenedor
-    adjustMainWidth();
-    window.addEventListener("resize", adjustMainWidth);
-  
-    // Maneja el desplazamiento con la rueda del mouse
-    container.addEventListener("wheel", (e) => {
-      e.preventDefault(); // Evita el scroll por defecto
-      const maxScroll = container.scrollWidth - container.clientWidth;
-      gsap.to(container, {
-        scrollLeft: Math.min(maxScroll, container.scrollLeft + e.deltaY * 2),
-        duration: 0.5,
-        ease: "power2.out",
-      });
-    });
-  
-    // Maneja el desplazamiento con las teclas de flecha
-    document.addEventListener("keydown", (e) => {
-      const maxScroll = container.scrollWidth - container.clientWidth;
-      if (e.key === "ArrowRight") {
-        gsap.to(container, {
-          scrollLeft: Math.min(maxScroll, container.scrollLeft + 200),
-          duration: 0.5,
-          ease: "power2.out",
-        });
-      }
-      if (e.key === "ArrowLeft") {
-        gsap.to(container, {
-          scrollLeft: Math.max(0, container.scrollLeft - 200),
-          duration: 0.5,
-          ease: "power2.out",
-        });
-      }
-    });
+const scrolling = ref(false);
+const scrollAmount = 800; 
+
+const scroll = (direction) => {
+  const container = document.querySelector("main");
+  if (!container || !scrolling.value) return;
+
+  gsap.to(container, {
+    scrollLeft: container.scrollLeft + direction * scrollAmount,
+    duration: 0.5,
+    ease: "power2.out",
+    smooth: 1,
+    onComplete: () => {
+      if (scrolling.value) scroll(direction); // Scroll continues if pressed
+    },
   });
+};
+
+const startScroll = (direction) => {
+  if (!scrolling.value) {
+    scrolling.value = true;
+    scroll(direction);
+  }
+};
+
+const stopScroll = () => {
+  scrolling.value = false;
+};
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "ArrowRight") startScroll(1);
+  if (e.key === "ArrowLeft") startScroll(-1);
+});
+document.addEventListener("keyup", stopScroll);
+
   </script>
   
   <style scoped>
   main {
     display: flex;
     overflow-x: auto; /* Permite scroll horizontal */
+    overflow-y: hidden; 
     white-space: nowrap; /* Evita saltos de línea */
     height: 100vh; /* Ocupa toda la altura de la ventana */
     margin: 0; /* Margen derecho para espacio adicional */
@@ -73,4 +76,34 @@
   .marvel-home {
     min-width: 100vw; /* Asegura que ocupe al menos el ancho completo de la pantalla */
   }
+
+  .section-timeline__button {
+ background: none;
+  color: rgb(212, 212, 212);
+  border: 0.05rem solid white;
+  border-radius: 50%;
+  padding: 1rem;
+  padding-inline: 1.2rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  margin-inline: 3rem;
+
+  
+}
+
+.section-timeline__button:hover{
+  background-color: rgba(255, 253, 253, 0.351);
+  color: rgb(25, 25, 36);
+}
+
+
+ .section-timeline__buttons {
+  position: fixed;
+  bottom: 11rem;
+  right: 12rem;
+  align-self:first baseline;
+  z-index: 12;
+  
+
+}  
   </style>

@@ -80,15 +80,15 @@ main{
   bottom: 6.5rem;
   right: 70%;
   align-self:first baseline;
-  /* 
-  mix-blend-mode: multiply; */
+  
+ /* mix-blend-mode: multiply;  */
   animation: fadein 4s ease-in alternate infinite;
 }
 
 @keyframes fadein {
     from { opacity: 0; }
     to { opacity: 0.8; }
-}
+} 
 
 .section-timeline__button {
  background: none;
@@ -115,6 +115,7 @@ main{
   bottom: 11rem;
   right: 12rem;
   align-self:first baseline;
+  z-index: 12;
   
 
 }  
@@ -126,16 +127,30 @@ main{
     <img src="@/assets/img/logoTimeline.png" alt="Marvel Logo" :class="['logo', {'animation-move': isdo}]" v-on:click="flyHammer">
     <img src="@/assets/img/thorHammer.png" alt="Thor Hammer moving" :class="['hammer', {'animation-hammer': isdo}]">
     <img src= "@/assets/img/arrow-keys.gif" alt="keyboard_arrows" class="gif-arrows" v-show="showArrows">
-    <div class="section-timeline__buttons"> 
-        <button @click="scrollLeft" class="section-timeline__button section-timeline__button--left">⬅</button>
-        <button @click="scrollRight" class="section-timeline__button section-timeline__button--right">➡</button>
-      </div>
+    <!-- <div class="section-timeline__buttons"> 
+      <button 
+  @mousedown="startScroll(-1)" 
+  @mouseup="stopScroll" 
+  @mouseleave="stopScroll" 
+  class="section-timeline__button section-timeline__button--left">⬅
+</button>
+
+<button 
+  @mousedown="startScroll(1)" 
+  @mouseup="stopScroll" 
+  @mouseleave="stopScroll" 
+  class="section-timeline__button section-timeline__button--right">➡
+</button>
+      </div> -->
   </main>
 
 </template>
 
 <script setup>
-import { ref } from 'vue';
+
+import { ref, onMounted, onUnmounted } from 'vue';
+
+const showArrows = ref(true); 
 
 const isdo = ref(false);
 
@@ -147,18 +162,39 @@ const flyHammer = () => {
   }, 0)
 }
 
+const handleKeyScroll = (e) => {
+  if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
+    showArrows.value = false; // Hide the GIF when an arrow key is used
+  }
+};
+onMounted(() => {
+  window.addEventListener("keydown", handleKeyScroll);
+});
+onUnmounted(() => {
+  window.removeEventListener("keydown", handleKeyScroll);
+});
+
 
 //Scroll
 
 
-const scrollLeft = () => {  
-  window.scrollBy({ left: -300, behavior: "smooth" });
-  
-    
-};
+// const scrollAmount = 20; // Cantidad de desplazamiento por frame
+// const scrolling = ref(false);
 
-const scrollRight = () => {
-  window.scrollBy({ left: 300, behavior: "smooth" });};
+// const scroll = (direction) => {
+//   if (!scrolling.value) return; // Si el usuario ya soltó el botón, no hacer nada
+//   window.scrollBy({ left: direction * scrollAmount });
+//   requestAnimationFrame(() => scroll(direction)); // Llamar recursivamente para suavidad
+// };
+
+// const startScroll = (direction) => {
+//   scrolling.value = true;
+//   scroll(direction);
+// };
+
+// const stopScroll = () => {
+//   scrolling.value = false;
+ //};
 
 
 </script>

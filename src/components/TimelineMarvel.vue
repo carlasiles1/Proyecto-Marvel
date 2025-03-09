@@ -249,7 +249,7 @@ const fetchMarvelComics = async () => {
  .section-timeline__buttons {
  position: sticky;
   left: 0;
-  z-index: 10;
+  z-index: 12;
 
 }  
 
