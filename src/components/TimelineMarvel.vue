@@ -179,6 +179,8 @@ const closePopup = () => {
   background-image: url('@/assets/img/timelineBkg2.png');
   background-size: contain;
   background-repeat: repeat-x;
+  background-color: black;
+
 }
 
 .section-eventSelector {
@@ -198,6 +200,7 @@ const closePopup = () => {
   gap: 1rem;
   padding-bottom: 2rem;
   width: 100%;
+  background: none;
 }
 
 .section-timeline__title {
@@ -223,6 +226,7 @@ const closePopup = () => {
   padding: 3rem;
   align-items: center;
   scroll-behavior: smooth;
+
 }
 
 .comic-card {
