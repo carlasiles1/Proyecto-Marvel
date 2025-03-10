@@ -21,7 +21,6 @@ The **Home** page is the main screen of the application. Here, users can get an 
 ### What does the Home page do?
 - Displays an introduction to the Marvel timeline.  
 - Contains navigation links or buttons to other sections of the app.  
-- May include images, banners, or a brief description of Marvel’s chronology.
 
 ## Project setup
 ```
