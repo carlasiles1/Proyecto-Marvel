@@ -146,7 +146,7 @@ The **Footer** component provides important information at the bottom of the pag
 - Adjusts its visibility based on user interaction (scrolling).
 
 
-## 👥Team - AVENGERS  
+## 👥 DEVELOPER TEAM - AVENGERS  
 
 - **Product Owner:** Carla Siles Calizaya - [GitHub](https://github.com/carlasiles1)
 - **Scrum Master:** Alejandro Serrato - [GitHub](https://github.com/Varushet)
