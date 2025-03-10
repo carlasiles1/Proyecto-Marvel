@@ -42,7 +42,7 @@ The **Navbar** is a fixed navigation bar at the top of the page that provides li
 
 The **Home** page is the main screen of the application. Here, users can get an overview of the Marvel timeline and navigate to other sections.
 
-![HomePage](src/assets/img/Home TimeLine.png)  
+![HomePage](src/assets/img/HomeTimeLine.png)  
 
 ### What does the Home page do?
 - Displays an introduction to the Marvel timeline.  
@@ -51,7 +51,7 @@ The **Home** page is the main screen of the application. Here, users can get an 
 
 The **About** page provides an overview of the Marvel Timeline project, explaining its purpose and features.
 
-![AboutPage](src/assets/img/About TimeLine.png)  
+![AboutPage](src/assets/img/AboutTimeLine.png)  
 
 ### Overview  
 This page explains the purpose of the **Marvel Timeline Project**, which organizes Marvel Universe events chronologically, focusing on comics.
@@ -97,7 +97,7 @@ The **Quiz** page is an interactive section where users can test their Marvel kn
 
 The **Contact** page allows users to reach out with inquiries, feedback, or suggestions related to the Marvel Timeline app.
 
-![Contact Page](src/assets/img/pagina Contacto de marvel timeline.png)  
+![ContactPage](src/assets/img/ContactoTimeLine.png)  
 
 ### What does the Contact page do?  
 - Provides a form where users can enter their name, email, and message.  
@@ -111,7 +111,8 @@ The **Contact** page allows users to reach out with inquiries, feedback, or sugg
 
 The **Footer** component provides important information at the bottom of the page, including navigation links, social media icons, and copyright information. It is designed to appear only when the user scrolls near the bottom of the page unless on static pages like **About**, **Contact**, or **Quiz**.
 
-![FooterPage](src/assets/img/Footer TimeLine.png)  
+![FooterPage](src/assets/img/FooterTimeLine.png)
+
 
 ### Features
 - **Responsive Design:** The footer adapts for different screen sizes with a grid layout for larger screens and a single column for mobile devices.
