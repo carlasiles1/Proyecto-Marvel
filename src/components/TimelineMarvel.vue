@@ -7,7 +7,6 @@ import md5 from "md5";
 const marvelComics = ref([]);
 const selectedEvent = ref("Infinity");
 const loading = ref(false);
-const isLoading = ref(true); // New loading state for initial load
 const selectedComic = ref(null);
 const comicDetails = ref(null);
 
@@ -72,13 +71,11 @@ const fetchMarvelComics = async () => {
     console.error(`Error fetching comics for ${selectedEvent.value}:`, error);
   } finally {
     loading.value = false;
-   isLoading.value = false; // Set initial loading to false after fetching
+
   }
 };
 
 
-onMounted(async () => {
-  await fetchMarvelComics();
 onMounted(() => {
   fetchMarvelComics();
 
@@ -130,69 +127,49 @@ const closePopup = () => {
 </script>
 
 <template>
-  <div class="marvel-app">
-    <div v-if="isLoading" class="loading-screen">
-      <p>Loading Marvel Comics...</p>
-    </div>
-    <section v-else class="section-timeline"> 
-      <div class="section-timeline__container">     
-        <div class="section-eventSelector">
-          <p class="section-timeline__title">{{ selectedEvent }} comics</p>
-          <select v-model="selectedEvent" class="section-timeline__select">
-            <option v-for="(id, event) in events" :key="id" :value="event">{{ event }}</option>
-            <!-- "event" represents the key (which is the event name) and "id" the value (event ID) in each iteration -->
-          </select>
-        </div>
-        <div v-if="loading" class="loading-indicator">Loading...</div>
-        <div v-else-if="marvelComics.length === 0">Not found</div><!-- This line displays "Not found" if the marvelComics array is empty -->
-        <div v-else class="section-timeline__comics">
-          <div v-for="comic in marvelComics" :key="comic.id" class="comic-card" @click="goToWiki(comic)">
-            <img :src="comic.image" :alt="comic.title" class="comic-card__image" />
-            <p class="comic-card__title">{{ comic.title }}</p>
-          </div>
-        </div>
-         </div>
-
-      <!-- Pop-up for comic details -->
-      <div v-if="selectedComic && comicDetails" class="comic-details-popup">
-        <div class="comic-details">
-          <button @click="closePopup" class="close-button">×</button>
-          <div class="comic-header">
-            <h2>{{ comicDetails.title }}</h2>
-            <img :src="selectedComic.image" :alt="comicDetails.title" class="comic-details__image" />
-          </div>
-          <div class="comic-info">
-            <p><strong>Published:</strong> {{ comicDetails.publishDate }}</p>
-            <p><strong>Series:</strong> {{ comicDetails.series }}</p>
-            <p><strong>Issue Number:</strong> {{ comicDetails.issueNumber }}</p>
-            <p><strong>Writer(s):</strong> {{ comicDetails.writers.join(', ') || 'N/A' }}</p>
-            <p><strong>Penciller(s):</strong> {{ comicDetails.pencillers.join(', ') || 'N/A' }}</p>
-            <p><strong>Cover Artist(s):</strong> {{ comicDetails.coverArtists.join(', ') || 'N/A' }}</p>
-            <p><strong>Description:</strong> {{ comicDetails.description }}</p>
-          </div>
+  <section class="section-timeline"> 
+    <div class="section-timeline__container">     
+      <div class="section-eventSelector">
+        <p class="section-timeline__title">{{ selectedEvent }} comics</p>
+        <select v-model="selectedEvent" class="section-timeline__select">
+          <option v-for="(id, event) in events" :key="id" :value="event">{{ event }}</option>
+          <!-- "event" represents the key (which is the event name) and "id" the value (event ID) in each iteration -->
+        </select>
+      </div>
+      <div v-if="loading">Loading...</div>
+      <div v-else-if="marvelComics.length === 0">Not found</div><!-- This line displays "Not found" if the marvelComics array is empty -->
+      <div v-else class="section-timeline__comics">
+        <div v-for="comic in marvelComics" :key="comic.id" class="comic-card" @click="goToWiki(comic)">
+          <img :src="comic.image" :alt="comic.title" class="comic-card__image" />
+          <p class="comic-card__title">{{ comic.title }}</p>
         </div>
       </div>
-    </section>
-  </div>
+   
+    </div>
+
+    <!-- Pop-up for comic details -->
+    <div v-if="selectedComic && comicDetails" class="comic-details-popup">
+      <div class="comic-details">
+        <button @click="closePopup" class="close-button">×</button>
+        <div class="comic-header">
+          <h2>{{ comicDetails.title }}</h2>
+          <img :src="selectedComic.image" :alt="comicDetails.title" class="comic-details__image" />
+        </div>
+        <div class="comic-info">
+          <p><strong>Published:</strong> {{ comicDetails.publishDate }}</p>
+          <p><strong>Series:</strong> {{ comicDetails.series }}</p>
+          <p><strong>Issue Number:</strong> {{ comicDetails.issueNumber }}</p>
+          <p><strong>Writer(s):</strong> {{ comicDetails.writers.join(', ') || 'N/A' }}</p>
+          <p><strong>Penciller(s):</strong> {{ comicDetails.pencillers.join(', ') || 'N/A' }}</p>
+          <p><strong>Cover Artist(s):</strong> {{ comicDetails.coverArtists.join(', ') || 'N/A' }}</p>
+          <p><strong>Description:</strong> {{ comicDetails.description }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
 </template>
 
 <style scoped>
-.marvel-app {
-  min-height: 100vh;
-  background-image: url('@/assets/img/timelineBkg2.png');
-  background-size: contain;
-  background-repeat: repeat-x;
-}
-
-.loading-screen {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  font-size: 2rem;
-  background-image: url('@/assets/img/timelineBkg2.png');
-}
-
 .section-timeline {
   display: flex;
   gap: 2rem;
@@ -200,7 +177,10 @@ const closePopup = () => {
   justify-content: center;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   padding: 2rem;
-  min-height: 100vh;
+  height: 100vh;
+  background-image: url('@/assets/img/timelineBkg2.png');
+  background-size: contain;
+  background-repeat: repeat-x;
 }
 
 .section-eventSelector {
@@ -271,14 +251,6 @@ const closePopup = () => {
   background: rgb(0, 0, 0);
 }
 
-.loading-indicator {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100px;
-  font-size: 1.2rem;
-  color: white;
-}
 .section-timeline__button {
   background: rgb(58, 52, 65);
   color: rgb(212, 212, 212);
@@ -364,6 +336,13 @@ const closePopup = () => {
   overflow: visible;
 }
 
+
+.comic-info p {
+  margin-bottom: 0.5rem;
+
+}
+
+
 .comic-info strong {
   color: #5352ed;
 }
@@ -373,4 +352,10 @@ const closePopup = () => {
   border-radius: 8px;
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
 }
+.comic-info {
+  padding: 1rem;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 0.5rem;
+}
+
 </style>
