@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch, onMounted, onUnmounted } from "vue";
+import { ref, watch, onMounted } from "vue";
 import axios from "axios"; // Import axios for HTTP requests and md5 for hash generation
 import md5 from "md5";
 
@@ -7,8 +7,8 @@ import md5 from "md5";
 const marvelComics = ref([]);
 const selectedEvent = ref("Infinity");
 const loading = ref(false);
-const scrollPos = ref(0);
-const showSelector = ref(true); // Controls the visibility of the event selector
+// const scrollPos = ref(0);
+// const showSelector = ref(true); // Controls the visibility of the event selector
 const selectedComic = ref(null);
 const comicDetails = ref(null);
 
@@ -45,9 +45,6 @@ const events = {
 const fetchMarvelComics = async () => {
   loading.value = true;
   
-  // Save the scroll position before loading new comics
-  scrollPos.value = document.querySelector(".section-timeline")?.scrollLeft || 0;
-
   const timestamp = new Date().getTime();
   const hash = md5(timestamp + marvelApiPrivateKey + marvelApiPublicKey);
 
@@ -76,38 +73,40 @@ const fetchMarvelComics = async () => {
     console.error(`Error fetching comics for ${selectedEvent.value}:`, error);
   } finally {
     loading.value = false;
-
+    //Línea agregada:
+    // await nextTick(); // 💪 Espera que Vue pinte el DOM
+   
     // Restore the scroll position AFTER loading
-    const timeline = document.querySelector(".section-timeline");
-    if (timeline) {
-      timeline.scrollTo({
-        left: scrollPos.value,
-        behavior: "instant" 
-      });
-    }
+    // const timeline = document.querySelector(".section-timeline");
+    // if (timeline) {
+    //   timeline.scrollTo({
+    //     left: scrollPos.value,
+    //     behavior: "instant" 
+    //   });
+    // }
   }
 };
 
-const handleScroll = () => {
-  const timeline = document.querySelector(".section-timeline");
-  if (timeline) {
-    scrollPos.value = timeline.scrollLeft;
-    showSelector.value = scrollPos.value > 50 && scrollPos.value < 300;
-  }
-};
+// const handleScroll = () => {
+//   const timeline = document.querySelector(".section-timeline");
+//   if (timeline) {
+//     scrollPos.value = timeline.scrollLeft;
+//     showSelector.value = scrollPos.value > 50 && scrollPos.value < 300;
+//   }
+// };
 
 onMounted(() => {
   fetchMarvelComics();
-  window.addEventListener("scroll", handleScroll);
+//   window.addEventListener("scroll", handleScroll);
 });
 
-onUnmounted(() => {
-  window.removeEventListener("scroll", handleScroll);
-});
+// onUnmounted(() => {
+//   window.removeEventListener("scroll", handleScroll);
+// });
 
 // Watch for changes in selectedEvent and call fetchMarvelComics when it changes
-watch(selectedEvent, () => {
-  fetchMarvelComics();
+watch(selectedEvent, async() => {
+  await fetchMarvelComics();
 });
 
 // New method to handle comic click and fetch detailed information
@@ -167,11 +166,12 @@ const closePopup = () => {
           <p class="comic-card__title">{{ comic.title }}</p>
         </div>
       </div>
+      <!-- 
       <div class="section-timeline__buttons"> 
-        <!-- Note: These buttons are currently not functional as the scrollLeft and scrollRight functions are commented out -->
+         Note: These buttons are currently not functional as the scrollLeft and scrollRight functions are commented out
         <button @click="scrollLeft" class="section-timeline__button section-timeline__button--left">⬅</button>
         <button @click="scrollRight" class="section-timeline__button section-timeline__button--right">➡</button>
-      </div>
+      </div>-->
     </div>
 
     <!-- Pop-up for comic details -->
@@ -289,19 +289,20 @@ const closePopup = () => {
   cursor: pointer;
 }
 
-.section-timeline__button--left {
-  left: 1rem;
-}
 
+/* .section-timeline__button--left {
+ 
+} 
 .section-timeline__button--right {
   right: 1rem;
-}
+}*/
 
 .section-timeline__buttons {
-  display: flex;
-  justify-content: space-between;
-  padding-inline: 6rem;
-}
+ position: sticky;
+  left: 0;
+  z-index: 12;
+
+}  
 
 .comic-details-popup {
   position: fixed;
