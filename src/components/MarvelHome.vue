@@ -34,6 +34,7 @@ main::-webkit-scrollbar {
   position: absolute;
   left: 110rem;
   z-index: -1;
+  display: none; /* para hacer desaparecer el martillo */
 }
 
 .animation-hammer{
