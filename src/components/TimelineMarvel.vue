@@ -71,13 +71,31 @@ const fetchMarvelComics = async () => {
     console.error(`Error fetching comics for ${selectedEvent.value}:`, error);
   } finally {
     loading.value = false;
-
+    //Línea agregada:
+    // await nextTick(); // 💪 Espera que Vue pinte el DOM
+   
+    // Restore the scroll position AFTER loading
+    // const timeline = document.querySelector(".section-timeline");
+    // if (timeline) {
+    //   timeline.scrollTo({
+    //     left: scrollPos.value,
+    //     behavior: "instant" 
+    //   });
+    // }
   }
 };
 
+// const handleScroll = () => {
+//   const timeline = document.querySelector(".section-timeline");
+//   if (timeline) {
+//     scrollPos.value = timeline.scrollLeft;
+//     showSelector.value = scrollPos.value > 50 && scrollPos.value < 300;
+//   }
+// };
 
 onMounted(() => {
   fetchMarvelComics();
+
 
 });
 
@@ -143,7 +161,12 @@ const closePopup = () => {
           <p class="comic-card__title">{{ comic.title }}</p>
         </div>
       </div>
-    
+      <!-- 
+      <div class="section-timeline__buttons"> 
+         Note: These buttons are currently not functional as the scrollLeft and scrollRight functions are commented out
+        <button @click="scrollLeft" class="section-timeline__button section-timeline__button--left">⬅</button>
+        <button @click="scrollRight" class="section-timeline__button section-timeline__button--right">➡</button>
+      </div>-->
     </div>
 
     <!-- Pop-up for comic details -->
@@ -261,6 +284,13 @@ const closePopup = () => {
   cursor: pointer;
 }
 
+
+/* .section-timeline__button--left {
+ 
+} 
+.section-timeline__button--right {
+  right: 1rem;
+}*/
 
 .section-timeline__buttons {
  position: sticky;
