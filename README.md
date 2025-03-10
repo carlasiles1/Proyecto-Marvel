@@ -42,7 +42,7 @@ The **Navbar** is a fixed navigation bar at the top of the page that provides li
 
 The **Home** page is the main screen of the application. Here, users can get an overview of the Marvel timeline and navigate to other sections.
 
-![homePage](src/assets/img/homeTimeLine.png)  
+![HomePage](src/assets/img/Home TimeLine.png)  
 
 ### What does the Home page do?
 - Displays an introduction to the Marvel timeline.  
@@ -51,7 +51,7 @@ The **Home** page is the main screen of the application. Here, users can get an 
 
 The **About** page provides an overview of the Marvel Timeline project, explaining its purpose and features.
 
-![aboutPage](src/assets/img/aboutTimeLine.png)  
+![AboutPage](src/assets/img/About TimeLine.png)  
 
 ### Overview  
 This page explains the purpose of the **Marvel Timeline Project**, which organizes Marvel Universe events chronologically, focusing on comics.
@@ -111,7 +111,7 @@ The **Contact** page allows users to reach out with inquiries, feedback, or sugg
 
 The **Footer** component provides important information at the bottom of the page, including navigation links, social media icons, and copyright information. It is designed to appear only when the user scrolls near the bottom of the page unless on static pages like **About**, **Contact**, or **Quiz**.
 
-![footer](src/assets/img/footerTimeLine.png)  
+![FooterPage](src/assets/img/Footer TimeLine.png)  
 
 ### Features
 - **Responsive Design:** The footer adapts for different screen sizes with a grid layout for larger screens and a single column for mobile devices.
