@@ -28,7 +28,7 @@ This logo represents the Marvel brand and helps establish the theme of the Marve
 ## Navbar
 The **Navbar** is a fixed navigation bar at the top of the page that provides links to the main sections of the application: Home, About, Timeline, Quiz, and Contact.
 
-![Navbar](src/assets/img/Navbar TimeLine.png)  
+![Navbar ](src/assets/img/NavbarTimeLine.png)  
 
 ### Features
 - **Responsive Navigation:** The navbar stays fixed at the top of the page, allowing easy access to the navigation links.
@@ -42,7 +42,7 @@ The **Navbar** is a fixed navigation bar at the top of the page that provides li
 
 The **Home** page is the main screen of the application. Here, users can get an overview of the Marvel timeline and navigate to other sections.
 
-![HomePage](src/assets/img/home TimeLine.png)  
+![HomePage ](src/assets/img/homeTimeLine.png)  
 
 ### What does the Home page do?
 - Displays an introduction to the Marvel timeline.  
@@ -51,7 +51,7 @@ The **Home** page is the main screen of the application. Here, users can get an 
 
 The **About** page provides an overview of the Marvel Timeline project, explaining its purpose and features.
 
-![About Page](src/assets/img/pagina About de marvel timeline.png)  
+![aboutPage](src/assets/img/aboutTimeLine.png)  
 
 ### Overview  
 This page explains the purpose of the **Marvel Timeline Project**, which organizes Marvel Universe events chronologically, focusing on comics.
@@ -83,7 +83,7 @@ The **Timeline** page displays Marvel Universe events in chronological order, wi
 
 The **Quiz** page is an interactive section where users can test their Marvel knowledge with fun and engaging questions.
 
-![Quiz Page](src/assets/img/pagina Quiz de marvel timeline.png)  
+![QuizPage](src/assets/img/QuizTimeLine.png)  
 
 ### What does the Quiz page do?  
 - Provides a set of questions related to Marvel events and characters.  
@@ -111,7 +111,7 @@ The **Contact** page allows users to reach out with inquiries, feedback, or sugg
 
 The **Footer** component provides important information at the bottom of the page, including navigation links, social media icons, and copyright information. It is designed to appear only when the user scrolls near the bottom of the page unless on static pages like **About**, **Contact**, or **Quiz**.
 
-![footer ](src/assets/img/footer de marvel timeline.png)  
+![footer ](src/assets/img/footerTimeLine.png)  
 
 ### Features
 - **Responsive Design:** The footer adapts for different screen sizes with a grid layout for larger screens and a single column for mobile devices.
