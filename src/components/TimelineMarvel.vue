@@ -181,15 +181,17 @@ const closePopup = () => {
   background-image: url('@/assets/img/timelineBkg2.png');
   background-size: contain;
   background-repeat: repeat-x;
+  background-color: black;
+
 }
 
 .section-eventSelector {
   position: sticky;
   left: 0;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgb(0, 0, 0);
   color: white;
   padding: 1rem;
-  border-radius: 1rem;
+
   z-index: 10;
   height: fit-content; 
   width: fit-content;
@@ -200,6 +202,7 @@ const closePopup = () => {
   gap: 1rem;
   padding-bottom: 2rem;
   width: 100%;
+  background: none;
 }
 
 .section-timeline__title {
@@ -215,6 +218,8 @@ const closePopup = () => {
   padding: 0.5rem;
   font-size: 1rem;
   width: 200px;
+  color: white;
+  background-color: black;
 }
 
 .section-timeline__comics {
@@ -223,6 +228,7 @@ const closePopup = () => {
   padding: 3rem;
   align-items: center;
   scroll-behavior: smooth;
+
 }
 
 .comic-card {
