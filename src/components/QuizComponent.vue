@@ -1,220 +1,283 @@
 <style scoped>
-main{
+input{
+    display: none;
+}
+.quiz {
     background-color: #191129;
-    display: flex;
-    height: 100vh;    
     justify-content: center;
     align-items: center;
     margin: -0.5rem;
+    height: 100vh;
 }
-form{
+.quiz_screen{
+    display: flex;
+    justify-content: center;
+}
+.quiz__form {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
-h1 {
+.quiz__title {
     color: #ca1a1a;
     text-align: center;
-    padding: 7rem 8rem 5rem 0;
     width: 30%;
+    margin: 0;
+    padding-top: 6rem;
 }
-.question {
-    margin-bottom: 20px;
-}
-.question p{
+.quiz__question-text {
     font-size: 2rem;
     color: rgb(206, 178, 21);
 }
-.question label{
-    display: block;
-    margin: 2rem; 
+.options{
+    display: flex;
+}
+.quiz__label {
     color: white;
+    width: 10rem;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+    border-radius: 20%;
+    margin: 3rem;
 }
-.question label input{
+.quiz__label::after {
+    background-color: #007BFF;
+}
+.quiz__label p{
+    width: 100%;
+}
+.quiz__input {
     margin-right: 1rem;
+}   
+.quiz__navigation{
+    display: flex;
+    align-items: center;
+    color: #e62429;
 }
-button {
+.quiz__button {
     background-color: #007BFF;
     color: white;
     border: none;
     cursor: pointer;
+    width: 5rem;
+    height: 2rem;
+    border-radius: 2rem 0;
+    transition: 0.3s;
+    margin: 0 4rem;
 }
-button:hover {
-    background-color: #0056b3;
+.quiz__button:hover {
+    background-color: #e62429;
 }
-main img{
-    width: 32rem;
+.quiz__image {
+    width: 22rem;
     margin-left: 8rem;
+}
+.pointer{
+    position: absolute;
+    width: 5rem;
+    transform: rotateZ(-35Deg) translate(6rem, 3rem);
+}
+.character-image {
+    width: 15rem;
+    height: 15rem;
+    object-fit: cover;
+    border-radius: 10%;
 }
 </style>
 
 <template>
-    <main>
-        <h1>Avengers Comics Quiz</h1>
-        <form id="quizForm">
-            <div class="question">
-                <p>1. Who is the leader of the Avengers?</p>
-                <label><input type="radio" name="q1" value="Steve Rogers"> Steve Rogers</label>
-                <label><input type="radio" name="q1" value="Tony Stark"> Tony Stark</label>
-                <label><input type="radio" name="q1" value="Bruce Banner"> Bruce Banner</label>
-                <label><input type="radio" name="q1" value="Thor"> Thor</label>
-            </div> 
-            <!-- <div class="question">
-                <p>2. Which character was introduced in "The Avengers" #1 as a founding member?</p>
-                <label><input type="radio" name="q2" value="Spider-Man"> Spider-Man</label>
-                <label><input type="radio" name="q2" value="Iron Man"> Iron Man</label>
-                <label><input type="radio" name="q2" value="Hulk"> Hulk</label>
-                <label><input type="radio" name="q2" value="Ant-Man"> Ant-Man</label>
-            </div>
-            
-            <div class="question">
-                <p>3. What is Captain America's shield made of?</p>
-                <label><input type="radio" name="q3" value="Adamantium"> Adamantium</label>
-                <label><input type="radio" name="q3" value="Vibranium"> Vibranium</label>
-                <label><input type="radio" name="q3" value="Steel"> Steel</label>
-                <label><input type="radio" name="q3" value="Titanium"> Titanium</label>
-            </div>
-            
-            <div class="question">
-                <p>4. In which comic book series did Captain America first appear?</p>
-                <label><input type="radio" name="q4" value="Captain America"> Captain America</label>
-                <label><input type="radio" name="q4" value="Tales of Suspense"> Tales of Suspense</label>
-                <label><input type="radio" name="q4" value="Avengers"> Avengers</label>
-                <label><input type="radio" name="q4" value="Marvel Premiere"> Marvel Premiere</label>
-            </div>
-            
-            <div class="question">
-                <p>5. Who is known as the "God of Thunder"?</p>
-                <label><input type="radio" name="q5" value="Steve Rogers"> Steve Rogers</label>
-                <label><input type="radio" name="q5" value="Tony Stark"> Tony Stark</label>
-                <label><input type="radio" name="q5" value="Thor"> Thor</label>
-                <label><input type="radio" name="q5" value="Bruce Banner"> Bruce Banner</label>
-            </div>
-            
-            <div class="question">
-                <p>6. What is the name of Tony Stark's AI assistant?</p>
-                <label><input type="radio" name="q6" value="Jarvis"> Jarvis</label>
-                <label><input type="radio" name="q6" value="Vision"> Vision</label>
-                <label><input type="radio" name="q6" value="Spider-Man"> Spider-Man</label>
-                <label><input type="radio" name="q6" value="Pepper Potts"> Pepper Potts</label>
-            </div>
-            
-            <div class="question">
-                <p>7. Which character was the first to join the Avengers after their initial team-up?</p>
-                <label><input type="radio" name="q7" value="Wasp"> Wasp</label>
-                <label><input type="radio" name="q7" value="Hawkeye"> Hawkeye</label>
-                <label><input type="radio" name="q7" value="Black Panther"> Black Panther</label>
-                <label><input type="radio" name="q7" value="Spider-Man"> Spider-Man</label>
-            </div>
-            
-            <div class="question">
-                <p>8. What is the name of the alien race that the Kree belong to?</p>
-                <label><input type="radio" name="q8" value="Celestials"> Celestials</label>
-                <label><input type="radio" name="q8" value="Eternals"> Eternals</label>
-                <label><input type="radio" name="q8" value="Kree"> Kree</label>
-                <label><input type="radio" name="q8" value="Xandarans"> Xandarans</label>
-            </div>
-            
-            <div class="question">
-                <p>9. In which issue of "The Avengers" did Captain America first wear his iconic red, white, and blue costume?</p>
-                <label><input type="radio" name="q9" value="#1"> #1</label>
-                <label><input type="radio" name="q9" value="#5"> #5</label>
-                <label><input type="radio" name="q9" value="#10"> #10</label>
-                <label><input type="radio" name="q9" value="#15"> #15</label>
-            </div>
-            
-            <div class="question">
-                <p>10. Who is the first female member of the Avengers?</p>
-                <label><input type="radio" name="q10" value="Wasp"> Wasp</label>
-                <label><input type="radio" name="q10" value="Spider-Woman"> Spider-Woman</label>
-                <label><input type="radio" name="q10" value="Scarlet Witch"> Scarlet Witch</label>
-                <label><input type="radio" name="q10" value="Black Widow"> Black Widow</label>
-            </div>
-            
-            <div class="question">
-                <p>11. What is the name of the organization that trains Captain America?</p>
-                <label><input type="radio" name="q11" value="S.H.I.E.L.D."> S.H.I.E.L.D.</label>
-                <label><input type="radio" name="q11" value="HYDRA"> HYDRA</label>
-                <label><input type="radio" name="q11" value="Asgardian Academy"> Asgardian Academy</label>
-                <label><input type="radio" name="q11" value="Avengers Academy"> Avengers Academy</label>
-            </div>
-            
-            <div class="question">
-                <p>12. Which event led to the formation of the Avengers?</p>
-                <label><input type="radio" name="q12" value="Secret Invasion"> Secret Invasion</label>
-                <label><input type="radio" name="q12" value="Infinity War"> Infinity War</label>
-                <label><input type="radio" name="q12" value="Avengers Initiative"> Avengers Initiative</label>
-                <label><input type="radio" name="q12" value="Civil War"> Civil War</label>
-            </div>
-            
-            <div class="question">
-                <p>13. What is the name of the alien race that the Skrulls belong to?</p>
-                <label><input type="radio" name="q13" value="Kree"> Kree</label>
-                <label><input type="radio" name="q13" value="Shi'ar"> Shi'ar</label>
-                <label><input type="radio" name="q13" value="Skrulls"> Skrulls</label>
-                <label><input type="radio" name="q13" value="Xandarans"> Xandarans</label>
-            </div>
-            
-            <div class="question">
-                <p>14. Who is the first Black member of the Avengers?</p>
-                <label><input type="radio" name="q14" value="T'Challa"> T'Challa</label>
-                <label><input type="radio" name="q14" value="Luke Cage"> Luke Cage</label>
-                <label><input type="radio" name="q14" value="Sam Wilson"> Sam Wilson</label>
-                <label><input type="radio" name="q14" value="Blade"> Blade</label>
-            </div>
-            
-            <div class="question">
-                <p>15. What is the name of the alien race that the Xandarans belong to?</p>
-                <label><input type="radio" name="q15" value="Kree"> Kree</label>
-                <label><input type="radio" name="q15" value="Shi'ar"> Shi'ar</label>
-                <label><input type="radio" name="q15" value="Xandarans"> Xandarans</label>
-                <label><input type="radio" name="q15" value="Skrulls"> Skrulls</label>
-            </div> 
-            <button type="button" @click="checkAnswers">Submit</button>-->
-            <button type="button">Prev</button>
-            <button type="button">Next</button>
-        </form>
-
-        <img src="@/assets/img/theWatcher.png" alt="">
+    <main class="quiz">
+        <h1 class="quiz__title">Avengers Comics Quiz</h1>
+        <div class="quiz_screen">
+            <form class="quiz__form" id="quizForm">
+                <div v-if="randomQuestions.length" class="quiz__question">
+                    <p class="quiz__question-text">{{ randomQuestions[currentQuestion].question }}</p>
+                    <div class="options">
+                        <label v-for="option in randomQuestions[currentQuestion].options" 
+                            :key="option" 
+                            class="quiz__label">
+                            <input type="radio" 
+                                name="choseOption" 
+                                :value="option" 
+                                v-model="userAnswers[currentQuestion]">
+                            <p>{{ option }}</p>
+                            <img v-if="matchingCharacter(option)"
+                                :src="matchingCharacter(option).image" 
+                                :alt="matchingCharacter(option).name"
+                                class="character-image">
+                            <img v-if="userAnswers[currentQuestion] === option" 
+                                :src="source" 
+                                alt="Iron-man Pointer" 
+                                class="pointer">
+                        </label>
+                    </div>
+                </div>
+                <div class="quiz__navigation">
+                    <button @click="prev" class="quiz__button quiz__button--prev" type="button">Prev</button>
+                    <p>{{ page }} / 15</p>
+                    <button @click="next" class="quiz__button quiz__button--next" type="button">Next</button>
+                </div>
+            </form>
+            <img class="quiz__image" src="@/assets/img/theWatcher.png" alt="The Watcher">
+        </div>
     </main>
 </template>
 
 <script setup>
-// function checkAnswers() {
-//             const answers = {
-//                 q1: "Steve Rogers",
-//                 q2: "Iron Man",
-//                 q3: "Vibranium",
-//                 q4: "Tales of Suspense",
-//                 q5: "Thor",
-//                 q6: "Jarvis",
-//                 q7: "Hawkeye",
-//                 q8: "Kree",
-//                 q9: "#1",
-//                 q10: "Wasp",
-//                 q11: "S.H.I.E.L.D.",
-//                 q12: "Avengers Initiative",
-//                 q13: "Skrulls",
-//                 q14: "T'Challa",
-//                 q15: "Xandarans"
-//             };
-//             let score = 0;
+import {ref, computed, onMounted, watch} from 'vue'
+import axios from "axios";
+import md5 from "md5";
 
-//             for (let i = 1; i <= 15; i++) {
-//                 const radios = document.querySelectorAll(`input[name="q${i}"]`);
-//                 let selectedValue = null;
-//                 for (const radio of radios) {
-//                     if (radio.checked) {
-//                         selectedValue = radio.value;
-//                         break;
-//                     }
-//                 }
-//                 if (selectedValue === answers[`q${i}`]) {
-//                     score++;
-//                 }
-//             }
+const quiz = ref({})
+const randomQuestions = ref([])
+const currentQuestion = ref(0)
+const userAnswers = ref({})
+const score = ref(0)
+const source = ref('')
 
-//             alert(`Your score is ${score} out of 15.`);
-//         }
+const page = ref('')
+page.value = 1
+
+//Cuando sale dos veces el mismo nombre en una respuesta seguido, se queda printado en verde
+
+const selected = new Set()
+
+const fetchQuiz = async () => {
+        try {
+            const response = await fetch('/quiz.json')
+            if (!response.ok) {
+                throw new Error('Error loading data')
+            }
+            const data = await response.json()
+            quiz.value = data
+        } catch (error) {
+            console.error('Error loading data', error)
+        }
+
+        source.value = new URL ('@/assets/img/ironPointer.png', import.meta.url).href
+
+        getRandomQuestions()
+    }
+onMounted(async () => {
+  await fetchQuiz();
+  await loadCurrentQuestionCharacters();
+})
+
+const getRandomQuestions = ()=>{
+    const total = quiz.value.questions.length
+
+    while(selected.size < 15){
+        const randomIndex = Math.floor(Math.random() * total)
+        selected.add(randomIndex)
+    }
+    randomQuestions.value = Array.from(selected).map(index => quiz.value.questions[index])
+}
+
+const next = ()=>{
+
+    const correct = document.querySelector(`label:has(input[value="${randomQuestions.value[currentQuestion.value].answer}"])`)
+    correct.style = 'background-color: green';
+
+    const response = document.querySelector(`input[name="${currentQuestion.value}"]:checked`)
+    if (response){
+        userAnswers.value[currentQuestion.value] = response.value
+        
+        if (response.value === randomQuestions.value[currentQuestion.value].answer){
+            score.value++
+        }
+    }
+
+    setTimeout(() =>{
+        if (currentQuestion.value < randomQuestions.value.length -1){
+            currentQuestion.value++
+            page.value = currentQuestion.value + 1
+        } else {
+            alert(`Congratulations!!! Your final score is: ${score.value}`)
+        }
+    },1000)
+}
+
+const prev = () => {
+    if (currentQuestion.value > 0) {
+        currentQuestion.value--
+        page.value = currentQuestion.value + 1
+    }
+}
+
+//Uso de la API
+
+const marvelCharacter = ref([])
+
+const marvelApiPublicKey = 'c6505251612e731238b4d32531d6a998';
+const marvelApiPrivateKey = 'ee80321c4497db2e446a64fb6b78d032066c80e1';
+
+// Modificar la función fetchMarvelComics para que devuelva el personaje
+const fetchMarvelComics = async (characterName) => {
+  const timestamp = new Date().getTime();
+  const hash = md5(timestamp + marvelApiPrivateKey + marvelApiPublicKey);
+
+  try {
+    const response = await axios.get("https://gateway.marvel.com/v1/public/characters", {
+      params: {
+        apikey: marvelApiPublicKey,
+        ts: timestamp,
+        hash: hash,
+        nameStartsWith: characterName,
+        limit: 2
+      },
+    })
+
+    console.log(response.data.data.results)
+    
+    if (response.data?.data?.results?.[0]) {
+      const character = response.data.data.results[0];
+      return {
+        name: character.name.toLowerCase(),
+        image: `${character.thumbnail.path}.${character.thumbnail.extension}`
+      };
+    }
+    return null;
+    } catch (error) {
+    console.error("Error getting data for " + characterName, error);
+    return null;
+  }
+};
+onMounted(fetchMarvelComics)
+
+// Añadir función para cargar los personajes de la pregunta actual
+const loadCurrentQuestionCharacters = async () => {
+  if (!randomQuestions.value[currentQuestion.value]) return;
+  
+  marvelCharacter.value = []; // Limpiar personajes anteriores
+  const options = randomQuestions.value[currentQuestion.value].options;
+  
+  // Cargar los personajes de todas las opciones
+  const characters = await Promise.all(
+    options.map(option => fetchMarvelComics(option))
+  );
+  
+  // Filtrar null y añadir los personajes encontrados
+  marvelCharacter.value = characters.filter(char => char !== null);
+  
+  console.log("Personajes cargados para la pregunta actual:", 
+    marvelCharacter.value.map(char => char.name));
+};
+
+// Modificar el watcher para currentQuestion
+watch(currentQuestion, async () => {
+  await loadCurrentQuestionCharacters();
+});
+
+// Añade esta función después de la declaración de marvelCharacter
+const matchingCharacter = computed(() => {
+  return (option) => {
+    return marvelCharacter.value.find(
+      character => character.name === option.toLowerCase()
+    );
+  };
+});
 </script>

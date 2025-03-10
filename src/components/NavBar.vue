@@ -1,10 +1,10 @@
 <template>
   <header class="navbar-container">
     <nav class="nav">
+      
      <ul class="nav-list">
         <li><RouterLink to="/">HOME</RouterLink></li>
         <li><RouterLink to="/about">ABOUT</RouterLink></li>
-        <li><RouterLink to="/timeLine">TIME LINE</RouterLink></li>
         <li><RouterLink to="/quiz">QUIZ</RouterLink></li>
         <li><RouterLink to="/contact">CONTACT</RouterLink></li>
       </ul>
@@ -23,7 +23,7 @@ import { RouterLink } from 'vue-router';
   z-index: 1000;
   background-image: transparent;
   padding: 15px 0;
-  position: absolute;
+  position: fixed;
 }
 
 /* Barra de navegación */
@@ -45,6 +45,10 @@ import { RouterLink } from 'vue-router';
 /* Estilo de los enlaces */
 .nav-list li {
   text-transform: uppercase;
+}
+.nav-list :hover{
+  color: red;
+  
 }
 
 .nav-list a {

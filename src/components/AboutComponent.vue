@@ -1,10 +1,5 @@
 <template>
   <section class="about">
-    <!-- Logo at the top -->
-    <div class="logo">
-   <img :src="logoSrc" alt="Logo">
-</div>
-
 
     <!-- Content section -->
     <div class="content">
@@ -13,28 +8,41 @@
    </div>
    <div class="text">
      <h1>About</h1>
-     <p>
-       Marvel Timeline es compleja y está llena de eventos interconectados.
-       Comienza con la creación del universo y continúa con las aventuras de superhéroes
-       como Iron Man, Captain America, y Spider Man. Cada película y serie encaja en una
-       narrativa más grande que abarca décadas.
-     </p>
+    
+     <section>
+      <h2>What is the Marvel Timeline Project?</h2>
+      <p>A web app that displays the Marvel Universe events in chronological order, focusing on comics.</p>
+    </section>
+
+    <section>
+      <h2>What value does this project offer to Marvel fans?</h2>
+      <ul>
+        <li><strong>Comprehensive Exploration:</strong> Shows how comics connect over time.</li>
+        <li><strong>Interactive Quiz:</strong> Test your Marvel knowledge in a fun way.</li>
+        <li><strong>Easy to Use:</strong> User-friendly interface for easy navigation.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>How is the information organized?</h2>
+      <ul>
+        <li><strong>Timeline:</strong> Events organized in chronological order with links to comics.</li>
+        <li><strong>Quiz:</strong> A fun quiz section to test Marvel knowledge.</li>
+      </ul>
+    </section>
    </div>
  </div>
 
   </section>
 </template>
-
 <script setup>
-// Import the logo image
-import logoSrc from '@/assets/img/logoTimeline.png';
 import imageSrc from '@/assets/img/Background-footer.jpg';
 </script>
 
 <style scoped>
 /* Section Styling */
 .about {
-  background-color: #000; /* Black background */
+  background-color: #191129; /* Black background */
   color: #fff;
   padding: 100px 50px;
   min-height: 100vh;
@@ -46,29 +54,9 @@ import imageSrc from '@/assets/img/Background-footer.jpg';
   overflow: hidden;
   animation: fadeIn 1s ease-out;
   flex-direction: column; /* Stack logo and content */
-}
+  padding: 20px 50px;
+  min-height: 80vh; /* Ocupa el 90% de la pantalla */}
 
-/* Logo Styling */
-.logo {
-  position: absolute;
-  top: 150px; /* Move logo lower */
-  right: 60px; /* Move logo a bit left by increasing the right value */
-  width: auto;
-  height: 50px; /* Adjust logo size */
-}
-
-
-.logo img {
-  width: auto;
-  height: 50px; /* Establecer solo una dimensión específica si quieres controlarlo */
-  filter: brightness(70%);
-  transition: filter 0.3s ease;
-}
-
-.logo img:hover {
-  filter: brightness(100%);
-  transform: scale(1.05);
-}
 
 /* Content Box */
 .content {
@@ -76,7 +64,7 @@ import imageSrc from '@/assets/img/Background-footer.jpg';
   align-items: center;
   max-width: 1200px;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.7); /* Dark content box */
+  background-color: #191129; /* Dark content box */
   padding: 30px;
   border-radius: 15px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
@@ -97,11 +85,13 @@ import imageSrc from '@/assets/img/Background-footer.jpg';
 }
 
 .image img {
-  max-width: 100%;
+  max-width: 80%; /* Reduce el tamaño al 80% */
+  height: auto;
   border-radius: 10px;
   filter: brightness(70%);
   transition: filter 0.3s ease, transform 0.3s ease;
 }
+
 
 .image img:hover {
   filter: brightness(100%);
