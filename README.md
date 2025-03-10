@@ -4,11 +4,11 @@ This project is a Vue.js application that displays the Marvel timeline. It inclu
 
 ## Características
 
-Home: Main page.
-About: About page with information about the application.
-Timeline: Displays the chronology of Marvel events.
-Quiz: An interactive section to test your Marvel knowledge.
-Contact: A contact form for users.
+- Home: Main page.
+- About: About page with information about the application.
+- Timeline: Displays the chronology of Marvel events.
+- Quiz: An interactive section to test your Marvel knowledge.
+- Contact: A contact form for users.
 
 ## Imágenes de las Páginas
 
@@ -45,7 +45,6 @@ The **Home** page is the main screen of the application. Here, users can get an 
 
 ### What does the Home page do?
 - Displays an introduction to the Marvel timeline.  
-- Contains navigation links or buttons to other sections of the app.  
 
 ## About Page
 
