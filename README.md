@@ -15,6 +15,7 @@ This project is a Vue.js application that displays the Marvel timeline. It inclu
 # Marvel timeline Logo 
 
 "The Marvel Logo is displayed on the Home page to reinforce the theme of the Marvel Universe in the application."
+
 ![Marveltimeline Logo](src/assets/img/logoTimeline.png)
 
 ### Details:
@@ -23,19 +24,6 @@ This project is a Vue.js application that displays the Marvel timeline. It inclu
 - **Purpose**: It is used on the Home page as part of the app's branding.
 
 This logo represents the Marvel brand and helps establish the theme of the Marvel Universe in the application.
-
-## Marvel Logo
-
-The **Marvel Logo** is used in the footer of the application to reinforce the Marvel brand.
-
-![Marvel Logo](src/assets/img/marvel-logo.png)
-
-### Details:
-- **File Name:** `marvel-logo.png`
-- **Location:** `src/assets/img/`
-- **Purpose:** Used for branding in the footer.
-
-This logo helps maintain the Marvel theme throughout the application.
 
 ## Navbar
 The **Navbar** is a fixed navigation bar at the top of the page that provides links to the main sections of the application: Home, About, Timeline, Quiz, and Contact.
@@ -95,7 +83,7 @@ The **Timeline** page displays Marvel Universe events in chronological order, wi
 
 The **Quiz** page is an interactive section where users can test their Marvel knowledge with fun and engaging questions.
 
-![Quiz Page](src/assets/img/pagina Quiz de marvel timeline.png)  <!-- Make sure the path is correct -->
+![Quiz Page](src/assets/img/pagina Quiz de marvel timeline.png)  
 
 ### What does the Quiz page do?  
 - Provides a set of questions related to Marvel events and characters.  
@@ -133,6 +121,15 @@ The **Footer** component provides important information at the bottom of the pag
 ### What does the Footer do?
 - Displays a logo, navigation links, social media icons, and copyright information.
 - Adjusts its visibility based on user interaction (scrolling).
+
+
+## 👥 Developer Team
+
+- **Product Owner:** Carla Siles Calizaya - [GitHub](https://github.com/carlasiles1)
+- **Scrum Master:** Alejandro Serrato - [GitHub](https://github.com/Varushet)
+- **First Programmer:** luChamorro - [GitHub](https://github.com/luchamorro)
+- **Second Programmer:** Najwa El Qortobi - [GitHub](https://github.com/Najwaelqortobi)
+- **Third Programmer:** Aleeza Sajid - [GitHub](https://github.com/Aleeza951)
 
 ## Project setup
 ```
