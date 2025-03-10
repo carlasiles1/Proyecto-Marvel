@@ -12,6 +12,19 @@ Contact: A contact form for users.
 
 ## Imágenes de las Páginas
 
+## Navbar
+The **Navbar** is a fixed navigation bar at the top of the page that provides links to the main sections of the application: Home, About, Timeline, Quiz, and Contact.
+
+![Navbar ](src/assets/img/Nav de marvel timeline.png)  
+
+### Features
+- **Responsive Navigation:** The navbar stays fixed at the top of the page, allowing easy access to the navigation links.
+- **Navigation Links:** Each link directs the user to a different section of the app (Home, About, Timeline, Quiz, Contact).
+- **Interactive Hover Effect:** Links change color on hover, providing a visual cue to users.
+
+### What does the Navbar do?
+- Provides links to navigate between pages in the Marvel Timeline application.
+- Keeps the navigation bar accessible while scrolling through the app.
 ## Home Page
 
 The **Home** page is the main screen of the application. Here, users can get an overview of the Marvel timeline and navigate to other sections.
@@ -40,7 +53,7 @@ This page explains the purpose of the **Marvel Timeline Project**, which organiz
 
 The **Timeline** page displays Marvel Universe events in chronological order, with a focus on comics and key moments in Marvel history.
 
-![Timeline Page]()  <!-- Make sure the path is correct -->
+![Timeline Page](src/assets/img/pagina timeline de marvel timeline.png)  <!-- Make sure the path is correct -->
 
 ### What does the Timeline page do?  
 - Shows Marvel events in a chronological timeline format.  
@@ -62,19 +75,17 @@ The **Quiz** page is an interactive section where users can test their Marvel kn
 
 ### What does the Quiz page do?  
 - Provides a set of questions related to Marvel events and characters.  
-- Users can select answers and see their results after completing the quiz.  
 - A fun and engaging way to challenge Marvel fans.
 
 ### Features  
 - **Marvel Trivia:** Questions related to the Marvel Universe.  
-- **Interactive:** Users select answers and get immediate feedback.  
 - **Fun Challenge:** Test your knowledge about Marvel comics, characters, and events.
 
 ## Contact Page
 
 The **Contact** page allows users to reach out with inquiries, feedback, or suggestions related to the Marvel Timeline app.
 
-![Contact Page](src/assets/img/pagina Contacto de marvel timeline.png)  <!-- Make sure the path is correct -->
+![Contact Page](src/assets/img/pagina Contacto de marvel timeline.png)  
 
 ### What does the Contact page do?  
 - Provides a form where users can enter their name, email, and message.  
@@ -83,6 +94,21 @@ The **Contact** page allows users to reach out with inquiries, feedback, or sugg
 ### Features  
 - **Contact Form:** Users can enter their details and send a message.  
 - **Fields:** Name, email, and message fields for easy communication.  
+
+## Footer Component
+
+The **Footer** component provides important information at the bottom of the page, including navigation links, social media icons, and copyright information. It is designed to appear only when the user scrolls near the bottom of the page unless on static pages like **About**, **Contact**, or **Quiz**.
+
+![footer ](src/assets/img/footer de marvel timeline.png)  
+
+### Features
+- **Responsive Design:** The footer adapts for different screen sizes with a grid layout for larger screens and a single column for mobile devices.
+- **Hover Effects:** Links and social media icons feature hover effects that enhance interactivity.
+- **Social Media Links:** Provides quick access to Marvel's social media pages, including Facebook, Twitter, and Instagram.
+
+### What does the Footer do?
+- Displays a logo, navigation links, social media icons, and copyright information.
+- Adjusts its visibility based on user interaction (scrolling).
 
 ## Project setup
 ```
