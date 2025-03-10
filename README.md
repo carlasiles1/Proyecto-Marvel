@@ -16,10 +16,10 @@ Contact: A contact form for users.
 
 The **Marvel Logo** is featured prominently on the Home page of the application.
 
-![Marvel Logo](src/assets/img/Marvel%20Logo.png)
+![Marvel Logo](src/assets/img/logoTimeline.png)
 
 ### Details:
-- **File Name**: `Marvel Logo.png`
+- **File Name**: `src/assets/img/logoTimeline.png`
 - **Location**: `src/assets/img/`
 - **Purpose**: It is used on the Home page as part of the app's branding.
 
