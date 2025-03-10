@@ -72,12 +72,17 @@ const fetchMarvelComics = async () => {
     console.error(`Error fetching comics for ${selectedEvent.value}:`, error);
   } finally {
     loading.value = false;
-    isLoading.value = false; // Set initial loading to false after fetching
+   isLoading.value = false; // Set initial loading to false after fetching
   }
 };
 
+
 onMounted(async () => {
   await fetchMarvelComics();
+onMounted(() => {
+  fetchMarvelComics();
+
+
 });
 
 // Watch for changes in selectedEvent and call fetchMarvelComics when it changes
@@ -146,7 +151,7 @@ const closePopup = () => {
             <p class="comic-card__title">{{ comic.title }}</p>
           </div>
         </div>
-      </div>
+         </div>
 
       <!-- Pop-up for comic details -->
       <div v-if="selectedComic && comicDetails" class="comic-details-popup">
@@ -274,6 +279,24 @@ const closePopup = () => {
   font-size: 1.2rem;
   color: white;
 }
+.section-timeline__button {
+  background: rgb(58, 52, 65);
+  color: rgb(212, 212, 212);
+  border: none;
+  border-radius: 50%;
+  padding: 1rem;
+  padding-inline: 1.2rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+
+.section-timeline__buttons {
+ position: sticky;
+  left: 0;
+  z-index: 12;
+
+}  
 
 .comic-details-popup {
   position: fixed;
