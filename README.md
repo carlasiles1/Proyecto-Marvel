@@ -28,7 +28,7 @@ This logo represents the Marvel brand and helps establish the theme of the Marve
 ## Navbar
 The **Navbar** is a fixed navigation bar at the top of the page that provides links to the main sections of the application: Home, About, Timeline, Quiz, and Contact.
 
-![Navbar](src/assets/img/Nav de marvel timeline.png)  
+![Navbar](src/assets/img/Navbar TimeLine.png)  
 
 ### Features
 - **Responsive Navigation:** The navbar stays fixed at the top of the page, allowing easy access to the navigation links.
@@ -42,7 +42,7 @@ The **Navbar** is a fixed navigation bar at the top of the page that provides li
 
 The **Home** page is the main screen of the application. Here, users can get an overview of the Marvel timeline and navigate to other sections.
 
-![Home Page](src/assets/img/pagina Home de marvel timeline.png)  
+![HomePage](src/assets/img/home TimeLine.png)  
 
 ### What does the Home page do?
 - Displays an introduction to the Marvel timeline.  
