@@ -12,10 +12,10 @@ This project is a Vue.js application that displays the Marvel timeline. It inclu
 
 ## Imágenes de las Páginas
 
-# Marvel Logo 
+# Marvel timeline Logo 
 
 "The Marvel Logo is displayed on the Home page to reinforce the theme of the Marvel Universe in the application."
-![Marvel Logo](src/assets/img/logoTimeline.png)
+![Marveltimeline Logo](src/assets/img/logoTimeline.png)
 
 ### Details:
 - **File Name**: `src/assets/img/logoTimeline.png`
@@ -23,6 +23,19 @@ This project is a Vue.js application that displays the Marvel timeline. It inclu
 - **Purpose**: It is used on the Home page as part of the app's branding.
 
 This logo represents the Marvel brand and helps establish the theme of the Marvel Universe in the application.
+
+## Marvel Logo
+
+The **Marvel Logo** is used in the footer of the application to reinforce the Marvel brand.
+
+![Marvel Logo](src/assets/img/Marvel Logo.png)
+
+### Details:
+- **File Name:** `marvel-logo.png`
+- **Location:** `src/assets/img/`
+- **Purpose:** Used for branding in the footer.
+
+This logo helps maintain the Marvel theme throughout the application.
 
 ## Navbar
 The **Navbar** is a fixed navigation bar at the top of the page that provides links to the main sections of the application: Home, About, Timeline, Quiz, and Contact.
