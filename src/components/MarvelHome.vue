@@ -135,21 +135,7 @@ main::-webkit-scrollbar {
     <img src="@/assets/img/logoTimeline.png" alt="Marvel Logo" :class="['logo', {'animation-move': isdo}]" v-on:click="flyHammer">
     <img src="@/assets/img/thorHammer.png" alt="Thor Hammer moving" :class="['hammer', {'animation-hammer': isdo}]">
     <img src= "@/assets/img/arrow-keys.gif" alt="keyboard_arrows" class="gif-arrows" v-show="showArrows">
-    <!-- <div class="section-timeline__buttons"> 
-      <button 
-  @mousedown="startScroll(-1)" 
-  @mouseup="stopScroll" 
-  @mouseleave="stopScroll" 
-  class="section-timeline__button section-timeline__button--left">⬅
-</button>
 
-<button 
-  @mousedown="startScroll(1)" 
-  @mouseup="stopScroll" 
-  @mouseleave="stopScroll" 
-  class="section-timeline__button section-timeline__button--right">➡
-</button>
-      </div> -->
   </main>
 
 </template>
@@ -183,26 +169,6 @@ onUnmounted(() => {
 });
 
 
-//Scroll
-
-
-// const scrollAmount = 20; // Cantidad de desplazamiento por frame
-// const scrolling = ref(false);
-
-// const scroll = (direction) => {
-//   if (!scrolling.value) return; // Si el usuario ya soltó el botón, no hacer nada
-//   window.scrollBy({ left: direction * scrollAmount });
-//   requestAnimationFrame(() => scroll(direction)); // Llamar recursivamente para suavidad
-// };
-
-// const startScroll = (direction) => {
-//   scrolling.value = true;
-//   scroll(direction);
-// };
-
-// const stopScroll = () => {
-//   scrolling.value = false;
- //};
 
 
 </script>
