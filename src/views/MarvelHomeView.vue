@@ -1,5 +1,5 @@
 <template>
-    <main ref="scrollContainer">
+    <main ref="scrollContainer" :style="{ width: adjustMainWidth }">
       <MarvelHome class="marvel-home" />
       <div class="section-timeline__buttons"> 
       <button 
@@ -16,16 +16,30 @@
   class="section-timeline__button section-timeline__button--right">➡
 </button>
       </div>
-      <TimelineMarvel @content-loaded="adjustMainWidth" />
+      <TimelineMarvel  />
       
     </main>
   </template>
   
   <script setup>
-  import { ref } from "vue";
+  import { ref,computed, onMounted } from "vue";
   import gsap from "gsap";
   import MarvelHome from "@/components/MarvelHome.vue";
   import TimelineMarvel from "@/components/TimelineMarvel.vue";
+
+  const mainWidth = ref("100%");
+
+// Computed para ajustar el ancho
+const adjustMainWidth = computed(() => {
+  return mainWidth.value;
+});
+
+// Ajustar el ancho en base a la pantalla
+onMounted(() => {
+  window.addEventListener("resize", () => {
+    mainWidth.value = window.innerWidth < 768 ? "90%" : "100%";
+  });
+});
   
 const scrolling = ref(false);
 const scrollAmount = 800; 
@@ -38,7 +52,7 @@ const scroll = (direction) => {
     scrollLeft: container.scrollLeft + direction * scrollAmount,
     duration: 0.5,
     ease: "power2.out",
-    smooth: 1,
+    // smooth: 1,
     onComplete: () => {
       if (scrolling.value) scroll(direction); // Scroll continues if pressed
     },

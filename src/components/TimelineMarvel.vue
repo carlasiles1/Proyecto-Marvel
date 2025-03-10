@@ -85,8 +85,15 @@ watch(selectedEvent, async() => {
   await fetchMarvelComics();
 });
 
+const changeEvent = (event) => {
+  event.preventDefault(); // Previene el scroll no deseado
+  selectedEvent.value = event.target.value;
+};
+
+
 // New method to handle comic click and fetch detailed information
-const goToWiki = async (comic) => {
+const goToWiki = async (comic,event) => {
+  event?.preventDefault(); // Si se llama desde un evento de click, previene desplazamientos
   selectedComic.value = comic;
   loading.value = true;
   try {
@@ -129,7 +136,7 @@ const closePopup = () => {
     <div class="section-timeline__container">     
       <div class="section-eventSelector">
         <p class="section-timeline__title">{{ selectedEvent }} comics</p>
-        <select v-model="selectedEvent" class="section-timeline__select">
+        <select v-model="selectedEvent" @change="changeEvent" class="section-timeline__select">
           <option v-for="(id, event) in events" :key="id" :value="event">{{ event }}</option>
           <!-- "event" represents the key (which is the event name) and "id" the value (event ID) in each iteration -->
         </select>
@@ -137,7 +144,7 @@ const closePopup = () => {
       <div v-if="loading">Loading...</div>
       <div v-else-if="marvelComics.length === 0">Not found</div><!-- This line displays "Not found" if the marvelComics array is empty -->
       <div v-else class="section-timeline__comics">
-        <div v-for="comic in marvelComics" :key="comic.id" class="comic-card" @click="goToWiki(comic)">
+        <div v-for="comic in marvelComics" :key="comic.id" class="comic-card" @click="goToWiki(comic, $event)">
           <img :src="comic.image" :alt="comic.title" class="comic-card__image" />
           <p class="comic-card__title">{{ comic.title }}</p>
         </div>
@@ -177,9 +184,15 @@ const closePopup = () => {
   padding: 2rem;
   height: 100vh;
   background-image: url('@/assets/img/timelineBkg2.png');
-  background-size: contain;
+  background-size:contain;
   background-repeat: repeat-x;
+  background-position: top left;
   background-color: black;
+  width: auto; /* Evita fijar un ancho mínimo */
+ 
+
+  
+  
 
 }
 
@@ -201,6 +214,7 @@ const closePopup = () => {
   padding-bottom: 2rem;
   width: 100%;
   background: none;
+  min-width: 2000px;
 }
 
 .section-timeline__title {
@@ -225,7 +239,7 @@ const closePopup = () => {
   gap: 6rem;
   padding: 3rem;
   align-items: center;
-  scroll-behavior: smooth;
+  /* scroll-behavior: smooth; */
 
 }
 
