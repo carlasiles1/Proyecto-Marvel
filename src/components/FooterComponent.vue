@@ -40,8 +40,7 @@ const isStaticPage = computed(() => ['/about', '/contact', '/quiz'].includes(rou
 
 const navLinks = [
   { to: '/', text: 'Home' },
-  { to: '/linea-tiempo', text: 'Time Line' },
-  { to: '/contacto', text: 'Contact' },
+  { to: '/contact', text: 'Contact' },
   { to: '/about', text: 'About' },
   { to: '/quiz', text: 'Quiz' }
 ];
