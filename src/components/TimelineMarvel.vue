@@ -1,21 +1,22 @@
 <script setup>
-import { ref, watch, onMounted, nextTick } from "vue";
-import axios from "axios";
+import { ref, watch, onMounted } from "vue";
+import axios from "axios"; // Import axios for HTTP requests and md5 for hash generation
 import md5 from "md5";
 
-// Variables reactivas
+// Reactive variables
 const marvelComics = ref([]);
-// const containerRef = ref(null);
 const selectedEvent = ref("Infinity");
 const loading = ref(false);
 // const scrollPos = ref(0);
-// const showSelector = ref(true);
+// const showSelector = ref(true); // Controls the visibility of the event selector
+const selectedComic = ref(null);
+const comicDetails = ref(null);
 
-// Claves de la API (Usa variables de entorno en .env)
+// API keys
 const marvelApiPublicKey = 'c6505251612e731238b4d32531d6a998';
 const marvelApiPrivateKey = 'ee80321c4497db2e446a64fb6b78d032066c80e1';
 
-// Objeto con eventos y sus IDs
+// Object with events and their IDs
 const events = {
   "Age of Apocalypse": 227,
   "Age of Ultron": 314,
@@ -40,106 +41,163 @@ const events = {
   "Secret Wars II": 271
 };
 
+// Fetch comics for the selected event
 const fetchMarvelComics = async () => {
   loading.value = true;
-
-
-
-
+  
   const timestamp = new Date().getTime();
   const hash = md5(timestamp + marvelApiPrivateKey + marvelApiPublicKey);
 
   try {
     const response = await axios.get("https://gateway.marvel.com/v1/public/comics", {
+    // Initiates a try-catch block and makes a GET request to the Marvel API.
+
+    // Define request parameters including limit, API key, timestamp, hash, selected event ID, and order.
       params: {
         limit: 100,
         apikey: marvelApiPublicKey,
         ts: timestamp,
         hash: hash,
         events: events[selectedEvent.value],
-        orderBy: "-focDate",
+        orderBy: "-focDate"
       },
     });
-
+ // Map the response results to a simpler format and assign to marvelComics.
     marvelComics.value = response.data.data.results.map((comic) => ({
       id: comic.id,
       title: comic.title,
       image: `${comic.thumbnail.path}.${comic.thumbnail.extension}`,
     }));
-
-    console.log(`Loaded: ${selectedEvent.value}`);
+    console.log("Comics loaded:", marvelComics.value);
   } catch (error) {
-    console.error("Error:", error);
+    console.error(`Error fetching comics for ${selectedEvent.value}:`, error);
   } finally {
     loading.value = false;
-
-    await nextTick(); // 💪 Espera que Vue pinte el DOM
+    //Línea agregada:
+    // await nextTick(); // 💪 Espera que Vue pinte el DOM
    
+    // Restore the scroll position AFTER loading
+    // const timeline = document.querySelector(".section-timeline");
+    // if (timeline) {
+    //   timeline.scrollTo({
+    //     left: scrollPos.value,
+    //     behavior: "instant" 
+    //   });
+    // }
   }
 };
 
 // const handleScroll = () => {
-//   showSelector.value = scrollPos.value > 50 && scrollPos.value < 300;
-// };
-
-// const handleKeyScroll = (e) => {
-//   if (e.key === "ArrowLeft") {
-//     e.preventDefault();
-//     window.scrollBy({ left: -50, behavior: "smooth" });
-//   }
-//   if (e.key === "ArrowRight") {
-//     e.preventDefault();
-//     window.scrollBy({ left: 50, behavior: "smooth" });
+//   const timeline = document.querySelector(".section-timeline");
+//   if (timeline) {
+//     scrollPos.value = timeline.scrollLeft;
+//     showSelector.value = scrollPos.value > 50 && scrollPos.value < 300;
 //   }
 // };
 
-
- onMounted(() => {
+onMounted(() => {
   fetchMarvelComics();
-  //  window.addEventListener("scroll", handleScroll);
-  //  window.addEventListener("keydown", handleKeyScroll);
- });
+//   window.addEventListener("scroll", handleScroll);
+});
 
 // onUnmounted(() => {
-//    window.removeEventListener("scroll", handleScroll);
-//    window.removeEventListener("keydown", handleKeyScroll);
-//  });
+//   window.removeEventListener("scroll", handleScroll);
+// });
 
- watch(selectedEvent, async () => {
-   await fetchMarvelComics();
- });
+// Watch for changes in selectedEvent and call fetchMarvelComics when it changes
+watch(selectedEvent, async() => {
+  await fetchMarvelComics();
+});
+
+// New method to handle comic click and fetch detailed information
+const goToWiki = async (comic) => {
+  selectedComic.value = comic;
+  loading.value = true;
+  try {
+    const timestamp = new Date().getTime();
+    const hash = md5(timestamp + marvelApiPrivateKey + marvelApiPublicKey);
+    const response = await axios.get(`https://gateway.marvel.com/v1/public/comics/${comic.id}`, {
+      params: {
+        apikey: marvelApiPublicKey,
+        ts: timestamp,
+        hash: hash
+      }
+    });
+    const comicData = response.data.data.results[0];
+    comicDetails.value = {
+      title: comicData.title || 'No title available',
+      description: comicData.description || 'No description available',
+      publishDate: new Date(comicData.dates.find(date => date.type === 'onsaleDate').date).toLocaleDateString(),
+      writers: comicData.creators.items.filter(creator => creator.role === 'writer').map(creator => creator.name),
+      pencillers: comicData.creators.items.filter(creator => creator.role === 'penciller').map(creator => creator.name),
+      coverArtists: comicData.creators.items.filter(creator => creator.role === 'penciller (cover)').map(creator => creator.name),
+      series: comicData.series.name || 'No series available',
+      issueNumber: comicData.issueNumber || 'N/A'
+    };
+  } catch (error) {
+    console.error('Error fetching comic details:', error);
+  } finally {
+    loading.value = false;
+  }
+};
+
+// New function to close the pop-up
+const closePopup = () => {
+  selectedComic.value = null;
+  comicDetails.value = null;
+};
 </script>
 
 <template>
-  
   <section class="section-timeline"> 
-  
     <div class="section-timeline__container">     
-
       <div class="section-eventSelector">
-  <p class="section-timeline__title">{{ selectedEvent }} comics</p>
-  <select v-model="selectedEvent" class="section-timeline__select">
-    <option v-for="(id, event) in events" :key="id" :value="event">{{ event }}</option>
-  </select>
-</div>
+        <p class="section-timeline__title">{{ selectedEvent }} comics</p>
+        <select v-model="selectedEvent" class="section-timeline__select">
+          <option v-for="(id, event) in events" :key="id" :value="event">{{ event }}</option>
+          <!-- "event" represents the key (which is the event name) and "id" the value (event ID) in each iteration -->
+        </select>
+      </div>
       <div v-if="loading">Loading...</div>
-      <div v-else-if="marvelComics.length === 0">Not found</div>
+      <div v-else-if="marvelComics.length === 0">Not found</div><!-- This line displays "Not found" if the marvelComics array is empty -->
       <div v-else class="section-timeline__comics">
-        <div v-for="comic in marvelComics" :key="comic.id" class="comic-card">
+        <div v-for="comic in marvelComics" :key="comic.id" class="comic-card" @click="goToWiki(comic)">
           <img :src="comic.image" :alt="comic.title" class="comic-card__image" />
           <p class="comic-card__title">{{ comic.title }}</p>
         </div>
       </div>
-
+      <!-- 
+      <div class="section-timeline__buttons"> 
+         Note: These buttons are currently not functional as the scrollLeft and scrollRight functions are commented out
+        <button @click="scrollLeft" class="section-timeline__button section-timeline__button--left">⬅</button>
+        <button @click="scrollRight" class="section-timeline__button section-timeline__button--right">➡</button>
+      </div>-->
     </div>
-   
+
+    <!-- Pop-up for comic details -->
+    <div v-if="selectedComic && comicDetails" class="comic-details-popup">
+      <div class="comic-details">
+        <button @click="closePopup" class="close-button">×</button>
+        <div class="comic-header">
+          <h2>{{ comicDetails.title }}</h2>
+          <img :src="selectedComic.image" :alt="comicDetails.title" class="comic-details__image" />
+        </div>
+        <div class="comic-info">
+          <p><strong>Published:</strong> {{ comicDetails.publishDate }}</p>
+          <p><strong>Series:</strong> {{ comicDetails.series }}</p>
+          <p><strong>Issue Number:</strong> {{ comicDetails.issueNumber }}</p>
+          <p><strong>Writer(s):</strong> {{ comicDetails.writers.join(', ') || 'N/A' }}</p>
+          <p><strong>Penciller(s):</strong> {{ comicDetails.pencillers.join(', ') || 'N/A' }}</p>
+          <p><strong>Cover Artist(s):</strong> {{ comicDetails.coverArtists.join(', ') || 'N/A' }}</p>
+          <p><strong>Description:</strong> {{ comicDetails.description }}</p>
+        </div>
+      </div>
+    </div>
   </section>
 </template>
 
 <style scoped>
-
 .section-timeline {
-  /* position: relative; Asegura que el contenedor padre no tenga overflow oculto */
   display: flex;
   gap: 2rem;
   flex-direction: column;
@@ -147,13 +205,14 @@ const fetchMarvelComics = async () => {
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   padding: 2rem;
   height: 100vh;
-
+  background-image: url('@/assets/img/timelineBkg2.png');
+  background-size: contain;
+  background-repeat: repeat-x;
 }
 
 .section-eventSelector {
   position: sticky;
-  left: 0; /* Pegado al borde izquierdo */
-  /* top: 0; Ajusta la altura si lo necesitas */
+  left: 0;
   background: rgba(0, 0, 0, 0.7);
   color: white;
   padding: 1rem;
@@ -163,17 +222,14 @@ const fetchMarvelComics = async () => {
   width: fit-content;
 }
 
-
 .section-timeline__container {
   display: flex;
-  /* overflow-x: scroll;  */
-    gap: 1rem;
+  gap: 1rem;
   padding-bottom: 2rem;
   width: 100%;
 }
 
 .section-timeline__title {
-  
   color: #fdfbfb;
   margin-bottom: 1rem;
   background: black;
@@ -193,21 +249,20 @@ const fetchMarvelComics = async () => {
   gap: 6rem;
   padding: 3rem;
   align-items: center;
-  width: fit-content;
-  padding-right:5rem ;
-  /* overflow-x: auto; */
-  /* scroll-behavior: smooth; */
-  
+  scroll-behavior: smooth;
 }
 
 .comic-card {
-  /* flex: 0 0 auto; */
-  width: 15rem;
+  flex: 0 0 auto;
+  width: 12rem;
   opacity: 100%;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
 }
 
 .comic-card:hover {
   opacity: 80%;
+  transform: scale(1.05);
 }
 
 .comic-card__image {
@@ -221,7 +276,6 @@ const fetchMarvelComics = async () => {
   text-align: center;
   color: rgb(219, 217, 217);
   background: rgb(0, 0, 0);
-  word-break: break-word; 
 }
 
 .section-timeline__button {
@@ -233,29 +287,109 @@ const fetchMarvelComics = async () => {
   padding-inline: 1.2rem;
   font-size: 1.5rem;
   cursor: pointer;
-
-  
 }
+
 
 /* .section-timeline__button--left {
-  
  
-} */
-
+} 
 .section-timeline__button--right {
   right: 1rem;
-}
+}*/
 
- .section-timeline__buttons {
+.section-timeline__buttons {
  position: sticky;
   left: 0;
   z-index: 12;
 
 }  
 
-.section-timeline {
-  background-image: url('@/assets/img/timelineBkg2.png');
-  background-size: contain;
-  background-repeat: repeat-x;
+.comic-details-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
 }
+
+.comic-details {
+  background-image: url('@/assets/img/timelineBkg2.png');
+  background-size: cover;
+  color: #fff;
+  padding: 2rem;
+  border-radius: 1rem;
+  max-width: 800px;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #ff4757;
+}
+
+.comic-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.comic-header h2 {
+  margin-bottom: 0.5rem;
+  color: #ff6b6b;
+  text-align: center;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.comic-info {
+  padding: 1rem;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 0.5rem;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.comic-info p {
+  margin-bottom: 0.5rem;
+  white-space: normal;
+  overflow: visible;
+}
+
+
+.comic-info p {
+  margin-bottom: 0.5rem;
+
+}
+
+
+.comic-info strong {
+  color: #5352ed;
+}
+
+.comic-details__image {
+  max-width: 300px;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+.comic-info {
+  padding: 1rem;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 0.5rem;
+}
+
 </style>
