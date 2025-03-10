@@ -65,7 +65,7 @@ This page explains the purpose of the **Marvel Timeline Project**, which organiz
 
 The **Timeline** page displays Marvel Universe events in chronological order, with a focus on comics and key moments in Marvel history.
 
-![Timeline Page](src/assets/img/TimeLine.png)
+![TimelinePage](src/assets/img/TimeLine.png)
 
 ### What does the Timeline page do?  
 - Shows Marvel events in a chronological timeline format.  
