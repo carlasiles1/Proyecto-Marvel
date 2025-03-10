@@ -14,8 +14,7 @@ Contact: A contact form for users.
 
 # Marvel Logo 
 
-The **Marvel Logo** is featured prominently on the Home page of the application.
-
+"The Marvel Logo is displayed on the Home page to reinforce the theme of the Marvel Universe in the application."
 ![Marvel Logo](src/assets/img/logoTimeline.png)
 
 ### Details:
@@ -28,7 +27,7 @@ This logo represents the Marvel brand and helps establish the theme of the Marve
 ## Navbar
 The **Navbar** is a fixed navigation bar at the top of the page that provides links to the main sections of the application: Home, About, Timeline, Quiz, and Contact.
 
-![Navbar ](src/assets/img/Nav de marvel timeline.png)  
+![Navbar](src/assets/img/Nav de marvel timeline.png)  
 
 ### Features
 - **Responsive Navigation:** The navbar stays fixed at the top of the page, allowing easy access to the navigation links.
