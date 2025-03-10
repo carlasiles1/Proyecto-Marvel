@@ -1,9 +1,5 @@
 <style scoped>
 
-body{
-  max-width: fit-content;
-  padding-right:2rem ;
-}
 
 main{
   background-image: url('@/assets/img/marvelHomeBkg2.jpg');
@@ -11,9 +7,20 @@ main{
   background-size: cover;
   justify-content: center;
   align-items: center;
-  max-width: fit-content;
-
+  /* max-width: fit-content; */
+  /* overflow-x: scroll; /* Scroll solo horizontal */
+  /*overflow-y: hidden; Oculta el scroll vertical */
+  scroll-behavior: smooth; /* Suaviza el scroll */
+  width: fit-content;
+  height: 100vh; /* Evita que se extienda hacia abajo */
+  white-space: nowrap; /* Evita que los elementos se vayan hacia abajo */
+  display: flex;
 }
+
+main::-webkit-scrollbar {
+  display: none; /* Oculta la barra de scroll */
+}
+
 .logo{
   width: 15rem;
   height: 10rem;
@@ -21,15 +28,18 @@ main{
   animation: bit 2s ease-in-out infinite alternate;
   cursor: pointer;
 }
+
 .hammer{
   width: 10rem;
   position: absolute;
   left: 110rem;
   z-index: -1;
 }
+
 .animation-hammer{
   animation: thorHammer 1s linear 1;
 }
+
 @keyframes thorHammer {
   0%{
     left: 110rem;
@@ -100,8 +110,6 @@ main{
   font-size: 1.5rem;
   cursor: pointer;
   margin-inline: 3rem;
-
-  
 }
 
 .section-timeline__button:hover{
