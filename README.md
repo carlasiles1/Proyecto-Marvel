@@ -25,6 +25,17 @@ This project is a Vue.js application that displays the Marvel timeline. It inclu
 
 This logo represents the Marvel brand and helps establish the theme of the Marvel Universe in the application.
 
+# Marvel Logo in Footer  
+
+The footer includes the Marvel logo to enhance the app’s visual identity and maintain a consistent brand look.  
+
+![Marvel Logo](src/assets/img/MarvelLogo.png)
+
+## Implementation  
+1. The Marvel logo is displayed in the footer.  
+2. The logo is responsive and adjusts to different screen sizes.
+
+
 ## Navbar
 The **Navbar** is a fixed navigation bar at the top of the page that provides links to the main sections of the application: Home, About, Quiz, and Contact.
 
@@ -71,6 +82,17 @@ The **Timeline** page displays Marvel Universe events in chronological order, wi
 - Shows Marvel events in a chronological timeline format.  
 - Provides links to related comics for each event.  
 - Allows users to explore key moments in the Marvel Universe in an interactive way.
+
+## Interactive Comic
+
+This feature allows users to click on a comic to view detailed information about it. Upon clicking, a pop-up section opens with the details of the selected comic. 
+
+![ComicPage](src/assets/img/ComicTimeLine.png)
+
+## How It Works
+
+- A list of comics is displayed in the application.
+- When a user clicks on a comic, an event triggers that displays the corresponding information.
 
 ### Features  
 
