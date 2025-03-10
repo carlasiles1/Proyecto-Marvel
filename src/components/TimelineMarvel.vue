@@ -71,12 +71,14 @@ const fetchMarvelComics = async () => {
     console.error(`Error fetching comics for ${selectedEvent.value}:`, error);
   } finally {
     loading.value = false;
- 
+
   }
 };
 
+
 onMounted(() => {
   fetchMarvelComics();
+
 
 });
 
@@ -142,7 +144,7 @@ const closePopup = () => {
           <p class="comic-card__title">{{ comic.title }}</p>
         </div>
       </div>
-
+   
     </div>
 
     <!-- Pop-up for comic details -->
@@ -259,6 +261,7 @@ const closePopup = () => {
   font-size: 1.5rem;
   cursor: pointer;
 }
+
 
 .section-timeline__buttons {
  position: sticky;
