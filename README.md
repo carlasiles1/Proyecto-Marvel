@@ -28,7 +28,7 @@ This logo represents the Marvel brand and helps establish the theme of the Marve
 
 The **Marvel Logo** is used in the footer of the application to reinforce the Marvel brand.
 
-![Marvel Logo](src/assets/img/Marvel Logo.png)
+![Marvel Logo](src/assets/img/marvel-logo.png)
 
 ### Details:
 - **File Name:** `marvel-logo.png`
