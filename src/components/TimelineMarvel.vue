@@ -184,10 +184,10 @@ const closePopup = () => {
 .section-eventSelector {
   position: sticky;
   left: 0;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgb(0, 0, 0);
   color: white;
   padding: 1rem;
-  border-radius: 1rem;
+
   z-index: 10;
   height: fit-content; 
   width: fit-content;
@@ -213,6 +213,8 @@ const closePopup = () => {
   padding: 0.5rem;
   font-size: 1rem;
   width: 200px;
+  color: white;
+  background-color: black;
 }
 
 .section-timeline__comics {
