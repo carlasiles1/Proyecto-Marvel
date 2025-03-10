@@ -12,6 +12,19 @@ Contact: A contact form for users.
 
 ## Imágenes de las Páginas
 
+# Marvel Logo 
+
+The **Marvel Logo** is featured prominently on the Home page of the application.
+
+![Marvel Logo](src/assets/img/Marvel%20Logo.png)
+
+### Details:
+- **File Name**: `Marvel Logo.png`
+- **Location**: `src/assets/img/`
+- **Purpose**: It is used on the Home page as part of the app's branding.
+
+This logo represents the Marvel brand and helps establish the theme of the Marvel Universe in the application.
+
 ## Navbar
 The **Navbar** is a fixed navigation bar at the top of the page that provides links to the main sections of the application: Home, About, Timeline, Quiz, and Contact.
 
