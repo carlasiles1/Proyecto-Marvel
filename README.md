@@ -26,13 +26,13 @@ This project is a Vue.js application that displays the Marvel timeline. It inclu
 This logo represents the Marvel brand and helps establish the theme of the Marvel Universe in the application.
 
 ## Navbar
-The **Navbar** is a fixed navigation bar at the top of the page that provides links to the main sections of the application: Home, About, Timeline, Quiz, and Contact.
+The **Navbar** is a fixed navigation bar at the top of the page that provides links to the main sections of the application: Home, About, Quiz, and Contact.
 
 ![Navbar ](src/assets/img/NavbarTimeLine.png)  
 
 ### Features
 - **Responsive Navigation:** The navbar stays fixed at the top of the page, allowing easy access to the navigation links.
-- **Navigation Links:** Each link directs the user to a different section of the app (Home, About, Timeline, Quiz, Contact).
+- **Navigation Links:** Each link directs the user to a different section of the app (Home, About, Quiz, Contact).
 - **Interactive Hover Effect:** Links change color on hover, providing a visual cue to users.
 
 ### What does the Navbar do?
@@ -42,7 +42,7 @@ The **Navbar** is a fixed navigation bar at the top of the page that provides li
 
 The **Home** page is the main screen of the application. Here, users can get an overview of the Marvel timeline and navigate to other sections.
 
-![HomePage ](src/assets/img/homeTimeLine.png)  
+![Home Page ](src/assets/img/homeTimeLine.png)  
 
 ### What does the Home page do?
 - Displays an introduction to the Marvel timeline.  
@@ -51,7 +51,7 @@ The **Home** page is the main screen of the application. Here, users can get an 
 
 The **About** page provides an overview of the Marvel Timeline project, explaining its purpose and features.
 
-![aboutPage](src/assets/img/aboutTimeLine.png)  
+![about Page](src/assets/img/aboutTimeLine.png)  
 
 ### Overview  
 This page explains the purpose of the **Marvel Timeline Project**, which organizes Marvel Universe events chronologically, focusing on comics.
@@ -83,7 +83,7 @@ The **Timeline** page displays Marvel Universe events in chronological order, wi
 
 The **Quiz** page is an interactive section where users can test their Marvel knowledge with fun and engaging questions.
 
-![QuizPage](src/assets/img/QuizTimeLine.png)  
+![Quiz Page](src/assets/img/QuizTimeLine.png)  
 
 ### What does the Quiz page do?  
 - Provides a set of questions related to Marvel events and characters.  
