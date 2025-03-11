@@ -75,11 +75,8 @@ const fetchMarvelComics = async () => {
   }
 };
 
-
 onMounted(() => {
   fetchMarvelComics();
-
-
 });
 
 // Watch for changes in selectedEvent and call fetchMarvelComics when it changes
@@ -87,15 +84,9 @@ watch(selectedEvent, async() => {
   await fetchMarvelComics();
 });
 
-const changeEvent = (event) => {
-  event.preventDefault(); // Previene el scroll no deseado
-  selectedEvent.value = event.target.value;
-};
-
-
 // New method to handle comic click and fetch detailed information
 const goToWiki = async (comic,event) => {
-  event?.preventDefault(); // Si se llama desde un evento de click, previene desplazamientos
+  event?.preventDefault(); // Prevent displacement 
   selectedComic.value = comic;
   loading.value = true;
   try {
@@ -192,10 +183,6 @@ const closePopup = () => {
   background-color: black;
   width: auto; /* Evita fijar un ancho mínimo */
  
-
-  
-  
-
 }
 
 .section-eventSelector {

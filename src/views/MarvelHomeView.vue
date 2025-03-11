@@ -22,40 +22,23 @@
   </template>
   
   <script setup>
-  import { ref,computed, onMounted } from "vue";
+  import { ref } from "vue";
   import gsap from "gsap";
   import MarvelHome from "@/components/MarvelHome.vue";
   import TimelineMarvel from "@/components/TimelineMarvel.vue";
-  
-
-  const mainWidth = ref("100%");
-
-// Computed para ajustar el ancho
-const adjustMainWidth = computed(() => {
-  return mainWidth.value;
-});
-
-// Ajustar el ancho en base a la pantalla
-onMounted(() => {
-  window.addEventListener("resize", () => {
-    mainWidth.value = window.innerWidth < 768 ? "100%" : "100%";
-  });
-
-
-});
-  
-const scrolling = ref(false);
-const scrollAmount = 800; 
+   
+  const scrollContainer = ref(null); 
+  const scrolling = ref(false);
+  const scrollAmount = 800; 
 
 const scroll = (direction) => {
-  const container = document.querySelector("main");
-  if (!container || !scrolling.value) return;
+  const container = scrollContainer.value;
+    if (!container || !scrolling.value) return;
 
   gsap.to(container, {
     scrollLeft: container.scrollLeft + direction * scrollAmount,
     duration: 0.5,
     ease: "power2.out",
-    // smooth: 1,
     onComplete: () => {
       if (scrolling.value) scroll(direction); // Scroll continues if pressed
     },
@@ -79,22 +62,18 @@ document.addEventListener("keydown", (e) => {
 });
 document.addEventListener("keyup", stopScroll);
 
-
-
-
   </script>
   
   <style scoped>
   main {
     display: flex;
-    overflow-x: auto; /* Permite scroll horizontal */
+    overflow-x: scroll; /* Allows horizontal scroll */
     overflow-y: hidden; 
-    white-space: nowrap; /* Evita saltos de línea */
-    height: 100vh; /* Ocupa toda la altura de la ventana */
-    margin: 0; /* Margen derecho para espacio adicional */
+    height: 100vh; 
+    margin: 0; 
   }
   .marvel-home {
-    min-width: 100vw; /* Asegura que ocupe al menos el ancho completo de la pantalla */
+    min-width: 100vw; 
   }
 
   .section-timeline__button {
@@ -107,15 +86,13 @@ document.addEventListener("keyup", stopScroll);
   font-size: 1.5rem;
   cursor: pointer;
   margin-inline: 3rem;
-
-  
+ 
 }
 
 .section-timeline__button:hover{
   background-color: rgba(255, 253, 253, 0.351);
   color: rgb(25, 25, 36);
 }
-
 
  .section-timeline__buttons {
   position: fixed;
@@ -124,7 +101,6 @@ document.addEventListener("keyup", stopScroll);
   align-self:first baseline;
   z-index: 12;
   
-
 }  
 
 @media only screen and (max-width: 1000px) {
@@ -134,10 +110,6 @@ document.addEventListener("keyup", stopScroll);
   right: 20%; 
   align-self: center;
   
-
-}  
-
-
-
+  }  
 }
   </style>
