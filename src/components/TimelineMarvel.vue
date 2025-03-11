@@ -217,6 +217,7 @@ const closePopup = () => {
   width: 100%;
   background: none;
   min-width: 2000px;
+  height: 80%;
 }
 
 .section-timeline__title {

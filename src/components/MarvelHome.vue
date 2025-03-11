@@ -10,7 +10,7 @@ main{
   /* max-width: fit-content; */
   /* overflow-x: scroll; /* Scroll solo horizontal */
   /*overflow-y: hidden; Oculta el scroll vertical */
-  scroll-behavior: smooth; /* Suaviza el scroll */
+  /* scroll-behavior: smooth; Suaviza el scroll */
   width: fit-content;
   height: 100vh; /* Evita que se extienda hacia abajo */
   white-space: nowrap; /* Evita que los elementos se vayan hacia abajo */
@@ -129,9 +129,13 @@ main::-webkit-scrollbar {
   right: 12rem;
   align-self:first baseline;
   z-index: 12;
-  
-
 }  
+
+@media only screen and (max-width: 1000px) {
+.gif-arrows{
+  display: none;
+}
+}
 
 </style>
 
