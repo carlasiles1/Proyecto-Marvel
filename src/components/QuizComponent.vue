@@ -51,7 +51,9 @@ input[type='radio']{
     width: 100%;
 }
 .quiz__input {
+    background-color: #191129;
     margin-right: 1rem;
+    border: 2px solid rgb(206, 178, 21);
 }   
 .quiz__navigation{
     display: flex;
@@ -89,8 +91,11 @@ input[type='radio']{
 }
 .marvel-quiz__dialog{
     background-color: #433168;
+    border: 15px double rgb(206, 178, 21);
+    border-radius: 20%;
     height: 20rem;
     width: 30rem;
+    color: wheat;
 }
 .marvel-quiz__dialog-button{
     display: block;
@@ -223,6 +228,7 @@ const next = () => {
         if (currentQuestion.value < randomQuestions.value.length - 1) {
             currentQuestion.value++
             page.value = currentQuestion.value + 1
+            correct.style = '';
         } else {
             finalScore()
         }
@@ -255,14 +261,17 @@ const saveScore = async () => {
   }
 
   try {
+    const date = new Date()
+    const formattedDate = `${date.getFullYear()}/${String(date.getMonth() + 1).padStart(2, '0')}`
+    
     const newScore = {
       name: playerName.value.trim(),
       score: score.value,
-      date: new Date().toISOString()
+      date: formattedDate
     }
     
     // Agregamos mejor manejo de errores y logging
-    const response = await fetch('http://localhost:3000/api/scores', {
+    const response = await fetch('http://localhost:3000/scores', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
