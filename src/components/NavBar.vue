@@ -3,7 +3,7 @@
     <nav class="nav">
       
      <ul class="nav-list">
-        <li><RouterLink to="/">HOME</RouterLink></li>
+      <li><RouterLink to="/" @click="scrollToLeft">HOME</RouterLink></li>
         <li><RouterLink to="/about">ABOUT</RouterLink></li>
         <li><RouterLink to="/quiz">QUIZ</RouterLink></li>
         <li><RouterLink to="/contact">CONTACT</RouterLink></li>
@@ -14,6 +14,7 @@
 
 <script setup>
 import { RouterLink } from 'vue-router';
+
 </script>
 
 <style scoped>
@@ -24,6 +25,7 @@ import { RouterLink } from 'vue-router';
   background-image: transparent;
   padding: 15px 0;
   position: fixed;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 /* Barra de navegación */
