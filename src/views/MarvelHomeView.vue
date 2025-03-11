@@ -38,7 +38,7 @@ const adjustMainWidth = computed(() => {
 // Ajustar el ancho en base a la pantalla
 onMounted(() => {
   window.addEventListener("resize", () => {
-    mainWidth.value = window.innerWidth < 768 ? "90%" : "100%";
+    mainWidth.value = window.innerWidth < 768 ? "100%" : "100%";
   });
 
 
@@ -98,7 +98,7 @@ document.addEventListener("keyup", stopScroll);
   }
 
   .section-timeline__button {
- background: none;
+  background: none;
   color: rgb(212, 212, 212);
   border: 0.05rem solid white;
   border-radius: 50%;
@@ -126,4 +126,18 @@ document.addEventListener("keyup", stopScroll);
   
 
 }  
+
+@media only screen and (max-width: 1000px) {
+  .section-timeline__buttons {
+  
+  bottom: 10rem;
+  right: 20%; 
+  align-self: center;
+  
+
+}  
+
+
+
+}
   </style>
