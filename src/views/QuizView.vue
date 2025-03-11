@@ -27,7 +27,7 @@
     <div>
         <QuizComponent 
         class="quiz"/>
-        <ScoreBoard class="score" :style="scoreCSS"/>
+        <ScoreBoard ref="scoreBoardRef" class="score" :style="scoreCSS"/>
         <div class="button">
             <img src="@/assets/img/marvelButton.png" alt="Marvel X-men Button" @click="toggleScores">
             <p>See scores</p>
@@ -40,14 +40,17 @@ import { ref } from 'vue';
 import QuizComponent from '../components/QuizComponent.vue';
 import ScoreBoard from '../components/ScoreBoard.vue'
 
+const scoreBoardRef = ref(null)
 const scoreCSS = ref({
     opacity: '0',
     zIndex: '-10',
 })
 
-const toggleScores = ()=>{
+const toggleScores = async ()=>{
     scoreCSS.value.opacity = scoreCSS.value.opacity === '0'? '1': '0'
     scoreCSS.value.zIndex = scoreCSS.value.zIndex === '-10'? '10': '-10'
+
+    scoreBoardRef.value?.loadScores()
 }
 </script>
 
