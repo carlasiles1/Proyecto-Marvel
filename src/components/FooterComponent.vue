@@ -8,7 +8,7 @@
     <div class="footer__container">
       <div class="footer__content">
         <div class="footer__logo">
-          <img src="@/assets/img/Marvel Logo.png" alt="Marvel Logo" class="footer__logo-image">
+          <img src="@/assets/img/MarvelLogo.png" alt="Marvel Logo" class="footer__logo-image">
         </div>
         <nav class="footer__nav">
           <router-link v-for="link in navLinks" :key="link.to" :to="link.to" class="footer__nav-link">
@@ -40,8 +40,7 @@ const isStaticPage = computed(() => ['/about', '/contact', '/quiz'].includes(rou
 
 const navLinks = [
   { to: '/', text: 'Home' },
-  { to: '/linea-tiempo', text: 'Time Line' },
-  { to: '/contacto', text: 'Contact' },
+  { to: '/contact', text: 'Contact' },
   { to: '/about', text: 'About' },
   { to: '/quiz', text: 'Quiz' }
 ];
