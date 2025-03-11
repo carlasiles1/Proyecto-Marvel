@@ -78,7 +78,7 @@ input[type='radio']{
     width: 22rem;
     margin-left: 8rem;
 }
-.pointer{
+.quiz__pointer {
     position: absolute;
     width: 5rem;
     transform: rotateZ(-35Deg) translate(6rem, 3rem);
@@ -125,7 +125,7 @@ input[type='radio']{
                             <img v-if="userAnswers[currentQuestion] === option" 
                                 :src="source" 
                                 alt="Iron-man Pointer" 
-                                class="pointer">
+                                class=".quiz__pointer ">
                         </label>
                     </div>
                 </div>
