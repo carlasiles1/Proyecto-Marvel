@@ -124,7 +124,6 @@ p {
   line-height: 1.6;
   color: #e0e0e0;
   text-align: justify;
-  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.8);
 }
 
 /* Animations */
