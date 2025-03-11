@@ -1,11 +1,14 @@
 <script setup>
-import QuizComponent from "../components/QuizComponent.vue";
-import ScoreBoard from "@/components/ScoreBoard.vue";
+import QuizComponent from '../components/QuizComponent.vue';
+import ScoreBoard from '../components/ScoreBoard.vue'
 </script>
 
 <template>
     <div>
-        <QuizComponent/>
-        <ScoreBoard/>        
+        <QuizComponent class="quiz"/>
+        <ScoreBoard class="score"/>      
     </div>
 </template>
+
+<style scoped>
+</style>
