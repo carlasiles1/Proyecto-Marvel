@@ -119,7 +119,7 @@ The **Quiz** page is an interactive section where users can test their Marvel kn
 
 The **Contact** page allows users to reach out with inquiries, feedback, or suggestions related to the Marvel Timeline app.
 
-![ContactPage](src/assets/img/ContactoTimeLine.png)  
+![ContactPage](src/assets/img/ContactTimeLine.png)  
 
 ### What does the Contact page do?  
 - Provides a form where users can enter their name, email, and message.  
@@ -146,7 +146,7 @@ The **Footer** component provides important information at the bottom of the pag
 - Adjusts its visibility based on user interaction (scrolling).
 
 
-## 👥 DEVELOPER TEAM - AVENGERS  
+## 👥 Developer Team
 
 - **Product Owner:** Carla Siles Calizaya - [GitHub](https://github.com/carlasiles1)
 - **Scrum Master:** Alejandro Serrato - [GitHub](https://github.com/Varushet)
