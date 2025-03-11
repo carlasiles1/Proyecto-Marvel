@@ -125,7 +125,7 @@ input[type='radio']{
                             <img v-if="userAnswers[currentQuestion] === option" 
                                 :src="source" 
                                 alt="Iron-man Pointer" 
-                                class=".quiz__pointer ">
+                                class="quiz__pointer ">
                         </label>
                     </div>
                 </div>
