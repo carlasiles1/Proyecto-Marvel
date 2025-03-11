@@ -15,5 +15,6 @@ import FooterComponent from './components/FooterComponent.vue'
 <style>
 .div{
   margin: -0.5rem;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 </style>

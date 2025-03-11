@@ -26,6 +26,7 @@
   import gsap from "gsap";
   import MarvelHome from "@/components/MarvelHome.vue";
   import TimelineMarvel from "@/components/TimelineMarvel.vue";
+  
 
   const mainWidth = ref("100%");
 
@@ -39,6 +40,8 @@ onMounted(() => {
   window.addEventListener("resize", () => {
     mainWidth.value = window.innerWidth < 768 ? "90%" : "100%";
   });
+
+
 });
   
 const scrolling = ref(false);
@@ -75,6 +78,9 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "ArrowLeft") startScroll(-1);
 });
 document.addEventListener("keyup", stopScroll);
+
+
+
 
   </script>
   
