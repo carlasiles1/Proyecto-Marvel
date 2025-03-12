@@ -8,7 +8,7 @@ main{
   justify-content: center;
   align-items: center;
   /* max-width: fit-content; */
-  /* overflow-x: scroll; /* Scroll solo horizontal */
+  overflow-x: scroll; /* Scroll solo horizontal */
   /*overflow-y: hidden; Oculta el scroll vertical */
   /* scroll-behavior: smooth; Suaviza el scroll */
   width: fit-content;
