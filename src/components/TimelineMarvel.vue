@@ -134,7 +134,7 @@ const closePopup = () => {
           <!-- "event" represents the key (which is the event name) and "id" the value (event ID) in each iteration -->
         </select>
       </div>
-      <div v-if="loading">Loading...</div>
+      <div v-if="loading" class="loading_class">Loading...</div>
       <div v-else-if="marvelComics.length === 0">Not found</div><!-- This line displays "Not found" if the marvelComics array is empty -->
       <div v-else class="section-timeline__comics">
         <div v-for="comic in marvelComics" :key="comic.id" class="comic-card" @click="goToWiki(comic, $event)">
@@ -364,6 +364,13 @@ const closePopup = () => {
   padding: 1rem;
   background-color: rgba(0, 0, 0, 0.7);
   border-radius: 0.5rem;
+}
+.loading_class{
+  color:rgb(221, 217, 217);
+  text-align: center;
+  width: 20vw;
+  padding-top: 10rem;
+  font-size: 3.5rem;
 }
 
 </style>
