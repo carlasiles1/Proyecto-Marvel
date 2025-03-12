@@ -371,18 +371,17 @@ const closePopup = () => {
   width: 20vw;
   padding-top: 10rem;
   font-size: 3.5rem;
-  text-shadow: 0.05rem 0.05rem 0, 0.5rem 0.5rem 0;
+  padding-inline: 1rem;
   animation: shadow-dance 2s infinite;
-  font-weight: bold;
 
 }
    
 @keyframes shadow-dance {
     0%, 100% {
-        text-shadow: 5px 5px 0 #640988, 10px 10px 0 #640988;
+      padding-inline: 1rem;
     }
     50% {
-        text-shadow: -5px -5px 0 #640988, -10px -10px 0 #640988;
+      padding-inline: 0.05rem;
     }
 }
 
