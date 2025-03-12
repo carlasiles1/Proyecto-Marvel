@@ -366,11 +366,25 @@ const closePopup = () => {
   border-radius: 0.5rem;
 }
 .loading_class{
-  color:rgb(221, 217, 217);
+  color:rgb(255, 255, 255);
   text-align: center;
   width: 20vw;
   padding-top: 10rem;
   font-size: 3.5rem;
+  text-shadow: 0.05rem 0.05rem 0, 0.5rem 0.5rem 0;
+  animation: shadow-dance 2s infinite;
+  font-weight: bold;
+
 }
+   
+@keyframes shadow-dance {
+    0%, 100% {
+        text-shadow: 5px 5px 0 #640988, 10px 10px 0 #640988;
+    }
+    50% {
+        text-shadow: -5px -5px 0 #640988, -10px -10px 0 #640988;
+    }
+}
+
 
 </style>
